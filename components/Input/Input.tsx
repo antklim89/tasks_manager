@@ -1,10 +1,10 @@
-import { FC } from 'react';
+import { ForwardedRef, forwardRef } from 'react';
 import { twMerge } from 'tailwind-merge';
 
 import { InputProps } from './Input.types';
 
 
-const Input: FC<InputProps> = ({ errorMessage, label, ...props }) => {
+const Input = ({ errorMessage, label, ...props }: InputProps, ref: ForwardedRef<HTMLInputElement>) => {
     return (
         <div className="form-control">
             {label
@@ -15,6 +15,7 @@ const Input: FC<InputProps> = ({ errorMessage, label, ...props }) => {
                 )
                 : null}
             <input
+                ref={ref}
                 {...props}
                 className={twMerge('input input-bordered', props.className)}
             />
@@ -23,4 +24,4 @@ const Input: FC<InputProps> = ({ errorMessage, label, ...props }) => {
     );
 };
 
-export default Input;
+export default forwardRef(Input);
