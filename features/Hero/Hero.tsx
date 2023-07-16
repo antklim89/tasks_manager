@@ -9,7 +9,7 @@ const Hero: FC = () => {
         <div className="hero h-full bg-base-200">
             <div className="hero-content flex-col lg:flex-row">
                 <div>
-                    <h1 className="text-5xl font-bold">Box Office News!</h1>
+                    <h1 className="text-5xl font-bold">Manage your tasks!</h1>
                     <p className="py-6">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
                     <Button className="btn btn-primary">Get Started</Button>
                 </div>
