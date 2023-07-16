@@ -17,9 +17,9 @@ const Input = ({ errorMessage, label, ...props }: InputProps, ref: ForwardedRef<
             <input
                 ref={ref}
                 {...props}
-                className={twMerge('input input-bordered', props.className)}
+                className={twMerge('input placeholder:opacity-30 input-bordered', props.className, errorMessage && 'input-error')}
             />
-            {errorMessage ? <span className="">{errorMessage}</span> : null}
+            <span className="text-sm text-right text-error">{errorMessage ? errorMessage : ''}&nbsp;</span>
         </div>
     );
 };
