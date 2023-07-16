@@ -15,7 +15,7 @@ export const className = {
 const Button: FC<ButtonProps> = ({ variant = 'primary', children, ...props }) => {
     return (
         <button
-            className={twMerge(props.className, className.variant[variant])}
+            className={twMerge('btn', props.className, className.variant[variant])}
             type="button"
             {...props}
         >
