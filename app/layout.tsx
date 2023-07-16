@@ -2,7 +2,7 @@ import { Footer, Header } from '@/features';
 import '@/styles/main.scss';
 
 
-const RootLayout = async ({ children }: { children: React.ReactNode}) => {
+const RootLayout = async ({ children }: { children: React.ReactNode }) => {
     return (
         <html data-theme="dark" lang="en">
             <head />
