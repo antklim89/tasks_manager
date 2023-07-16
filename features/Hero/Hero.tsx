@@ -1,7 +1,6 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import { FC } from 'react';
-
-import Button from '@/components/Button';
 
 
 const Hero: FC = () => {
@@ -11,7 +10,7 @@ const Hero: FC = () => {
                 <div>
                     <h1 className="text-5xl font-bold">Manage your tasks!</h1>
                     <p className="py-6">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
-                    <Button className="btn btn-primary">Get Started</Button>
+                    <Link className="btn btn-primary" href="/dashboard">Get Started</Link>
                 </div>
                 <Image
                     alt="hero"
