@@ -1,9 +1,11 @@
+import { Auth } from '@/features';
 
 
 const LoginPage = () => {
     return (
-        <div>LoginPage</div>
+        <Auth />
     );
 };
 
 export default LoginPage;
+
