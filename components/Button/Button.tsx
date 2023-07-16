@@ -9,15 +9,16 @@ export const className = {
         'primary': 'btn-primary',
         'secondary': 'btn-secondary',
         'accent': 'btn-accent',
+        'link': 'btn-link',
     },
 } as const;
 
 const Button: FC<ButtonProps> = ({ variant = 'primary', children, ...props }) => {
     return (
         <button
-            className={twMerge('btn', props.className, className.variant[variant])}
             type="button"
             {...props}
+            className={twMerge('btn', props.className, className.variant[variant])}
         >
             {children}
         </button>
