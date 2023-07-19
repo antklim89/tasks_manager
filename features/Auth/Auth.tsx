@@ -41,7 +41,7 @@ const Auth = () => {
                             variant="link"
                             onClick={() => setType((prevType) => (prevType === 'login' ? 'register' : 'login'))}
                         >
-                            {{ login: 'login', register: 'register' }[type]}
+                            {{ login: 'register', register: 'login' }[type]}
                         </Button>
                     </p>
                 </div>
