@@ -1,9 +1,12 @@
+import { ControlPanel, NewProject } from '@/features';
 
 
 const DashboardPage = () => {
 
     return (
-        <div>HELLO</div>
+        <ControlPanel>
+            <NewProject />
+        </ControlPanel>
     );
 };
 
