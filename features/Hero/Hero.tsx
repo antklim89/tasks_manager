@@ -14,7 +14,7 @@ const Hero: FC = () => {
                 </div>
                 <Image
                     alt="hero"
-                    className="max-w-sm rounded-lg shadow-2xl"
+                    className="w-full rounded-lg shadow-2xl"
                     height={480}
                     src="/hero.jpg"
                     width={720}
