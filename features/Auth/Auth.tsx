@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { Button, Input } from '@/components';
+import { supabase } from '@/supabase/app';
 
 import { authSchema } from './Auth.schema';
 import { AuthFotmInput } from './Auth.types';
@@ -19,11 +20,15 @@ const Auth = () => {
         setError,
     } = useForm<AuthFotmInput>({ resolver: zodResolver(authSchema) });
 
-    const handleAuthentication = handleSubmit((data) => {
-        if (data.password !== data.confirm) {
+    const handleAuthentication = handleSubmit(async (data) => {
+        if (type === 'register' && data.password !== data.confirm) {
             setError('confirm', { message: 'Passwords should be the same.', type: 'validate' });
-
         }
+
+        const resp = type === 'register'
+            ? await supabase.auth.signUp({ email: data.email, password: data.password })
+            : await supabase.auth.signInWithPassword({ email: data.email, password: data.password });
+        console.log('===== \n resp', resp);
     });
 
     return (
