@@ -1,16 +1,17 @@
 'use client';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { Button, Input } from '@/components';
-import { supabase } from '@/supabase/app';
 
 import { authSchema } from './Auth.schema';
 import { AuthFotmInput } from './Auth.types';
 
 
 const Auth = () => {
+    const supabase = createClientComponentClient();
     const [type, setType] = useState<'login'|'register'>('login');
 
     const {
@@ -28,7 +29,12 @@ const Auth = () => {
         const resp = type === 'register'
             ? await supabase.auth.signUp({ email: data.email, password: data.password })
             : await supabase.auth.signInWithPassword({ email: data.email, password: data.password });
-        console.log('===== \n resp', resp);
+
+        if (resp.error) {
+            setError('root', { message: resp.error.message });
+        } else {
+            location.reload();
+        }
     });
 
     return (
