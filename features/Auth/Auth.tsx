@@ -1,40 +1,35 @@
 'use client';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { Button, Input } from '@/components';
+import Alert from '@/components/Alert/Alert';
+import { useAuth } from '@/requests/useAuth';
 
 import { authSchema } from './Auth.schema';
 import { AuthFotmInput } from './Auth.types';
 
 
 const Auth = () => {
-    const supabase = createClientComponentClient();
     const [type, setType] = useState<'login'|'register'>('login');
+    const { trigger, isMutating, error, reset } = useAuth();
 
     const {
         register,
         handleSubmit,
         formState: { errors },
         setError,
-    } = useForm<AuthFotmInput>({ resolver: zodResolver(authSchema) });
+    } = useForm<AuthFotmInput>({
+        resolver: zodResolver(authSchema),
+    });
 
     const handleAuthentication = handleSubmit(async (data) => {
         if (type === 'register' && data.password !== data.confirm) {
             setError('confirm', { message: 'Passwords should be the same.', type: 'validate' });
         }
-
-        const resp = type === 'register'
-            ? await supabase.auth.signUp({ email: data.email, password: data.password })
-            : await supabase.auth.signInWithPassword({ email: data.email, password: data.password });
-
-        if (resp.error) {
-            setError('root', { message: resp.error.message });
-        } else {
-            location.reload();
-        }
+        reset();
+        await trigger({ email: data.email, password: data.password, type });
     });
 
     return (
@@ -58,6 +53,7 @@ const Auth = () => {
                 </div>
                 <div className="card flex-1 shadow-2xl bg-base-100">
                     <form className="card-body" onSubmit={handleAuthentication}>
+                        <Alert message={error?.message} type="error" />
                         <Input
                             {...register('email')}
                             autoComplete="username"
@@ -85,7 +81,7 @@ const Auth = () => {
                             />
                         )}
                         <div className="form-control mt-6">
-                            <Button type="submit">Login</Button>
+                            <Button disabled={isMutating} type="submit">Login</Button>
                         </div>
                     </form>
                 </div>
