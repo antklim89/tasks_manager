@@ -11,5 +11,6 @@ export interface DialogProps {
     children: ReactNode;
     confirmText?: string;
     confirmClassName?: string;
-    onConfirm?: (() => void) | (() => Promise<void>)
+    onConfirm?: ((close: () => void) => void) | ((close: () => void) => Promise<void>)
+    isLoading?: boolean
 }
