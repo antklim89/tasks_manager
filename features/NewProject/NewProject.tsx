@@ -13,24 +13,31 @@ import { NewProjectType, newProjectSchema } from './NewProject.schema';
 const NewProject = () => {
     const {
         register,
-        handleSubmit,
         formState: { errors },
+        reset: resetForm,
+        handleSubmit,
     } = useForm<NewProjectType>({ resolver: zodResolver(newProjectSchema) });
 
-    const { trigger, error } = useCreateNewProject();
+    const { trigger: createNewProject, error, isMutating, reset: resetState } = useCreateNewProject();
 
 
-    const handleCreate = handleSubmit((data) => {
-        trigger(data);
+    const handleCreate = (close: (() => void)) => handleSubmit(async (data) => {
+        try {
+            await createNewProject(data);
+            resetForm({ }, { keepValues: false });
+            resetState();
+            close();
+        } catch (_) { /** */ }
     });
 
     return (
         <Dialog
             closeClassName="btn-outline"
             confirmText="confirm"
+            isLoading={isMutating}
             openText="New Project"
             title="Create New Project"
-            onConfirm={() => handleCreate()}
+            onConfirm={(close) => handleCreate(close)()}
         >
             <Alert message={error?.message} type="error" />
             <Input
