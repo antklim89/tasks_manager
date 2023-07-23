@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-max-depth */
 'use client';
 import { Dialog as HUIDialog, Transition } from '@headlessui/react';
-import { Fragment, useState } from 'react';
+import { Fragment, KeyboardEventHandler, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 
 import { Button } from '@/components';
@@ -20,6 +20,7 @@ const Dialog = ({
     confirmClassName,
     confirmText,
     onConfirm,
+    isLoading,
 }: DialogProps) => {
     const [isOpen, setIsOpen] = useState(false);
 
@@ -32,9 +33,13 @@ const Dialog = ({
     }
 
     async function handleConfirm() {
-        await onConfirm?.();
-        setIsOpen(false);
+        await onConfirm?.(() => setIsOpen(false));
     }
+
+    const handleKeyDown: KeyboardEventHandler<HTMLElement> = (e) => {
+        if (e.key === 'Esc') setIsOpen(false);
+        if (e.key === 'Enter') handleConfirm();
+    };
 
     return (
         <>
@@ -65,7 +70,7 @@ const Dialog = ({
                                 leaveFrom="opacity-100 scale-100"
                                 leaveTo="opacity-0 scale-95"
                             >
-                                <HUIDialog.Panel className="w-full max-w-md transform overflow-hidden rounded-md bg-base-100 p-4 text-left align-middle shadow-xl transition-all">
+                                <HUIDialog.Panel className="w-full max-w-md transform overflow-hidden rounded-md bg-base-100 p-4 text-left align-middle shadow-xl transition-all" onKeyDown={handleKeyDown}>
                                     <HUIDialog.Title
                                         as="h3"
                                         className={twMerge('text-lg font-medium leading-6 text-base-content', titleClassName)}
@@ -78,6 +83,7 @@ const Dialog = ({
                                     <div className="flex justify-end gap-2 mt-4">
                                         <Button
                                             className={closeClassname}
+                                            disabled={isLoading}
                                             onClick={closeModal}
                                         >
                                             {closeText}
@@ -86,6 +92,7 @@ const Dialog = ({
                                             ? (
                                                 <Button
                                                     className={confirmClassName}
+                                                    disabled={isLoading}
                                                     onClick={handleConfirm}
                                                 >
                                                     {confirmText}
