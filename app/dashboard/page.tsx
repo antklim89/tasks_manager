@@ -1,4 +1,4 @@
-import { ControlPanel, NewProject } from '@/features';
+import { ControlPanel, NewProject, SelectProject } from '@/features';
 
 
 export const metadata = {
@@ -10,6 +10,7 @@ const DashboardPage = () => {
     return (
         <ControlPanel>
             <NewProject />
+            <SelectProject />
         </ControlPanel>
     );
 };
