@@ -1,12 +1,13 @@
 'use client';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import { z } from 'zod';
 
 import { Input } from '@/components';
+import Alert from '@/components/Alert/Alert';
 import Dialog from '@/components/Dialog/Dialog';
+import { useCreateNewProject } from '@/requests/useCreateNewProject';
 
-import { newProjectSchema } from './NewProject.schema';
+import { NewProjectType, newProjectSchema } from './NewProject.schema';
 
 
 const NewProject = () => {
@@ -14,11 +15,13 @@ const NewProject = () => {
         register,
         handleSubmit,
         formState: { errors },
-    } = useForm<z.infer<typeof newProjectSchema>>({ resolver: zodResolver(newProjectSchema) });
+    } = useForm<NewProjectType>({ resolver: zodResolver(newProjectSchema) });
+
+    const { trigger, error } = useCreateNewProject();
 
 
     const handleCreate = handleSubmit((data) => {
-        console.log('===\n ~ data:', data);
+        trigger(data);
     });
 
     return (
@@ -29,6 +32,7 @@ const NewProject = () => {
             title="Create New Project"
             onConfirm={() => handleCreate()}
         >
+            <Alert message={error?.message} type="error" />
             <Input
                 errorMessage={errors.name?.message}
                 label="Project name"
