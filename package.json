@@ -10,6 +10,7 @@
     "build": "next build",
     "start": "next start",
     "typecheck": "tsc --noEmit -w --preserveWatchOutput",
+    "typegen": "supabase gen types typescript --project-id owmyjpfdbksekhxmknmw > ./supabase-types-generated.ts",
     "lint": "eslint --ext .tsx,.ts . --fix"
   },
   "dependencies": {
@@ -31,6 +32,7 @@
     "react-dom": "18.2.0",
     "react-hook-form": "^7.45.1",
     "react-icons": "^4.10.1",
+    "supabase": "^1.77.9",
     "swr": "^2.2.0",
     "tailwind-merge": "^1.13.2",
     "zod": "^3.21.4"
