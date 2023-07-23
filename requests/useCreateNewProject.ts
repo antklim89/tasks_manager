@@ -14,16 +14,17 @@ export function useCreateNewProject() {
         async (key, { arg: { name } }) => {
             const supabase = createClientComponentClient<Database>();
 
-            const { data } = await supabase.auth.getUser();
-            if (!data.user) throw new Error('You are not authenticated!');
+            const { data: { session } } = await supabase.auth.getSession();
+            if (!session) throw new Error('You are not authenticated!');
 
-            const { error } = await supabase.from('projects').insert({ name, owner: data.user.id });
+            const { error } = await supabase.from('projects').insert({ name, owner: session.user.id });
 
-            if (error) throw error;
+            if (error?.code === '23505') throw new Error(`Project with name "${name}" alerady exists.`);
+            if (error) throw new Error('Failed to add new project. Try again later.');
         },
 
         {
-            throwOnError: false,
+            throwOnError: true,
         },
     );
 }
