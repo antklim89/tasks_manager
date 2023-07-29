@@ -1,6 +1,6 @@
-// generated file
+// generate export index files
 
-
-export { default as Input } from './Input/Input';
-export * from './Button/Button';
-export { default as Button } from './Button/Button';
+export { default as Input } from './Input';
+export { default as Dialog } from './Dialog';
+export { default as Button } from './Button';
+export { default as Alert } from './Alert';

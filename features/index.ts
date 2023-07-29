@@ -1,10 +1,9 @@
-// generated file
+// generate export index files
 
-
-export { default as NewProject } from './NewProject/NewProject';
-export { default as SelectProject } from './SelectProject/SelectProject';
-export { default as ControlPanel } from './ControlPanel/ControlPanel';
-export { default as Hero } from './Hero/Hero';
-export { default as Header } from './Header/Header';
-export { default as Footer } from './Footer/Footer';
-export { default as Auth } from './Auth/Auth';
+export { default as SelectProject } from './SelectProject';
+export { default as NewProject } from './NewProject';
+export { default as Hero } from './Hero';
+export { default as Footer } from './Footer';
+export { default as Header } from './Header';
+export { default as ControlPanel } from './ControlPanel';
+export { default as Auth } from './Auth';
