@@ -5,14 +5,19 @@ import { useCreateColumn, useFetchColumns } from '@/requests';
 
 const Project = ({ projectId }: {projectId: number}) => {
     const { trigger: createColumn, isMutating } = useCreateColumn();
-    const { data = [] } = useFetchColumns({ projectId });
+    const { data: columns = [] } = useFetchColumns({ projectId });
 
     const handleCreateColumn = () => {
         createColumn({ projectId });
     };
 
     return (
-        <div>
+        <div className="flex gap-2">
+            {columns.map((column) => (
+                <div className="flex flex-col basis-64 p-2 font-bold shrink-0 bg-slate-300 text-black rounded-md" key={column.id}>
+                    {column.name}
+                </div>
+            ))}
             <Button disabled={isMutating} onClick={handleCreateColumn}>Create new column</Button>
         </div>
     );
