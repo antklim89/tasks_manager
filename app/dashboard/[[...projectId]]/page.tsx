@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-import { NewProject, SelectProject } from '@/features';
+import { NewProject, Project, SelectProject } from '@/features';
 
 
 export const metadata = {
@@ -11,10 +11,13 @@ const DashboardPage = ({ params }: { params: { projectId?: string[] } }) => {
     const projectId = z.coerce.number().optional().parse(params?.projectId?.[0]);
 
     return (
-        <div className="container m-auto flex py-4 bpx-2">
-            <NewProject />
-            <SelectProject projectId={projectId} />
-        </div>
+        <>
+            <div className="flex py-4 bpx-2">
+                <NewProject />
+                <SelectProject projectId={projectId} />
+            </div>
+            <Project />
+        </>
     );
 };
 

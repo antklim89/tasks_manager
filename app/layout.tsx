@@ -15,7 +15,7 @@ const RootLayout = async ({ children }: { children: React.ReactNode }) => {
             <head />
             <body>
                 <Header />
-                <main>
+                <main className="container m-auto ">
                     {children}
                 </main>
                 <Footer />
