@@ -1,4 +1,5 @@
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+import { useSWRConfig } from 'swr';
 import useSWRMutation from 'swr/mutation';
 
 import { Database } from '@/supabase-types-generated';
@@ -7,6 +8,8 @@ import { CreateColumnKey } from './keys';
 
 
 export function useCreateColumn() {
+    const { mutate } = useSWRConfig();
+
     return useSWRMutation<void, Error, CreateColumnKey, {projectId: number}>(
         ['CREATE_COLUMN'],
 
@@ -19,8 +22,9 @@ export function useCreateColumn() {
             const { error } = await supabase.from('columns').insert({ name: 'New Column', owner: session.user.id, project: projectId });
 
             if (error) throw new Error('Failed to add new column. Try again later.');
-        },
 
+            mutate(['FETCH_COLUMNS', { projectId }]);
+        },
         {
             throwOnError: true,
         },
