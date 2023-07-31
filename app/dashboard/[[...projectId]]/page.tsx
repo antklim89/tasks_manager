@@ -16,7 +16,7 @@ const DashboardPage = ({ params }: { params: { projectId?: string[] } }) => {
                 <NewProject />
                 <SelectProject projectId={projectId} />
             </div>
-            <Project />
+            { projectId ? <Project projectId={projectId} /> : null }
         </>
     );
 };

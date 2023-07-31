@@ -1,10 +1,18 @@
+'use client';
 import { Button } from '@/components';
+import { useCreateColumn } from '@/requests';
 
 
-const Project = () => {
+const Project = ({ projectId }: {projectId: number}) => {
+    const { trigger: createColumn, isMutating } = useCreateColumn();
+
+    const handleCreateColumn = () => {
+        createColumn({ projectId });
+    };
+
     return (
         <div>
-            <Button>Create new column</Button>
+            <Button disabled={isMutating} onClick={handleCreateColumn}>Create new column</Button>
         </div>
     );
 };

@@ -9,6 +9,40 @@ export type Json =
 export interface Database {
   public: {
     Tables: {
+      columns: {
+        Row: {
+          id: number
+          name: string
+          owner: string
+          project: number
+        }
+        Insert: {
+          id?: number
+          name?: string
+          owner: string
+          project: number
+        }
+        Update: {
+          id?: number
+          name?: string
+          owner?: string
+          project?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "columns_owner_fkey"
+            columns: ["owner"]
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "columns_project_fkey"
+            columns: ["project"]
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
       projects: {
         Row: {
           id: number

@@ -1,4 +1,5 @@
 
 
 export type AuthKey = ['AUTH']
-export type NewProjectKeyKey = ['CREATE_NEW_PROJECT']
+export type CreateProjectKey = ['CREATE_NEW_PROJECT']
+export type CreateColumnKey = ['CREATE_COLUMN']
