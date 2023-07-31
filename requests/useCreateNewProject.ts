@@ -4,11 +4,11 @@ import useSWRMutation from 'swr/mutation';
 import { NewProjectType } from '@/features/NewProject/NewProject.schema';
 import { Database } from '@/supabase-types-generated';
 
-import { NewProjectKeyKey } from './keys';
+import { CreateProjectKey } from './keys';
 
 
-export function useCreateNewProject() {
-    return useSWRMutation<void, Error, NewProjectKeyKey, NewProjectType>(
+export function useCreateProject() {
+    return useSWRMutation<void, Error, CreateProjectKey, NewProjectType>(
         ['CREATE_NEW_PROJECT'],
 
         async (key, { arg: { name } }) => {
