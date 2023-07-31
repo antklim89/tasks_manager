@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { Input } from '@/components';
 import Alert from '@/components/Alert/Alert';
 import Dialog from '@/components/Dialog/Dialog';
-import { useCreateProject } from '@/requests/useCreateNewProject';
+import { useCreateProject } from '@/requests/useCreateProject';
 
 import { NewProjectType, newProjectSchema } from './NewProject.schema';
 

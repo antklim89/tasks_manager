@@ -3,4 +3,4 @@
 export * from './keys';
 export * from './useAuth';
 export * from './useCreateColumn';
-export * from './useCreateNewProject';
+export * from './useCreateProject';
