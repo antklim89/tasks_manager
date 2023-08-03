@@ -1,11 +1,10 @@
-import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
-import { cookies } from 'next/headers';
 import Link from 'next/link';
+
+import { serverComponentClient } from '@/utils';
 
 
 const Header = async () => {
-    const supabase = await createServerComponentClient({ cookies });
-    const { data } = await supabase.auth.getUser();
+    const { data } = await serverComponentClient().auth.getUser();
 
     return (
         <header className="flex items-center container px-2 m-auto h-12">

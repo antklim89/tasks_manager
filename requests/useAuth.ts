@@ -1,8 +1,8 @@
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { useRouter } from 'next/navigation';
 import useSWRMutation from 'swr/mutation';
 
 import { AuthFotmInput } from '@/features/Auth/Auth.types';
+import { clientComponentClient } from '@/utils';
 
 import { AuthKey } from './keys';
 
@@ -13,7 +13,7 @@ export function useAuth() {
         ['AUTH'],
 
         async (key, { arg: { type, email, password } }) => {
-            const supabase = createClientComponentClient();
+            const supabase = clientComponentClient();
             const { error } = type === 'register'
                 ? await supabase.auth.signUp({ email, password })
                 : await supabase.auth.signInWithPassword({ email, password });

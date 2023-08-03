@@ -1,7 +1,6 @@
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import useSWR from 'swr';
 
-import { Database } from '@/supabase-types-generated';
+import { clientComponentClient } from '@/utils';
 
 import { FetchColumnsKey } from './keys';
 
@@ -18,7 +17,7 @@ export function useFetchColumns({ projectId }: { projectId: number }) {
         ['FETCH_COLUMNS', { projectId }],
 
         async ([, key]) => {
-            const supabase = createClientComponentClient<Database>();
+            const supabase = clientComponentClient();
 
             const { data: { session } } = await supabase.auth.getSession();
             if (!session) throw new Error('You are not authenticated!');

@@ -1,16 +1,14 @@
-import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
-import { cookies } from 'next/headers';
 import Link from 'next/link';
 
 import { Button } from '@/components';
-import { Database } from '@/supabase-types-generated';
+import { serverComponentClient } from '@/utils';
 
 
 const SelectProject = async ({ projectId }: {projectId?: number}) => {
-    const supabase = createServerComponentClient<Database>({ cookies });
-    const { data } = await supabase.auth.getSession();
+    const { data } = await serverComponentClient().auth.getSession();
 
-    const { data: projects } = await supabase.from('projects').select('id, name').eq('owner', data.session?.user.id);
+    const { data: projects } = await serverComponentClient().from('projects').select('id, name')
+        .eq('owner', data.session?.user.id);
     const selectedProject = projects?.find((project) => project.id === projectId);
 
     return (

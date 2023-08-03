@@ -1,8 +1,7 @@
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import useSWRMutation from 'swr/mutation';
 
 import { NewProjectType } from '@/features/NewProject/NewProject.schema';
-import { Database } from '@/supabase-types-generated';
+import { clientComponentClient } from '@/utils';
 
 import { CreateProjectKey } from './keys';
 
@@ -12,7 +11,7 @@ export function useCreateProject() {
         ['CREATE_NEW_PROJECT'],
 
         async (key, { arg: { name } }) => {
-            const supabase = createClientComponentClient<Database>();
+            const supabase = clientComponentClient();
 
             const { data: { session } } = await supabase.auth.getSession();
             if (!session) throw new Error('You are not authenticated!');
