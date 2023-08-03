@@ -2,7 +2,7 @@ import { useSWRConfig } from 'swr';
 import useSWRMutation from 'swr/mutation';
 
 
-import { clientComponentClient } from '@/utils';
+import { clientComponentClient, getServerComponentUser } from '@/utils';
 
 import { CreateColumnKey } from './keys';
 
@@ -16,10 +16,9 @@ export function useCreateColumn() {
         async (key, { arg: { projectId } }) => {
             const supabase = clientComponentClient();
 
-            const { data: { session } } = await supabase.auth.getSession();
-            if (!session) throw new Error('You are not authenticated!');
+            const user = await getServerComponentUser();
 
-            const { error } = await supabase.from('columns').insert({ name: 'New Column', owner: session.user.id, project: projectId });
+            const { error } = await supabase.from('columns').insert({ name: 'New Column', owner: user.id, project: projectId });
 
             if (error) throw new Error('Failed to add new column. Try again later.');
 

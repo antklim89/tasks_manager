@@ -1,14 +1,16 @@
 import Link from 'next/link';
 
 import { Button } from '@/components';
-import { serverComponentClient } from '@/utils';
+import { getServerComponentUser, serverComponentClient } from '@/utils';
 
 
 const SelectProject = async ({ projectId }: {projectId?: number}) => {
-    const { data } = await serverComponentClient().auth.getSession();
+    const user = await getServerComponentUser();
 
-    const { data: projects } = await serverComponentClient().from('projects').select('id, name')
-        .eq('owner', data.session?.user.id);
+    const { data: projects } = await serverComponentClient()
+        .from('projects')
+        .select('id, name')
+        .eq('owner', user.id);
     const selectedProject = projects?.find((project) => project.id === projectId);
 
     return (
