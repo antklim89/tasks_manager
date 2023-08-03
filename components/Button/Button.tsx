@@ -1,4 +1,3 @@
-import { FC } from 'react';
 import { twMerge } from 'tailwind-merge';
 
 import { ButtonProps } from './Button.types';
@@ -13,7 +12,7 @@ export const className = {
     },
 } as const;
 
-const Button: FC<ButtonProps> = ({ variant = 'primary', children, ...props }) => {
+const Button = ({ variant = 'primary', children, ...props }: ButtonProps) => {
     return (
         <button
             type="button"

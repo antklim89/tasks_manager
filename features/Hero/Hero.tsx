@@ -1,9 +1,8 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { FC } from 'react';
 
 
-const Hero: FC = () => {
+const Hero = () => {
     return (
         <div className="hero h-full bg-base-200">
             <div className="hero-content flex-col lg:flex-row">
