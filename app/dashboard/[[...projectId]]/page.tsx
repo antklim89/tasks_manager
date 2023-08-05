@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-import { NewProject, Project, SelectProject } from '@/features';
+import { DashboardHome, NewProject, Project, SelectProject } from '@/features';
 
 
 export const metadata = {
@@ -16,7 +16,7 @@ const DashboardPage = ({ params }: { params: { projectId?: string[] } }) => {
                 <NewProject />
                 <SelectProject projectId={projectId} />
             </div>
-            { projectId ? <Project projectId={projectId} /> : null }
+            { projectId ? <Project projectId={projectId} /> : <DashboardHome /> }
         </>
     );
 };
