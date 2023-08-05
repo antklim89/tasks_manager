@@ -19,7 +19,7 @@ const Project = ({ projectId }: {projectId: number}) => {
                     {column.name}
                 </div>
             ))}
-            <Button disabled={isMutating} onClick={handleCreateColumn}>Create new column</Button>
+            <Button isLoading={isMutating} onClick={handleCreateColumn}>Create new column</Button>
         </div>
     );
 };

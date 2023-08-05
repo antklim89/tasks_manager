@@ -12,13 +12,15 @@ export const className = {
     },
 } as const;
 
-const Button = ({ variant = 'primary', children, ...props }: ButtonProps) => {
+const Button = ({ variant = 'primary', children, isLoading, disabled, ...props }: ButtonProps) => {
     return (
         <button
             type="button"
             {...props}
             className={twMerge('btn', props.className, className.variant[variant])}
+            disabled={disabled || isLoading}
         >
+            {isLoading ? <span className="loading loading-bars loading-sm" /> : null}
             {children}
         </button>
     );

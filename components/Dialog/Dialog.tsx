@@ -83,7 +83,7 @@ const Dialog = ({
                                     <div className="flex justify-end gap-2 mt-4">
                                         <Button
                                             className={closeClassname}
-                                            disabled={isLoading}
+                                            isLoading={isLoading}
                                             onClick={closeModal}
                                         >
                                             {closeText}
@@ -92,7 +92,7 @@ const Dialog = ({
                                             ? (
                                                 <Button
                                                     className={confirmClassName}
-                                                    disabled={isLoading}
+                                                    isLoading={isLoading}
                                                     onClick={handleConfirm}
                                                 >
                                                     {confirmText}

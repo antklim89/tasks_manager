@@ -81,7 +81,7 @@ const Auth = () => {
                             />
                         )}
                         <div className="form-control mt-6">
-                            <Button disabled={isMutating} type="submit">Login</Button>
+                            <Button isLoading={isMutating} type="submit">Login</Button>
                         </div>
                     </form>
                 </div>
