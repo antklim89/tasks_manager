@@ -1,5 +1,6 @@
 'use client';
 import { Button } from '@/components';
+import Column from '@/features/Column';
 import { useCreateColumn, useFetchColumns } from '@/requests';
 
 
@@ -15,9 +16,7 @@ const Project = ({ projectId }: {projectId: number}) => {
     return (
         <div className="flex gap-2">
             {columns.map((column) => (
-                <div className="flex flex-col basis-64 p-2 font-bold shrink-0 bg-slate-300 text-black rounded-md" key={column.id}>
-                    {column.name}
-                </div>
+                <Column key={column.id} {...column} />
             ))}
             <Button isLoading={isMutating} onClick={handleCreateColumn}>Create new column</Button>
         </div>
