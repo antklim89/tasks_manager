@@ -6,5 +6,6 @@ import { className } from './Button';
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement>{
     children: ReactNode;
     variant?: keyof typeof className.variant;
+    color?: keyof typeof className.color;
     isLoading?: boolean
 }
