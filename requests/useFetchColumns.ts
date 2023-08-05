@@ -1,19 +1,13 @@
 import useSWR from 'swr';
 
+import { ColumnType, columnSchema } from '@/schemas';
 import { clientComponentClient, getClientComponentUser } from '@/utils';
 
 import { FetchColumnsKey } from './keys';
 
 
-interface Data {
-    id: number;
-    name: string;
-    owner: string;
-    project: number;
-}
-
 export function useFetchColumns({ projectId }: { projectId: number }) {
-    return useSWR<Data[], Error, FetchColumnsKey>(
+    return useSWR<ColumnType[], Error, FetchColumnsKey>(
         ['FETCH_COLUMNS', { projectId }],
 
         async ([, key]) => {
@@ -28,7 +22,7 @@ export function useFetchColumns({ projectId }: { projectId: number }) {
                 .eq('owner', user.id);
 
             if (error) throw new Error('Failed to add new column. Try again later.');
-            return data;
+            return columnSchema.array().parseAsync(data);
         },
     );
 }
