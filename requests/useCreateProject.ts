@@ -1,7 +1,7 @@
 import useSWRMutation from 'swr/mutation';
 
 import { NewProjectType } from '@/features/NewProject/NewProject.schema';
-import { clientComponentClient, getServerComponentUser } from '@/utils';
+import { clientComponentClient, getClientComponentUser } from '@/utils';
 
 import { CreateProjectKey } from './keys';
 
@@ -13,7 +13,7 @@ export function useCreateProject() {
         async (key, { arg: { name } }) => {
             const supabase = clientComponentClient();
 
-            const user = await getServerComponentUser();
+            const user = await getClientComponentUser();
 
             const { error } = await supabase.from('projects').insert({ name, owner: user.id });
 

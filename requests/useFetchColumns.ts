@@ -1,6 +1,6 @@
 import useSWR from 'swr';
 
-import { clientComponentClient, getServerComponentUser } from '@/utils';
+import { clientComponentClient, getClientComponentUser } from '@/utils';
 
 import { FetchColumnsKey } from './keys';
 
@@ -19,7 +19,7 @@ export function useFetchColumns({ projectId }: { projectId: number }) {
         async ([, key]) => {
             const supabase = clientComponentClient();
 
-            const user = await getServerComponentUser();
+            const user = await getClientComponentUser();
 
             const { error, data } = await supabase
                 .from('columns')

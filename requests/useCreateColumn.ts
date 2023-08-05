@@ -2,7 +2,7 @@ import { useSWRConfig } from 'swr';
 import useSWRMutation from 'swr/mutation';
 
 
-import { clientComponentClient, getServerComponentUser } from '@/utils';
+import { clientComponentClient, getClientComponentUser } from '@/utils';
 
 import { CreateColumnKey } from './keys';
 
@@ -16,7 +16,7 @@ export function useCreateColumn() {
         async (key, { arg: { projectId } }) => {
             const supabase = clientComponentClient();
 
-            const user = await getServerComponentUser();
+            const user = await getClientComponentUser();
 
             const { error } = await supabase.from('columns').insert({ name: 'New Column', owner: user.id, project: projectId });
 
