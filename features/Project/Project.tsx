@@ -5,11 +5,11 @@ import { useCreateColumn, useFetchColumns } from '@/requests';
 
 
 const Project = ({ projectId }: {projectId: number}) => {
-    const { trigger: createColumn, isMutating } = useCreateColumn();
+    const { trigger: createColumn, isMutating } = useCreateColumn({ projectId });
     const { data: columns = [], isLoading } = useFetchColumns({ projectId });
 
     const handleCreateColumn = () => {
-        createColumn({ projectId });
+        createColumn().then((data) => console.log(data));
     };
 
     if (isLoading) return <span className="loading loading-bars loading-lg" />;

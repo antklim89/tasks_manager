@@ -3,7 +3,7 @@ import { KeyboardEventHandler, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { Input } from '@/components';
-import { useUpdateColumn } from '@/requests/useUpdateColumn';
+import { useUpdateColumn } from '@/requests';
 import { columnUpdateSchema } from '@/schemas';
 
 

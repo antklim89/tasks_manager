@@ -1,7 +1,7 @@
 import { FaTrash } from 'react-icons/fa6';
 
 import { Button } from '@/components';
-import { useDeleteColumn } from '@/requests/useDeleteColumn';
+import { useDeleteColumn } from '@/requests';
 
 
 const ColumnDelete = ({ id, projectId }: { id: number, projectId: number }) => {

@@ -6,27 +6,25 @@ import { clientComponentClient, getClientComponentUser } from '@/utils';
 import { FetchColumnsKey } from './keys';
 
 
-export function useUpdateColumn({ columnId, projectId }: { columnId: number, projectId: number }) {
-    return useSWRMutation<{name: string}, Error, FetchColumnsKey, {name: string}>(
-        ['FETCH_COLUMNS', { projectId }],
+export function useDeleteColumn({ columnId, projectId }: { columnId: number, projectId: number }) {
+    return useSWRMutation<void, Error, FetchColumnsKey>(
+        ['COLUMNS', { projectId }],
 
-        async (key, { arg }) => {
+        async () => {
             const supabase = clientComponentClient();
             const user = await getClientComponentUser();
 
             const { error } = await supabase.from('columns')
-                .update(arg)
+                .delete()
                 .eq('id', columnId)
                 .eq('owner', user.id);
 
-            if (error) throw new Error('Failed to update column. Try again later.');
-
-            return arg;
+            if (error) throw new Error('Failed to add new column. Try again later.');
         },
         {
             revalidate: false,
             populateCache(result, columns: ColumnType[]) {
-                return columns.map(((column) => (column.id === columnId ? { ...column, ...result } : column)));
+                return columns.filter((c) => c.id !== columnId);
             },
             throwOnError: true,
         },

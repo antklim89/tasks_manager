@@ -1,6 +1,8 @@
 // generate export all files, ignore: keys
 
 export * from './useAuth';
-export * from './useCreateColumn';
+export * from './useColumnCreate';
+export * from './useColumnDelete';
+export * from './useColumnsFetch';
+export * from './useColumnUpdate';
 export * from './useCreateProject';
-export * from './useFetchColumns';

@@ -8,7 +8,7 @@ import { FetchColumnsKey } from './keys';
 
 export function useFetchColumns({ projectId }: { projectId: number }) {
     return useSWR<ColumnType[], Error, FetchColumnsKey>(
-        ['FETCH_COLUMNS', { projectId }],
+        ['COLUMNS', { projectId }],
 
         async ([, key]) => {
             const supabase = clientComponentClient();
