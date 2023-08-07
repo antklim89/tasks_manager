@@ -2,14 +2,15 @@
 import { ColumnType } from '@/schemas';
 
 import ColumnDelete from './ColumnDelete';
+import ColumnName from './ColumnName';
 
 
 const Column = ({ id, name, project }: ColumnType) => {
     return (
-        <div className="card w-96 bg-base-100 shadow-xl">
+        <div className="card w-96 bg-stone-500 shadow-xl">
             <div className="card-body p-2">
                 <div className="card-title flex justify-between">
-                    <h2>{name}</h2>
+                    <ColumnName id={id} name={name} projectId={project} />
                     <ColumnDelete id={id} projectId={project} />
                 </div>
             </div>
