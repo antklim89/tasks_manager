@@ -1,3 +1,4 @@
+import { SwrProvider } from '@/components';
 import { Footer, Header } from '@/features';
 import '@/styles/main.scss';
 
@@ -14,11 +15,13 @@ const RootLayout = async ({ children }: { children: React.ReactNode }) => {
         <html data-theme="dark" lang="en">
             <head />
             <body>
-                <Header />
-                <main className="container m-auto ">
-                    {children}
-                </main>
-                <Footer />
+                <SwrProvider>
+                    <Header />
+                    <main className="container m-auto ">
+                        {children}
+                    </main>
+                    <Footer />
+                </SwrProvider>
             </body>
         </html>
     );
