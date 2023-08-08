@@ -1,4 +1,4 @@
-import useSWRMutation from 'swr/mutation';
+import useSWRMutation, { SWRMutationConfiguration } from 'swr/mutation';
 
 import { NewProjectType } from '@/features/NewProject/NewProject.schema';
 import { ProjectType, projectSchema } from '@/schemas';
@@ -7,7 +7,9 @@ import { clientComponentClient, getClientComponentUser } from '@/utils';
 import { FetchProjectsKey } from './keys';
 
 
-export function useProjectCreate() {
+type Options = SWRMutationConfiguration<ProjectType, Error, FetchProjectsKey, NewProjectType>;
+
+export function useProjectCreate(options?: Options) {
     return useSWRMutation<ProjectType, Error, FetchProjectsKey, NewProjectType>(
         ['PROJECTS'],
 
@@ -27,10 +29,10 @@ export function useProjectCreate() {
             return projectSchema.parseAsync(data);
         },
         {
-            revalidate: false,
             populateCache(newProject, currentProjects: ProjectType[]) {
                 return [...currentProjects, newProject];
             },
+            ...options,
         },
     );
 }

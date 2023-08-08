@@ -1,5 +1,6 @@
 'use client';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 
 import { Input } from '@/components';
@@ -11,6 +12,7 @@ import { NewProjectType, newProjectSchema } from './NewProject.schema';
 
 
 const NewProject = () => {
+    const { push } = useRouter();
     const {
         register,
         formState: { errors },
@@ -18,16 +20,17 @@ const NewProject = () => {
         handleSubmit,
     } = useForm<NewProjectType>({ resolver: zodResolver(newProjectSchema) });
 
-    const { trigger: createNewProject, error, isMutating, reset: resetState } = useProjectCreate();
+    const { trigger: createNewProject, error, isMutating, reset: resetState } = useProjectCreate({
+        onSuccess(newProject) {
+            resetForm({ }, { keepValues: false });
+            resetState();
+            if (Array.isArray(newProject) && newProject.at(-1)) push(`dashboard/${newProject.at(-1).id}`);
+            else push(`dashboard/${newProject.id}`);
+        },
+    });
 
     const handleCreate = (close: (() => void)) => handleSubmit((data) => {
-        createNewProject(data)
-            .catch(() => null)
-            .then(() => {
-                resetForm({ }, { keepValues: false });
-                resetState();
-                close();
-            });
+        createNewProject(data).catch(() => null).then(() => close());
     });
 
     return (
