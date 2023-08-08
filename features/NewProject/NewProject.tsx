@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { Input } from '@/components';
 import Alert from '@/components/Alert/Alert';
 import Dialog from '@/components/Dialog/Dialog';
-import { useCreateProject } from '@/requests/useCreateProject';
+import { useProjectCreate } from '@/requests';
 
 import { NewProjectType, newProjectSchema } from './NewProject.schema';
 
@@ -18,16 +18,16 @@ const NewProject = () => {
         handleSubmit,
     } = useForm<NewProjectType>({ resolver: zodResolver(newProjectSchema) });
 
-    const { trigger: createNewProject, error, isMutating, reset: resetState } = useCreateProject();
+    const { trigger: createNewProject, error, isMutating, reset: resetState } = useProjectCreate();
 
-
-    const handleCreate = (close: (() => void)) => handleSubmit(async (data) => {
-        try {
-            await createNewProject(data);
-            resetForm({ }, { keepValues: false });
-            resetState();
-            close();
-        } catch (_) { /** */ }
+    const handleCreate = (close: (() => void)) => handleSubmit((data) => {
+        createNewProject(data)
+            .catch(() => null)
+            .then(() => {
+                resetForm({ }, { keepValues: false });
+                resetState();
+                close();
+            });
     });
 
     return (
