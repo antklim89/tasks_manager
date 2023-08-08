@@ -1,16 +1,15 @@
 import useSWRMutation, { SWRMutationConfiguration } from 'swr/mutation';
 
-import { NewProjectType } from '@/features/NewProject/NewProject.schema';
 import { ProjectType, projectSchema } from '@/schemas';
 import { clientComponentClient, getClientComponentUser } from '@/utils';
 
 import { FetchProjectsKey } from './keys';
 
 
-type Options = SWRMutationConfiguration<ProjectType, Error, FetchProjectsKey, NewProjectType>;
+type Options = SWRMutationConfiguration<ProjectType, Error, FetchProjectsKey, { name: string }>;
 
 export function useProjectCreate(options?: Options) {
-    return useSWRMutation<ProjectType, Error, FetchProjectsKey, NewProjectType>(
+    return useSWRMutation<ProjectType, Error, FetchProjectsKey, { name: string }>(
         ['PROJECTS'],
 
         async (key, { arg: { name } }) => {
