@@ -1,12 +1,12 @@
 'use client';
 import { Button } from '@/components';
 import Column from '@/features/Column';
-import { useCreateColumn, useFetchColumns } from '@/requests';
+import { useColumnCreate, useColumnsFetch } from '@/requests';
 
 
 const Project = ({ projectId }: {projectId: number}) => {
-    const { trigger: createColumn, isMutating } = useCreateColumn({ projectId });
-    const { data: columns = [], isLoading } = useFetchColumns({ projectId });
+    const { trigger: createColumn, isMutating } = useColumnCreate({ projectId });
+    const { data: columns = [], isLoading } = useColumnsFetch({ projectId });
 
     const handleCreateColumn = () => {
         createColumn().then((data) => console.log(data));

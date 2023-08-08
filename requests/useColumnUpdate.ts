@@ -6,7 +6,7 @@ import { clientComponentClient, getClientComponentUser } from '@/utils';
 import { FetchColumnsKey } from './keys';
 
 
-export function useUpdateColumn({ columnId, projectId }: { columnId: number, projectId: number }) {
+export function useColumnUpdate({ columnId, projectId }: { columnId: number, projectId: number }) {
     return useSWRMutation<{name: string}, Error, FetchColumnsKey, {name: string}>(
         ['COLUMNS', { projectId }],
 
@@ -28,7 +28,6 @@ export function useUpdateColumn({ columnId, projectId }: { columnId: number, pro
             populateCache(result, columns: ColumnType[]) {
                 return columns.map(((column) => (column.id === columnId ? { ...column, ...result } : column)));
             },
-            throwOnError: true,
         },
     );
 }

@@ -6,7 +6,7 @@ import { clientComponentClient, getClientComponentUser } from '@/utils';
 import { FetchColumnsKey } from './keys';
 
 
-export function useFetchColumns({ projectId }: { projectId: number }) {
+export function useColumnsFetch({ projectId }: { projectId: number }) {
     return useSWR<ColumnType[], Error, FetchColumnsKey>(
         ['COLUMNS', { projectId }],
 

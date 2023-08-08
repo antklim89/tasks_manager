@@ -6,7 +6,7 @@ import { clientComponentClient, getClientComponentUser } from '@/utils';
 import { FetchColumnsKey } from './keys';
 
 
-export function useCreateColumn({ projectId }: { projectId: number }) {
+export function useColumnCreate({ projectId }: { projectId: number }) {
     return useSWRMutation<ColumnType, Error, FetchColumnsKey, void>(
         ['COLUMNS', { projectId }],
 
@@ -28,7 +28,6 @@ export function useCreateColumn({ projectId }: { projectId: number }) {
             populateCache(newColumn, currentData: ColumnType[]) {
                 return [...currentData, newColumn];
             },
-            throwOnError: true,
         },
     );
 }

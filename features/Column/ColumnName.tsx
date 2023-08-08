@@ -3,12 +3,12 @@ import { KeyboardEventHandler, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { Input } from '@/components';
-import { useUpdateColumn } from '@/requests';
+import { useColumnUpdate } from '@/requests';
 import { columnUpdateSchema } from '@/schemas';
 
 
 const ColumnName = ({ name, id, projectId }: { name: string, id: number, projectId: number }) => {
-    const { trigger: updateColumn } = useUpdateColumn({ columnId: id, projectId });
+    const { trigger: updateColumn } = useColumnUpdate({ columnId: id, projectId });
     const prevName = useRef(name);
     const {
         register,

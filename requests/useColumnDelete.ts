@@ -6,7 +6,7 @@ import { clientComponentClient, getClientComponentUser } from '@/utils';
 import { FetchColumnsKey } from './keys';
 
 
-export function useDeleteColumn({ columnId, projectId }: { columnId: number, projectId: number }) {
+export function useColumnDelete({ columnId, projectId }: { columnId: number, projectId: number }) {
     return useSWRMutation<void, Error, FetchColumnsKey>(
         ['COLUMNS', { projectId }],
 
@@ -26,7 +26,6 @@ export function useDeleteColumn({ columnId, projectId }: { columnId: number, pro
             populateCache(result, columns: ColumnType[]) {
                 return columns.filter((c) => c.id !== columnId);
             },
-            throwOnError: true,
         },
     );
 }
