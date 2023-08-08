@@ -1,12 +1,12 @@
 import { ReactNode } from 'react';
 
-import { serverComponentClient } from '@/utils';
+import { getServerComponentUser } from '@/utils';
 
 
 const DashboardLayout = async ({ login, children }: { login: ReactNode, children: ReactNode }) => {
-    const { data } = await serverComponentClient().auth.getUser();
+    const user = await getServerComponentUser().catch(() => null);
 
-    if (data.user) return <>{children}</>;
+    if (user) return <>{children}</>;
     return <>{login}</>;
 };
 
