@@ -21,9 +21,5 @@ export function useAuth() {
             if (error) throw error;
             refresh();
         },
-
-        {
-            throwOnError: false,
-        },
     );
 }
