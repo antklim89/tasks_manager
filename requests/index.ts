@@ -6,4 +6,5 @@ export * from './useColumnDelete';
 export * from './useColumnsFetch';
 export * from './useColumnUpdate';
 export * from './useProjectCreate';
+export * from './useProjectDelete';
 export * from './useProjectsFetch';
