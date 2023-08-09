@@ -28,6 +28,7 @@ export function useProjectCreate(options?: Options) {
             return projectSchema.parseAsync(data);
         },
         {
+            revalidate: false,
             populateCache(newProject, currentProjects: ProjectType[]) {
                 return [...currentProjects, newProject];
             },
