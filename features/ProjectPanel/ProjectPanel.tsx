@@ -1,6 +1,6 @@
-import { DashboardHome, Project } from '@/features';
-
+'use client';
 import ProjectPanelCreate from './ProjectPanelCreate';
+import ProjectPanelDelete from './ProjectPanelDelete';
 import ProjectPanelSelect from './ProjectPanelSelect';
 
 
@@ -10,15 +10,15 @@ const ProjectPanel = ({ projectId }: { projectId?: number }) => {
             <div className="flex py-4 bpx-2">
                 <ProjectPanelCreate />
                 <ProjectPanelSelect projectId={projectId} />
+                <div className="flex-grow" />
                 {projectId
                     ? (
                         <>
-                            <div>DELETE</div>
+                            <ProjectPanelDelete projectId={projectId} />
                         </>
                     )
                     : null}
             </div>
-            { projectId ? <Project projectId={projectId} /> : <DashboardHome /> }
         </>
     );
 };
