@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-import { ProjectPanel } from '@/features';
+import { DashboardHome, Project, ProjectPanel } from '@/features';
 
 
 export const metadata = {
@@ -11,7 +11,10 @@ const DashboardPage = ({ params }: { params: { projectId?: string[] } }) => {
     const projectId = z.coerce.number().optional().parse(params?.projectId?.[0]);
 
     return (
-        <ProjectPanel projectId={projectId} />
+        <>
+            <ProjectPanel projectId={projectId} />
+            { projectId ? <Project projectId={projectId} /> : <DashboardHome /> }
+        </>
     );
 };
 
