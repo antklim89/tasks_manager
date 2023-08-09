@@ -1,17 +1,17 @@
 import Link from 'next/link';
 
-import { serverComponentClient } from '@/utils';
+import { getServerComponentUser } from '@/utils';
 
 
 const Header = async () => {
-    const { data } = await serverComponentClient().auth.getUser();
+    const user = await getServerComponentUser().catch(() => null);
 
     return (
         <header className="flex items-center container px-2 m-auto h-12">
             <Link className="mr-auto" href="/">Tasks Manager</Link>
 
             <div className="flex gap-4">
-                <Link href="/dashboard">{data.user ? 'Dashboard' : 'Sign In'}</Link>
+                <Link href="/dashboard">{user ? 'Dashboard' : 'Sign In'}</Link>
                 <Link href="/about">About</Link>
             </div>
         </header>
