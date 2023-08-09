@@ -33,7 +33,7 @@ const Auth = () => {
     });
 
     return (
-        <div className="hero min-h-screen bg-base-200">
+        <div className="hero min-h-screen">
             <div className="hero-content w-full flex-col lg:flex-row">
                 <div className="flex-1 text-center lg:text-left">
                     <h1 className="text-5xl font-bold">{{ login: 'Login', register: 'Register' }[type]}</h1>
