@@ -21,7 +21,7 @@ export function useColumnsFetch({ projectId }: { projectId: number }) {
                 .eq('project', key.projectId)
                 .eq('owner', user.id);
 
-            if (error) throw new Error('Failed to add new column. Try again later.');
+            if (error) throw new Error('Failed to fetch columns. Try again later.');
             return columnSchema.array().parseAsync(data);
         },
     );
