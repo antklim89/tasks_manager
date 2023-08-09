@@ -5,7 +5,7 @@ import { Button } from '@/components';
 import { useProjectsFetch } from '@/requests';
 
 
-const SelectProject = ({ projectId }: {projectId?: number}) => {
+const ProjectPanelSelect = ({ projectId }: {projectId?: number}) => {
     const { data: projects, isLoading } = useProjectsFetch();
     const selectedProject = projects?.find((project) => project.id === projectId);
 
@@ -21,4 +21,4 @@ const SelectProject = ({ projectId }: {projectId?: number}) => {
     );
 };
 
-export default SelectProject;
+export default ProjectPanelSelect;

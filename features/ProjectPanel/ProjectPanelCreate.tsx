@@ -8,17 +8,17 @@ import Alert from '@/components/Alert/Alert';
 import Dialog from '@/components/Dialog/Dialog';
 import { useProjectCreate } from '@/requests';
 
-import { NewProjectType, newProjectSchema } from './NewProject.schema';
+import { ProjectCreateType, projectCreateSchema } from './ProjectPanel.schema';
 
 
-const NewProject = () => {
+const ProjectPanelCreate = () => {
     const { push } = useRouter();
     const {
         register,
         formState: { errors },
         reset: resetForm,
         handleSubmit,
-    } = useForm<NewProjectType>({ resolver: zodResolver(newProjectSchema) });
+    } = useForm<ProjectCreateType>({ resolver: zodResolver(projectCreateSchema) });
 
     const { trigger: createNewProject, error, isMutating, reset: resetState } = useProjectCreate({
         onSuccess(newProject) {
@@ -52,4 +52,4 @@ const NewProject = () => {
     );
 };
 
-export default NewProject;
+export default ProjectPanelCreate;

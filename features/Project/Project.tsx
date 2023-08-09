@@ -9,7 +9,7 @@ const Project = ({ projectId }: {projectId: number}) => {
     const { data: columns = [], isLoading } = useColumnsFetch({ projectId });
 
     const handleCreateColumn = () => {
-        createColumn().then((data) => console.log(data));
+        createColumn();
     };
 
     if (isLoading) return <span className="loading loading-bars loading-lg" />;
