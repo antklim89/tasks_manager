@@ -7,7 +7,7 @@ import ColumnName from './ColumnName';
 
 const Column = ({ id, name, project }: ColumnType) => {
     return (
-        <div className="card w-96 bg-stone-500 shadow-xl">
+        <div className="card w-96 bg-base-200 shadow-xl">
             <div className="card-body p-2">
                 <div className="card-title flex justify-between">
                     <ColumnName id={id} name={name} projectId={project} />

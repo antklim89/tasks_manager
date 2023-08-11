@@ -31,7 +31,7 @@ const ColumnName = ({ name, id, projectId }: { name: string, id: number, project
 
     return (
         <Input
-            className="border-none bg-transparent focus:bg-white"
+            className="border-none bg-transparent focus:bg-white focus:text-black"
             {...register('name')}
             errorMessage={errors.name?.message}
             onBlur={handleChangeName}
