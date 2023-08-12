@@ -1,25 +1,50 @@
 import { FaTrash } from 'react-icons/fa6';
 
-import { Button } from '@/components';
+import { Button, Modal } from '@/components';
 import { useColumnDelete } from '@/requests';
 
 
 const ColumnDelete = ({ id, projectId }: { id: number, projectId: number }) => {
     const { trigger: deleteColumn, isMutating } = useColumnDelete({ columnId: id, projectId });
 
-    const handleDeleteColumn = () => {
-        deleteColumn();
+    const handleDeleteColumn = async () => {
+        await deleteColumn();
     };
 
     return (
-        <Button
-            aria-label="delete column"
-            isLoading={isMutating}
-            variant="ghost"
-            onClick={handleDeleteColumn}
-        >
-            <FaTrash />
-        </Button>
+        <Modal
+            renderCloseButton={(close) => (
+                <Button
+                    outline
+                    isLoading={isMutating}
+                    size="sm"
+                    onClick={close}
+                >
+                    Cancel
+                </Button>
+            )}
+            renderConfirmButton={() => (
+                <Button
+                    color="error"
+                    isLoading={isMutating}
+                    size="sm"
+                    onClick={handleDeleteColumn}
+                >
+                    Delete
+                </Button>
+            )}
+            renderOpenButton={(close) => (
+                <Button
+                    aria-label="delete column"
+                    color="ghost"
+                    isLoading={isMutating}
+                    onClick={close}
+                >
+                    <FaTrash />
+                </Button>
+            )}
+            title="Are you sure you want to delete this column!"
+        />
     );
 };
 

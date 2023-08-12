@@ -1,11 +1,12 @@
 import { ButtonHTMLAttributes, ReactNode } from 'react';
 
-import { className } from './Button';
+import { classes } from './Button';
 
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement>{
     children: ReactNode;
-    variant?: keyof typeof className.variant;
-    color?: keyof typeof className.color;
+    outline?: boolean;
+    color?: keyof typeof classes.color;
+    size?: keyof typeof classes.size;
     isLoading?: boolean
 }

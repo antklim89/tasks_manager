@@ -11,7 +11,7 @@ const ProjectPanelSelect = ({ projectId }: {projectId?: number}) => {
 
     return (
         <div className="dropdown">
-            <Button className="btn-outline" isLoading={isLoading} tabIndex={0}>{selectedProject?.name || 'Select Project'}</Button>
+            <Button outline isLoading={isLoading} tabIndex={0}>{selectedProject?.name || 'Select Project'}</Button>
             <ul className="dropdown-content z-[1] menu p-2 shadow bg-base-200 rounded-box w-52">
                 {projects?.map((project) => (
                     <li key={project.id}><Link href={`/dashboard/${project.id}`}>{project.name}</Link></li>

@@ -44,7 +44,7 @@ const Auth = () => {
                         }[type]}
                         <Button
                             className="p-0"
-                            variant="link"
+                            color="link"
                             onClick={() => setType((prevType) => (prevType === 'login' ? 'register' : 'login'))}
                         >
                             {{ login: 'register', register: 'login' }[type]}
