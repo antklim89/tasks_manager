@@ -7,8 +7,9 @@ import { useColumnDelete } from '@/requests';
 const ColumnDelete = ({ id, projectId }: { id: number, projectId: number }) => {
     const { trigger: deleteColumn, isMutating } = useColumnDelete({ columnId: id, projectId });
 
-    const handleDeleteColumn = async () => {
+    const handleDeleteColumn = async (close: () => void) => {
         await deleteColumn();
+        close();
     };
 
     return (
@@ -23,12 +24,12 @@ const ColumnDelete = ({ id, projectId }: { id: number, projectId: number }) => {
                     Cancel
                 </Button>
             )}
-            renderConfirmButton={() => (
+            renderConfirmButton={(close) => (
                 <Button
                     color="error"
                     isLoading={isMutating}
                     size="sm"
-                    onClick={handleDeleteColumn}
+                    onClick={() => handleDeleteColumn(close)}
                 >
                     Delete
                 </Button>

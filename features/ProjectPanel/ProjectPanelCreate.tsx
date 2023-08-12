@@ -3,9 +3,8 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 
-import { Input } from '@/components';
+import { Button, Input, Modal } from '@/components';
 import Alert from '@/components/Alert/Alert';
-import Dialog from '@/components/Dialog/Dialog';
 import { useProjectCreate } from '@/requests';
 
 import { ProjectCreateType, projectCreateSchema } from './ProjectPanel.schema';
@@ -34,21 +33,36 @@ const ProjectPanelCreate = () => {
     });
 
     return (
-        <Dialog
-            closeClassName="btn-outline"
-            confirmText="confirm"
-            isLoading={isMutating}
-            openText="New Project"
-            title="Create New Project"
-            onConfirm={(close) => handleCreate(close)()}
-        >
-            <Alert message={error?.message} type="error" />
-            <Input
-                errorMessage={errors.name?.message}
-                label="Project name"
-                {...register('name')}
-            />
-        </Dialog>
+        <Modal
+            body={(
+                <>
+                    <Alert message={error?.message} type="error" />
+                    <Input
+                        errorMessage={errors.name?.message}
+                        placeholder="Project name"
+                        {...register('name')}
+                    />
+                </>
+            )}
+            renderConfirmButton={(close) => (
+                <Button
+                    isLoading={isMutating}
+                    onClick={() => handleCreate(close)}
+                >
+                    Create
+                </Button>
+            )}
+            renderOpenButton={(close) => (
+                <Button
+                    aria-label="delete column"
+                    isLoading={isMutating}
+                    onClick={close}
+                >
+                    Create New Project
+                </Button>
+            )}
+            title="Are you sure you want to delete this column!"
+        />
     );
 };
 

@@ -1,15 +1,15 @@
 /* eslint-disable react/jsx-max-depth */
 'use client';
-import { Dialog as HUIDialog, Transition } from '@headlessui/react';
+import { Dialog, Transition } from '@headlessui/react';
 import { Fragment, useState } from 'react';
-import { twMerge } from 'tailwind-merge';
+
+import { Button } from '@/components';
 
 import { ModalProps } from './Modal.types';
 
 
 const Confirm = ({ renderCloseButton, renderOpenButton, renderConfirmButton, body, title }: ModalProps) => {
     const [isOpen, setIsOpen] = useState(false);
-
 
     function closeModal() {
         setIsOpen(false);
@@ -19,7 +19,7 @@ const Confirm = ({ renderCloseButton, renderOpenButton, renderConfirmButton, bod
         <>
             {renderOpenButton(() => setIsOpen((p) => !p))}
             <Transition appear as={Fragment} show={isOpen}>
-                <HUIDialog as="div" className="relative z-10" onClose={closeModal}>
+                <Dialog as="div" className="relative z-10" onClose={closeModal}>
                     <Transition.Child
                         as={Fragment}
                         enter="ease-out duration-300"
@@ -43,29 +43,31 @@ const Confirm = ({ renderCloseButton, renderOpenButton, renderConfirmButton, bod
                                 leaveFrom="opacity-100 scale-100"
                                 leaveTo="opacity-0 scale-95"
                             >
-                                <HUIDialog.Panel className="w-full max-w-md transform overflow-hidden rounded-md bg-base-100 p-4 text-left align-middle shadow-xl transition-all">
+                                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-md bg-base-100 p-4 text-left align-middle shadow-xl transition-all">
                                     {title
                                         ? (
-                                            <HUIDialog.Title
+                                            <Dialog.Title
                                                 as="h3"
-                                                className={twMerge('text-lg font-medium leading-6 text-base-content')}
+                                                className="text-lg font-medium leading-6 text-base-content mb-4"
                                             >
                                                 {title}
-                                            </HUIDialog.Title>
+                                            </Dialog.Title>
                                         )
                                         : null}
 
-                                    {body}
-
-                                    <div className="flex justify-end gap-2 mt-4">
-                                        {typeof renderConfirmButton === 'function' ? renderConfirmButton?.(closeModal) : renderConfirmButton}
-                                        {typeof renderCloseButton === 'function' ? renderCloseButton?.(closeModal) : renderCloseButton}
+                                    <div className="mb-4">
+                                        {body}
                                     </div>
-                                </HUIDialog.Panel>
+
+                                    <div className="flex justify-end gap-2">
+                                        {typeof renderConfirmButton === 'function' ? renderConfirmButton(closeModal) : renderConfirmButton}
+                                        {typeof renderCloseButton === 'function' ? renderCloseButton(closeModal) : (renderCloseButton || <Button outline onClick={closeModal}>Cancel</Button>)}
+                                    </div>
+                                </Dialog.Panel>
                             </Transition.Child>
                         </div>
                     </div>
-                </HUIDialog>
+                </Dialog>
             </Transition>
         </>
     );
