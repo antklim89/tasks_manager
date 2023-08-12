@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-max-depth */
 'use client';
 import { Dialog as HUIDialog, Transition } from '@headlessui/react';
-import { Fragment, memo, useState } from 'react';
+import { Fragment, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 
 import { ModalProps } from './Modal.types';
@@ -71,4 +71,4 @@ const Confirm = ({ renderCloseButton, renderOpenButton, renderConfirmButton, bod
     );
 };
 
-export default memo(Confirm, (p, n) => p.body === n.body || p.title === n.title);
+export default Confirm;
