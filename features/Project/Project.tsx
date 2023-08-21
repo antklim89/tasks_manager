@@ -14,7 +14,7 @@ const Project = ({ projectId }: {projectId: number}) => {
 
     if (isLoading) return <span className="loading loading-bars loading-lg" />;
     return (
-        <div className="flex gap-2">
+        <div className="flex items-start h-full gap-2 overflow-y-scroll">
             {columns.map((column) => (
                 <Column key={column.id} {...column} />
             ))}
