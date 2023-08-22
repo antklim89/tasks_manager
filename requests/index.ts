@@ -8,4 +8,5 @@ export * from './useColumnUpdate';
 export * from './useProjectCreate';
 export * from './useProjectDelete';
 export * from './useProjectsFetch';
+export * from './useTaskCreate';
 export * from './useTasksFetch';

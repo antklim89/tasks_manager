@@ -11,4 +11,19 @@ export const taskSchema = z.object({
     owner: z.number(),
 });
 
+export const taskCreateSchema = z.object({
+    title: z.string()
+        .min(3)
+        .max(300),
+    description: z.string()
+        .min(3)
+        .max(1000)
+        .optional(),
+    completeAt: z.string()
+        .datetime()
+        .optional(),
+});
+
 export type TaskType = z.infer<typeof taskSchema>
+
+export type TaskCreateType = z.infer<typeof taskCreateSchema>
