@@ -26,8 +26,8 @@ export function useTaskCreate({ columnId }: { columnId: number }) {
         },
         {
             revalidate: false,
-            populateCache(newTask, currentData: TaskType[]) {
-                return [...currentData, newTask];
+            populateCache(newTask, currentData?: TaskType[]) {
+                return [...currentData || [], newTask];
             },
         },
     );

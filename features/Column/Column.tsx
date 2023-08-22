@@ -3,6 +3,7 @@ import { ColumnType } from '@/schemas';
 
 import ColumnDelete from './ColumnDelete';
 import ColumnName from './ColumnName';
+import ColumnTaskCreate from './ColumnTaskCreate';
 
 
 const Column = ({ id, name, project }: ColumnType) => {
@@ -12,6 +13,9 @@ const Column = ({ id, name, project }: ColumnType) => {
                 <div className="card-title flex justify-between">
                     <ColumnName id={id} name={name} projectId={project} />
                     <ColumnDelete id={id} projectId={project} />
+                </div>
+                <div className="card-actions">
+                    <ColumnTaskCreate columnId={id} />
                 </div>
             </div>
         </div>
