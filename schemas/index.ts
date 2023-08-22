@@ -2,3 +2,4 @@
 
 export * from './column';
 export * from './project';
+export * from './task';

@@ -68,6 +68,49 @@ export interface Database {
           }
         ]
       }
+      tasks: {
+        Row: {
+          columnId: number
+          completeAt: string | null
+          createdAt: string
+          description: string
+          id: number
+          owner: string
+          title: string
+        }
+        Insert: {
+          columnId: number
+          completeAt?: string | null
+          createdAt?: string
+          description?: string
+          id?: number
+          owner: string
+          title: string
+        }
+        Update: {
+          columnId?: number
+          completeAt?: string | null
+          createdAt?: string
+          description?: string
+          id?: number
+          owner?: string
+          title?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "tasks_columnId_fkey"
+            columns: ["columnId"]
+            referencedRelation: "columns"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "tasks_owner_fkey"
+            columns: ["owner"]
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
     }
     Views: {
       [_ in never]: never
