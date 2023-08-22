@@ -8,7 +8,7 @@ export const taskSchema = z.object({
     description: z.string(),
     completeAt: z.string(),
     columnId: z.number(),
-    owner: z.number(),
+    owner: z.string(),
 });
 
 export const taskCreateSchema = z.object({
@@ -16,11 +16,10 @@ export const taskCreateSchema = z.object({
         .min(3)
         .max(300),
     description: z.string()
-        .min(3)
         .max(1000)
         .optional(),
     completeAt: z.string()
-        .datetime()
+        // .datetime()
         .optional(),
 });
 
