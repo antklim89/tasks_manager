@@ -58,7 +58,7 @@ const ProjectPanelCreate = () => {
                     isLoading={isMutating}
                     onClick={close}
                 >
-                    Create New Project
+                    New Project
                 </Button>
             )}
             title="Are you sure you want to delete this column!"
