@@ -11,10 +11,10 @@ const DashboardPage = ({ params }: { params: { projectId?: string[] } }) => {
     const projectId = z.coerce.number().optional().parse(params?.projectId?.[0]);
 
     return (
-        <>
+        <div className="flex flex-col h-full">
             <ProjectPanel projectId={projectId} />
             { projectId ? <Project projectId={projectId} /> : <DashboardHome /> }
-        </>
+        </div>
     );
 };
 
