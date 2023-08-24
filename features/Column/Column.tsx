@@ -11,7 +11,6 @@ import ColumnTaskCreate from './ColumnTaskCreate';
 const Column = ({ id, name, project }: ColumnType) => {
     const { data: tasks = [] } = useTasksFetch({ columnId: id });
 
-
     return (
         <div className="card w-96 bg-base-200 shadow-xl">
             <div className="card-body p-1">
@@ -24,7 +23,7 @@ const Column = ({ id, name, project }: ColumnType) => {
                         <Task key={task.id} task={task} />
                     ))}
                 </div>
-                <div className="card-actions">
+                <div className="card-actions p-1 flex justify-end">
                     <ColumnTaskCreate columnId={id} />
                 </div>
             </div>
