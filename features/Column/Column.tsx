@@ -1,4 +1,6 @@
 'use client';
+import { FaEllipsisVertical } from 'react-icons/fa6';
+
 import Task from '@/features/Task';
 import { useTasksFetch } from '@/requests';
 import { ColumnType } from '@/schemas';
@@ -16,7 +18,13 @@ const Column = ({ id, name, project }: ColumnType) => {
             <div className="card-body p-1">
                 <div className="card-title flex justify-between">
                     <ColumnName id={id} name={name} projectId={project} />
-                    <ColumnDelete id={id} projectId={project} />
+                    <div className="dropdown">
+                        <button className="btn m-1" type="button"><FaEllipsisVertical /></button>
+                        <button className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52" type="button">
+                            <ColumnDelete id={id} projectId={project} />
+                        </button>
+                    </div>
+
                 </div>
                 <div className="card-body p-1">
                     {tasks.map((task) => (

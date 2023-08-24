@@ -1,5 +1,3 @@
-import { FaTrash } from 'react-icons/fa6';
-
 import { Button, Modal } from '@/components';
 import { useColumnDelete } from '@/requests';
 
@@ -37,11 +35,12 @@ const ColumnDelete = ({ id, projectId }: { id: number, projectId: number }) => {
             renderOpenButton={(close) => (
                 <Button
                     aria-label="delete column"
+                    className="w-full"
                     color="ghost"
                     isLoading={isMutating}
                     onClick={close}
                 >
-                    <FaTrash />
+                    Delete
                 </Button>
             )}
             title="Are you sure you want to delete this column!"
