@@ -30,10 +30,16 @@ const Button = ({
         <button
             type="button"
             {...props}
-            className={twMerge('btn', className, classes.color[color], size && classes.size[size], outline && 'btn-outline')}
+            className={twMerge(
+                'btn flex-nowrap relative',
+                className,
+                classes.color[color],
+                size && classes.size[size],
+                outline && 'btn-outline',
+            )}
             disabled={disabled || isLoading}
         >
-            {isLoading ? <span className="loading loading-bars loading-sm" /> : null}
+            {isLoading ? <span className="loading loading-bars loading-sm text-white absolute left-1/2 -translate-x-1/2" /> : null}
             {children}
         </button>
     );
