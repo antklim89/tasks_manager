@@ -12,7 +12,7 @@ import ColumnTaskCreate from './ColumnTaskCreate';
 
 
 const Column = ({ id, name, project }: ColumnType) => {
-    const { data: tasks = [] } = useTasksFetch({ columnId: id });
+    const { data: tasks = [], isLoading } = useTasksFetch({ columnId: id });
 
     return (
         <div className="card w-96 bg-base-200 shadow-xl">
@@ -26,6 +26,7 @@ const Column = ({ id, name, project }: ColumnType) => {
                     </Menu>
                 </div>
                 <div className="card-body p-1">
+                    {isLoading ? <span className="loading loading-bars loading-lg" /> : null}
                     {tasks.map((task) => (
                         <Task key={task.id} task={task} />
                     ))}
