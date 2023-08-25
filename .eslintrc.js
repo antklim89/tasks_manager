@@ -86,6 +86,7 @@ module.exports = {
         /**
         * JavaScript
         */
+        'no-undefined': 0,
         'newline-per-chained-call': [1, { ignoreChainWithDepth: 3 }],
         'new-cap': 0,
         'capitalized-comments': 0,
