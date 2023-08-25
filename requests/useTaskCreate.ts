@@ -20,6 +20,7 @@ export function useTaskCreate({ columnId }: { columnId: number }) {
                 .insert({ title, description, completeAt, columnId, owner: user.id })
                 .select('*')
                 .single();
+            // console.log('==  error\n', error);
 
             if (error) throw new Error('Failed to add new task. Try again later.');
             return taskSchema.parse(data);

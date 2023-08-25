@@ -39,7 +39,7 @@ const ColumnTaskCreate = ({ columnId }: { columnId: number; }) => {
                         {...register('completeAt')}
                         errorMessage={errors.completeAt?.message}
                         label="Complete at"
-                        type="datetime"
+                        type="datetime-local"
                     />
                 </form>
             )}

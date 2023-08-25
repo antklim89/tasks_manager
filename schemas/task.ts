@@ -5,8 +5,8 @@ export const taskSchema = z.object({
     id: z.number(),
     createdAt: z.string(),
     title: z.string(),
-    description: z.string(),
-    completeAt: z.string(),
+    description: z.string().optional(),
+    completeAt: z.string().nullish(),
     columnId: z.number(),
     owner: z.string(),
 });
@@ -20,6 +20,7 @@ export const taskCreateSchema = z.object({
         .optional(),
     completeAt: z.string()
         // .datetime()
+        .transform((v) => (v.length === 0 ? undefined : new Date(v).toISOString()))
         .optional(),
 });
 
