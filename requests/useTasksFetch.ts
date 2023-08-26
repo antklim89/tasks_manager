@@ -1,4 +1,4 @@
-import useSWR from 'swr';
+import useSWR, { SWRConfiguration } from 'swr';
 
 import { TaskType, taskSchema } from '@/schemas';
 import { clientComponentClient, getClientComponentUser } from '@/utils';
@@ -6,7 +6,9 @@ import { clientComponentClient, getClientComponentUser } from '@/utils';
 import { FetchTasksKey } from './keys';
 
 
-export function useTasksFetch({ columnId }: { columnId: number }) {
+type Options = SWRConfiguration<TaskType[], Error>;
+
+export function useTasksFetch({ columnId }: { columnId: number }, options?: Options) {
     return useSWR<TaskType[], Error, FetchTasksKey>(
         ['TASKS', { columnId }],
 
@@ -24,5 +26,6 @@ export function useTasksFetch({ columnId }: { columnId: number }) {
             if (error) throw new Error('Failed to fetch tasks. Try again later.');
             return taskSchema.array().parseAsync(data);
         },
+        options,
     );
 }

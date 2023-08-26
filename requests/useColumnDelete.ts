@@ -1,4 +1,4 @@
-import useSWRMutation from 'swr/mutation';
+import useSWRMutation, { SWRMutationConfiguration } from 'swr/mutation';
 
 import { ColumnType } from '@/schemas';
 import { clientComponentClient, getClientComponentUser } from '@/utils';
@@ -6,8 +6,10 @@ import { clientComponentClient, getClientComponentUser } from '@/utils';
 import { FetchColumnsKey } from './keys';
 
 
-export function useColumnDelete({ columnId, projectId }: { columnId: number, projectId: number }) {
-    return useSWRMutation<void, Error, FetchColumnsKey>(
+type Options = SWRMutationConfiguration<void, Error, FetchColumnsKey, void>;
+
+export function useColumnDelete({ columnId, projectId }: { columnId: number, projectId: number }, options?: Options) {
+    return useSWRMutation<void, Error, FetchColumnsKey, void>(
         ['COLUMNS', { projectId }],
 
         async () => {
@@ -22,6 +24,7 @@ export function useColumnDelete({ columnId, projectId }: { columnId: number, pro
             if (error) throw new Error('Failed to add new column. Try again later.');
         },
         {
+            ...options,
             revalidate: false,
             populateCache(result, columns: ColumnType[]) {
                 return columns.filter((c) => c.id !== columnId);

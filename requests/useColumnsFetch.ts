@@ -1,4 +1,4 @@
-import useSWR from 'swr';
+import useSWR, { SWRConfiguration } from 'swr';
 
 import { ColumnType, columnSchema } from '@/schemas';
 import { clientComponentClient, getClientComponentUser } from '@/utils';
@@ -6,7 +6,9 @@ import { clientComponentClient, getClientComponentUser } from '@/utils';
 import { FetchColumnsKey } from './keys';
 
 
-export function useColumnsFetch({ projectId }: { projectId: number }) {
+type Options = SWRConfiguration<ColumnType[], Error>;
+
+export function useColumnsFetch({ projectId }: { projectId: number }, options?: Options) {
     return useSWR<ColumnType[], Error, FetchColumnsKey>(
         ['COLUMNS', { projectId }],
 
@@ -24,5 +26,6 @@ export function useColumnsFetch({ projectId }: { projectId: number }) {
             if (error) throw new Error('Failed to fetch columns. Try again later.');
             return columnSchema.array().parseAsync(data);
         },
+        options,
     );
 }

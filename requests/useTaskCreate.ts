@@ -1,4 +1,4 @@
-import useSWRMutation from 'swr/mutation';
+import useSWRMutation, { SWRMutationConfiguration } from 'swr/mutation';
 
 import { TaskCreateType, TaskType, taskSchema } from '@/schemas';
 import { clientComponentClient, getClientComponentUser } from '@/utils';
@@ -6,7 +6,9 @@ import { clientComponentClient, getClientComponentUser } from '@/utils';
 import { FetchTasksKey } from './keys';
 
 
-export function useTaskCreate({ columnId }: { columnId: number }) {
+type Options = SWRMutationConfiguration<TaskType, Error, FetchTasksKey, TaskCreateType>;
+
+export function useTaskCreate({ columnId }: { columnId: number }, options?: Options) {
     return useSWRMutation<TaskType, Error, FetchTasksKey, TaskCreateType>(
         ['TASKS', { columnId }],
 
@@ -26,6 +28,7 @@ export function useTaskCreate({ columnId }: { columnId: number }) {
             return taskSchema.parse(data);
         },
         {
+            ...options,
             revalidate: false,
             populateCache(newTask, currentData?: TaskType[]) {
                 return [...currentData || [], newTask];

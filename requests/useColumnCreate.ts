@@ -1,4 +1,4 @@
-import useSWRMutation from 'swr/mutation';
+import useSWRMutation, { SWRMutationConfiguration } from 'swr/mutation';
 
 import { ColumnType, columnSchema } from '@/schemas';
 import { clientComponentClient, getClientComponentUser } from '@/utils';
@@ -6,7 +6,9 @@ import { clientComponentClient, getClientComponentUser } from '@/utils';
 import { FetchColumnsKey } from './keys';
 
 
-export function useColumnCreate({ projectId }: { projectId: number }) {
+type Options = SWRMutationConfiguration<ColumnType, Error, FetchColumnsKey, void>;
+
+export function useColumnCreate({ projectId }: { projectId: number }, options?: Options) {
     return useSWRMutation<ColumnType, Error, FetchColumnsKey, void>(
         ['COLUMNS', { projectId }],
 
@@ -24,6 +26,7 @@ export function useColumnCreate({ projectId }: { projectId: number }) {
             return columnSchema.parse(data);
         },
         {
+            ...options,
             revalidate: false,
             populateCache(newColumn, currentData: ColumnType[]) {
                 return [...currentData, newColumn];

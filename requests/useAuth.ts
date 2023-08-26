@@ -1,13 +1,15 @@
 import { useRouter } from 'next/navigation';
-import useSWRMutation from 'swr/mutation';
+import useSWRMutation, { SWRMutationConfiguration } from 'swr/mutation';
 
-import { AuthFotmInput } from '@/features/Auth/Auth.types';
+import { AuthFotmInput } from '@/schemas';
 import { clientComponentClient } from '@/utils';
 
 import { AuthKey } from './keys';
 
 
-export function useAuth() {
+type Options = SWRMutationConfiguration<void, Error, AuthKey, AuthFotmInput & {type: 'login' | 'register'}>;
+
+export function useAuth(options?: Options) {
     const { refresh } = useRouter();
     return useSWRMutation<void, Error, AuthKey, AuthFotmInput & {type: 'login' | 'register'}>(
         ['AUTH'],
@@ -21,5 +23,6 @@ export function useAuth() {
             if (error) throw error;
             refresh();
         },
+        options,
     );
 }

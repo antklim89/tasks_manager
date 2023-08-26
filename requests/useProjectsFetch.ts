@@ -1,4 +1,4 @@
-import useSWR from 'swr';
+import useSWR, { SWRConfiguration } from 'swr';
 
 import { ProjectType, projectSchema } from '@/schemas';
 import { clientComponentClient, getClientComponentUser } from '@/utils';
@@ -6,7 +6,9 @@ import { clientComponentClient, getClientComponentUser } from '@/utils';
 import { FetchProjectsKey } from './keys';
 
 
-export function useProjectsFetch() {
+type Options = SWRConfiguration<ProjectType[], Error>;
+
+export function useProjectsFetch(options?: Options) {
     return useSWR<ProjectType[], Error, FetchProjectsKey>(
         ['PROJECTS'],
 
@@ -23,5 +25,6 @@ export function useProjectsFetch() {
 
             return projectSchema.array().parseAsync(data);
         },
+        options,
     );
 }
