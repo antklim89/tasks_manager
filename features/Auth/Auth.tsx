@@ -6,14 +6,12 @@ import { useForm } from 'react-hook-form';
 import { Button, Input } from '@/components';
 import Alert from '@/components/Alert/Alert';
 import { useAuth } from '@/requests/useAuth';
-
-import { authSchema } from './Auth.schema';
-import { AuthFotmInput } from './Auth.types';
+import { AuthFotmInput, authSchema } from '@/schemas';
 
 
 const Auth = () => {
     const [type, setType] = useState<'login'|'register'>('login');
-    const { trigger, isMutating, error, reset } = useAuth();
+    const { trigger: authenticate, isMutating, error, reset } = useAuth();
 
     const {
         register,
@@ -29,7 +27,7 @@ const Auth = () => {
             setError('confirm', { message: 'Passwords should be the same.', type: 'validate' });
         }
         reset();
-        await trigger({ email: data.email, password: data.password, type });
+        await authenticate({ email: data.email, password: data.password, type });
     });
 
     return (
