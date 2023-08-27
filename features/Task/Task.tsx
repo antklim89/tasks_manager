@@ -1,3 +1,5 @@
+import { DateComponent } from '@/components';
+
 import { TaskProps } from './Task.types';
 
 
@@ -13,7 +15,7 @@ const Task = ({ task }: TaskProps) => {
                     {task.description}
                 </div>
                 <div className="card-actions">
-                    {task.completeAt}
+                    <DateComponent date={task.completeAt} />
                 </div>
             </div>
         </div>
