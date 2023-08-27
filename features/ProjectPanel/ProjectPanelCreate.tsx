@@ -6,12 +6,16 @@ import { useForm } from 'react-hook-form';
 import { Button, Input, Modal } from '@/components';
 import Alert from '@/components/Alert/Alert';
 import { useProjectCreate } from '@/requests';
+import { useDisclosure } from '@/utils';
 
 import { ProjectCreateType, projectCreateSchema } from './ProjectPanel.schema';
 
 
 const ProjectPanelCreate = () => {
+    const { isOpen, close, open } = useDisclosure();
+
     const { push } = useRouter();
+
     const {
         register,
         formState: { errors },
@@ -21,6 +25,7 @@ const ProjectPanelCreate = () => {
 
     const { trigger: createNewProject, error, isMutating, reset: resetState } = useProjectCreate({
         onSuccess(newProject) {
+            close();
             resetForm({ }, { keepValues: false });
             resetState();
             if (Array.isArray(newProject) && newProject.at(-1)) push(`dashboard/${newProject.at(-1).id}`);
@@ -28,41 +33,50 @@ const ProjectPanelCreate = () => {
         },
     });
 
-    const handleCreate = (close: (() => void)) => handleSubmit((data) => {
-        createNewProject(data).catch(() => null).then(() => close());
+    const handleCreate = () => handleSubmit((data) => {
+        createNewProject(data);
     });
 
     return (
-        <Modal
-            body={(
-                <>
+        <>
+            <Button
+                aria-label="delete column"
+                isLoading={isMutating}
+                onClick={open}
+            >
+                New Project
+            </Button>
+
+            <Modal isOpen={isOpen} onClose={close}>
+                <Modal.Title>
+                    Are you sure you want to delete this column!
+                </Modal.Title>
+                <Modal.Body>
                     <Alert message={error?.message} type="error" />
                     <Input
                         errorMessage={errors.name?.message}
                         placeholder="Project name"
                         {...register('name')}
                     />
-                </>
-            )}
-            renderConfirmButton={(close) => (
-                <Button
-                    isLoading={isMutating}
-                    onClick={() => handleCreate(close)}
-                >
-                    Create
-                </Button>
-            )}
-            renderOpenButton={(close) => (
-                <Button
-                    aria-label="delete column"
-                    isLoading={isMutating}
-                    onClick={close}
-                >
-                    New Project
-                </Button>
-            )}
-            title="Are you sure you want to delete this column!"
-        />
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button
+                        outline
+                        isLoading={isMutating}
+                        onClick={close}
+                    >
+                        Cancel
+                    </Button>
+                    <Button
+                        isLoading={isMutating}
+                        onClick={handleCreate}
+                    >
+                        Create
+                    </Button>
+
+                </Modal.Footer>
+            </Modal>
+        </>
     );
 };
 

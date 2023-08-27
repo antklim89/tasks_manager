@@ -3,54 +3,61 @@ import { FaTrash } from 'react-icons/fa6';
 
 import { Button, Modal } from '@/components';
 import { useProjectDelete } from '@/requests';
+import { useDisclosure } from '@/utils';
 
 
 const ProjectPanelDelete = ({ projectId }: { projectId: number }) => {
+    const { isOpen, close, open } = useDisclosure();
+
     const { push } = useRouter();
+
     const { trigger, isMutating } = useProjectDelete({ projectId }, {
         onSuccess() {
+            close();
             push('/dashboard');
         },
     });
 
-    const handleDelete = async (close: () => void) => {
-        await trigger().catch(() => null).then(() => close());
+    const handleDelete = async () => {
+        await trigger();
     };
 
     return (
-        <Modal
-            renderCloseButton={(close) => (
-                <Button
-                    outline
-                    isLoading={isMutating}
-                    size="sm"
-                    onClick={close}
-                >
-                    Cancel
-                </Button>
-            )}
-            renderConfirmButton={(close) => (
-                <Button
-                    color="error"
-                    isLoading={isMutating}
-                    size="sm"
-                    onClick={() => handleDelete(close)}
-                >
-                    Delete
-                </Button>
-            )}
-            renderOpenButton={(close) => (
-                <Button
-                    aria-label="delete column"
-                    color="ghost"
-                    isLoading={isMutating}
-                    onClick={close}
-                >
-                    <FaTrash />
-                </Button>
-            )}
-            title="Are you sure you want to delete this column!"
-        />
+        <>
+            <Button
+                aria-label="delete column"
+                color="ghost"
+                isLoading={isMutating}
+                onClick={open}
+            >
+                <FaTrash />
+            </Button>
+
+            <Modal isOpen={isOpen} onClose={close}>
+                <Modal.Title>
+                    Are you sure you want to delete this column!
+                </Modal.Title>
+                <Modal.Footer>
+                    <Button
+                        outline
+                        isLoading={isMutating}
+                        size="sm"
+                        onClick={close}
+                    >
+                        Cancel
+                    </Button>
+                    <Button
+                        color="error"
+                        isLoading={isMutating}
+                        size="sm"
+                        onClick={handleDelete}
+                    >
+                        Delete
+                    </Button>
+
+                </Modal.Footer>
+            </Modal>
+        </>
     );
 };
 

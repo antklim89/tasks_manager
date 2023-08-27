@@ -5,10 +5,18 @@ import { FaPlus } from 'react-icons/fa6';
 import { Button, Input, Modal } from '@/components';
 import { useTaskCreate } from '@/requests';
 import { TaskCreateType, taskCreateSchema } from '@/schemas';
+import { useDisclosure } from '@/utils';
 
 
 const ColumnTaskCreate = ({ columnId }: { columnId: number; }) => {
-    const { trigger: createTask, isMutating } = useTaskCreate({ columnId });
+    const { isOpen, close, open } = useDisclosure();
+
+    const { trigger: createTask, isMutating } = useTaskCreate({ columnId }, {
+        onSuccess() {
+            close();
+        },
+    });
+
     const {
         register,
         handleSubmit,
@@ -17,39 +25,41 @@ const ColumnTaskCreate = ({ columnId }: { columnId: number; }) => {
         resolver: zodResolver(taskCreateSchema),
     });
 
-    const handleCreateTask = (close: (() => void)) => handleSubmit((data) => {
-        createTask(data).catch(console.error).then(close);
+    const handleCreateTask = handleSubmit((data) => {
+        createTask(data);
     });
 
     return (
-        <Modal
-            body={(
-                <form>
-                    <Input
-                        {...register('title')}
-                        errorMessage={errors.title?.message}
-                        label="Title"
-                    />
-                    <Input
-                        {...register('description')}
-                        errorMessage={errors.description?.message}
-                        label="Description"
-                    />
-                    <Input
-                        {...register('completeAt')}
-                        errorMessage={errors.completeAt?.message}
-                        label="Complete at"
-                        type="datetime-local"
-                    />
-                </form>
-            )}
-            renderConfirmButton={(close) => (
-                <Button isLoading={isMutating} onClick={(e) => handleCreateTask(close)(e)}>Create</Button>
-            )}
-            renderOpenButton={(open) => (
-                <Button aria-label="add new task" isLoading={isMutating} onClick={open}><FaPlus /></Button>
-            )}
-        />
+        <>
+            <Button aria-label="add new task" isLoading={isMutating} onClick={open}><FaPlus /></Button>
+
+            <Modal isOpen={isOpen} onClose={close}>
+                <Modal.Body>
+                    <form>
+                        <Input
+                            {...register('title')}
+                            errorMessage={errors.title?.message}
+                            label="Title"
+                        />
+                        <Input
+                            {...register('description')}
+                            errorMessage={errors.description?.message}
+                            label="Description"
+                        />
+                        <Input
+                            {...register('completeAt')}
+                            errorMessage={errors.completeAt?.message}
+                            label="Complete at"
+                            type="datetime-local"
+                        />
+                    </form>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button outline isLoading={isMutating} onClick={close}>Cancel</Button>
+                    <Button isLoading={isMutating} onClick={handleCreateTask}>Create</Button>
+                </Modal.Footer>
+            </Modal>
+        </>
     );
 };
 
