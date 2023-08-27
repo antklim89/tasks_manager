@@ -1,4 +1,4 @@
-import { SwrProvider } from '@/components';
+import { SwrProvider, Toast } from '@/components';
 import { Footer, Header } from '@/features';
 import '@/styles/main.scss';
 
@@ -21,6 +21,7 @@ const RootLayout = async ({ children }: { children: React.ReactNode }) => {
                         {children}
                     </main>
                     <Footer />
+                    <Toast />
                 </SwrProvider>
             </body>
         </html>

@@ -1,3 +1,4 @@
+import { toast } from 'react-hot-toast';
 import useSWRMutation, { SWRMutationConfiguration } from 'swr/mutation';
 
 import { ColumnType, columnSchema } from '@/schemas';
@@ -30,6 +31,12 @@ export function useColumnCreate({ projectId }: { projectId: number }, options?: 
             revalidate: false,
             populateCache(newColumn, currentData: ColumnType[]) {
                 return [...currentData, newColumn];
+            },
+            onSuccess() {
+                toast.success('Column created succesfully.');
+            },
+            onError() {
+                toast.error('Failed to create a column. Try again later.');
             },
         },
     );
