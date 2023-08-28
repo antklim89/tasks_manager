@@ -1,3 +1,4 @@
+import { toast } from 'react-hot-toast';
 import useSWR, { SWRConfiguration } from 'swr';
 
 import { ColumnType, columnSchema } from '@/schemas';
@@ -23,9 +24,15 @@ export function useColumnsFetch({ projectId }: { projectId: number }, options?: 
                 .eq('project', key.projectId)
                 .eq('owner', user.id);
 
-            if (error) throw new Error('Failed to fetch columns. Try again later.');
+            if (error) throw error;
             return columnSchema.array().parseAsync(data);
         },
-        options,
+        {
+            ...options,
+            onError(...args) {
+                toast.error('Failed to fetch columns. Try again later.', { id: 'COLUMNs_FETCH' });
+                options?.onError?.(...args);
+            },
+        },
     );
 }

@@ -1,3 +1,4 @@
+import { toast } from 'react-hot-toast';
 import useSWR, { SWRConfiguration } from 'swr';
 
 import { TaskType, taskSchema } from '@/schemas';
@@ -23,9 +24,15 @@ export function useTasksFetch({ columnId }: { columnId: number }, options?: Opti
                 .eq('columnId', key.columnId)
                 .eq('owner', user.id);
 
-            if (error) throw new Error('Failed to fetch tasks. Try again later.');
+            if (error) throw error;
             return taskSchema.array().parseAsync(data);
         },
-        options,
+        {
+            ...options,
+            onError(...args) {
+                toast.error('Failed to fetch tasks. Try again later.', { id: 'TASKS_FETCH' });
+                options?.onError?.(...args);
+            },
+        },
     );
 }

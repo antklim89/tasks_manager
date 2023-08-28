@@ -1,3 +1,4 @@
+import { toast } from 'react-hot-toast';
 import useSWR, { SWRConfiguration } from 'swr';
 
 import { ProjectType, projectSchema } from '@/schemas';
@@ -21,10 +22,16 @@ export function useProjectsFetch(options?: Options) {
                 .select('*')
                 .eq('owner', user.id);
 
-            if (error) throw new Error('Failed to fetch projects. Try again later.');
+            if (error) throw error;
 
             return projectSchema.array().parseAsync(data);
         },
-        options,
+        {
+            ...options,
+            onError(...args) {
+                toast.error('Failed to fetch projects. Try again later.', { id: 'PROJECTS_FETCH' });
+                options?.onError?.(...args);
+            },
+        },
     );
 }

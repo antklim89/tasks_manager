@@ -1,3 +1,4 @@
+import { toast } from 'react-hot-toast';
 import useSWRMutation, { SWRMutationConfiguration } from 'swr/mutation';
 
 import { ProjectType, projectSchema } from '@/schemas';
@@ -6,6 +7,8 @@ import { getBrowserClient, getBrowserUser } from '@/utils';
 import { FetchProjectsKey } from './keys';
 
 
+const TOAST_ID = 'PROJECT_CREATE';
+
 type Options = SWRMutationConfiguration<ProjectType, Error, FetchProjectsKey, { name: string }>;
 
 export function useProjectCreate(options?: Options) {
@@ -13,6 +16,7 @@ export function useProjectCreate(options?: Options) {
         ['PROJECTS'],
 
         async (key, { arg: { name } }) => {
+            toast.loading('Project is creating...', { id: TOAST_ID });
             const supabase = getBrowserClient();
 
             const user = await getBrowserUser();
@@ -22,17 +26,24 @@ export function useProjectCreate(options?: Options) {
                 .select('*')
                 .single();
 
-            if (error?.code === '23505') throw new Error(`Project with name "${name}" alerady exists.`);
-            if (error) throw new Error('Failed to add new project. Try again later.');
+            if (error) throw error;
 
             return projectSchema.parseAsync(data);
         },
         {
+            ...options,
             revalidate: false,
             populateCache(newProject, currentProjects: ProjectType[]) {
                 return [...currentProjects, newProject];
             },
-            ...options,
+            onSuccess(...args) {
+                toast.success('Project created succesfully.', { id: TOAST_ID });
+                options?.onSuccess?.(...args);
+            },
+            onError(...args) {
+                toast.error('Failed to create a project. Try again later.', { id: TOAST_ID });
+                options?.onError?.(...args);
+            },
         },
     );
 }

@@ -1,3 +1,4 @@
+import { toast } from 'react-hot-toast';
 import useSWRMutation, { SWRMutationConfiguration } from 'swr/mutation';
 
 import { ColumnType } from '@/schemas';
@@ -21,7 +22,7 @@ export function useColumnUpdate({ columnId, projectId }: { columnId: number, pro
                 .eq('id', columnId)
                 .eq('owner', user.id);
 
-            if (error) throw new Error('Failed to update column. Try again later.');
+            if (error) throw error;
 
             return arg;
         },
@@ -30,6 +31,10 @@ export function useColumnUpdate({ columnId, projectId }: { columnId: number, pro
             revalidate: false,
             populateCache(result, columns: ColumnType[]) {
                 return columns.map(((column) => (column.id === columnId ? { ...column, ...result } : column)));
+            },
+            onError(...args) {
+                toast.error('Failed to update column. Try again later.', { id: 'COLUMNS_UPDATE' });
+                options?.onError?.(...args);
             },
         },
     );

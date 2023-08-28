@@ -7,13 +7,17 @@ import { getBrowserClient, getBrowserUser } from '@/utils';
 import { FetchColumnsKey } from './keys';
 
 
+const TOAST_ID = 'COLUMN_CREATE';
+
 type Options = SWRMutationConfiguration<ColumnType, Error, FetchColumnsKey, void>;
 
 export function useColumnCreate({ projectId }: { projectId: number }, options?: Options) {
+
     return useSWRMutation<ColumnType, Error, FetchColumnsKey, void>(
         ['COLUMNS', { projectId }],
 
         async () => {
+            toast.loading('Column is creating...', { id: TOAST_ID });
             const supabase = getBrowserClient();
 
             const user = await getBrowserUser();
@@ -23,7 +27,7 @@ export function useColumnCreate({ projectId }: { projectId: number }, options?: 
                 .select('*')
                 .single();
 
-            if (error) throw new Error('Failed to add new column. Try again later.');
+            if (error) throw error;
             return columnSchema.parse(data);
         },
         {
@@ -32,11 +36,13 @@ export function useColumnCreate({ projectId }: { projectId: number }, options?: 
             populateCache(newColumn, currentData: ColumnType[]) {
                 return [...currentData, newColumn];
             },
-            onSuccess() {
-                toast.success('Column created succesfully.');
+            onSuccess(...args) {
+                toast.success('Column created succesfully.', { id: TOAST_ID });
+                options?.onSuccess?.(...args);
             },
-            onError() {
-                toast.error('Failed to create a column. Try again later.');
+            onError(...args) {
+                toast.error('Failed to create a column. Try again later.', { id: TOAST_ID });
+                options?.onError?.(...args);
             },
         },
     );
