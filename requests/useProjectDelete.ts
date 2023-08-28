@@ -1,7 +1,7 @@
 import useSWRMutation, { SWRMutationConfiguration } from 'swr/mutation';
 
 import { ProjectType } from '@/schemas';
-import { clientComponentClient, getClientComponentUser } from '@/utils';
+import { getBrowserClient, getBrowserUser } from '@/utils';
 
 import { FetchProjectsKey } from './keys';
 
@@ -13,8 +13,8 @@ export function useProjectDelete({ projectId }: { projectId: number }, options?:
         ['PROJECTS'],
 
         async () => {
-            const supabase = clientComponentClient();
-            const user = await getClientComponentUser();
+            const supabase = getBrowserClient();
+            const user = await getBrowserUser();
 
             const { error } = await supabase.from('projects')
                 .delete()

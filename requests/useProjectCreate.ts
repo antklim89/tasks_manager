@@ -1,7 +1,7 @@
 import useSWRMutation, { SWRMutationConfiguration } from 'swr/mutation';
 
 import { ProjectType, projectSchema } from '@/schemas';
-import { clientComponentClient, getClientComponentUser } from '@/utils';
+import { getBrowserClient, getBrowserUser } from '@/utils';
 
 import { FetchProjectsKey } from './keys';
 
@@ -13,9 +13,9 @@ export function useProjectCreate(options?: Options) {
         ['PROJECTS'],
 
         async (key, { arg: { name } }) => {
-            const supabase = clientComponentClient();
+            const supabase = getBrowserClient();
 
-            const user = await getClientComponentUser();
+            const user = await getBrowserUser();
 
             const { error, data } = await supabase.from('projects')
                 .insert({ name, owner: user.id })

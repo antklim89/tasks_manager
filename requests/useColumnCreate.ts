@@ -2,7 +2,7 @@ import { toast } from 'react-hot-toast';
 import useSWRMutation, { SWRMutationConfiguration } from 'swr/mutation';
 
 import { ColumnType, columnSchema } from '@/schemas';
-import { clientComponentClient, getClientComponentUser } from '@/utils';
+import { getBrowserClient, getBrowserUser } from '@/utils';
 
 import { FetchColumnsKey } from './keys';
 
@@ -14,9 +14,9 @@ export function useColumnCreate({ projectId }: { projectId: number }, options?: 
         ['COLUMNS', { projectId }],
 
         async () => {
-            const supabase = clientComponentClient();
+            const supabase = getBrowserClient();
 
-            const user = await getClientComponentUser();
+            const user = await getBrowserUser();
 
             const { error, data } = await supabase.from('columns')
                 .insert({ name: 'New Column', owner: user.id, project: projectId })

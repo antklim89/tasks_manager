@@ -1,7 +1,7 @@
 import useSWR, { SWRConfiguration } from 'swr';
 
 import { ProjectType, projectSchema } from '@/schemas';
-import { clientComponentClient, getClientComponentUser } from '@/utils';
+import { getBrowserClient, getBrowserUser } from '@/utils';
 
 import { FetchProjectsKey } from './keys';
 
@@ -13,9 +13,9 @@ export function useProjectsFetch(options?: Options) {
         ['PROJECTS'],
 
         async () => {
-            const supabase = clientComponentClient();
+            const supabase = getBrowserClient();
 
-            const user = await getClientComponentUser();
+            const user = await getBrowserUser();
 
             const { error, data } = await supabase.from('projects')
                 .select('*')

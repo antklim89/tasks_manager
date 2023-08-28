@@ -4,5 +4,5 @@ import { cookies } from 'next/headers';
 import { Database } from '@/supabase-types-generated';
 
 
-export const serverComponentClient = () => createServerComponentClient<Database>({ cookies });
-export const clientComponentClient = () => createClientComponentClient<Database>({});
+export const getServerClient = () => createServerComponentClient<Database>({ cookies });
+export const getBrowserClient = () => createClientComponentClient<Database>({});

@@ -1,15 +1,15 @@
 import { SupabaseClient, User } from '@supabase/supabase-js';
 
-import { clientComponentClient, serverComponentClient } from './supabase';
+import { getBrowserClient, getServerClient } from './supabase';
 
 
-export async function getClientComponentUser(): Promise<User> {
-    const supabase = clientComponentClient();
+export async function getBrowserUser(): Promise<User> {
+    const supabase = getBrowserClient();
     return getUser(supabase);
 }
 
-export async function getServerComponentUser(): Promise<User> {
-    const supabase = serverComponentClient();
+export async function getServerUser(): Promise<User> {
+    const supabase = getServerClient();
     return getUser(supabase);
 }
 

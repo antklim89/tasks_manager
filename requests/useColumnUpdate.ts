@@ -1,7 +1,7 @@
 import useSWRMutation, { SWRMutationConfiguration } from 'swr/mutation';
 
 import { ColumnType } from '@/schemas';
-import { clientComponentClient, getClientComponentUser } from '@/utils';
+import { getBrowserClient, getBrowserUser } from '@/utils';
 
 import { FetchColumnsKey } from './keys';
 
@@ -13,8 +13,8 @@ export function useColumnUpdate({ columnId, projectId }: { columnId: number, pro
         ['COLUMNS', { projectId }],
 
         async (key, { arg }) => {
-            const supabase = clientComponentClient();
-            const user = await getClientComponentUser();
+            const supabase = getBrowserClient();
+            const user = await getBrowserUser();
 
             const { error } = await supabase.from('columns')
                 .update(arg)

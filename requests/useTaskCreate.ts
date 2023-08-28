@@ -1,7 +1,7 @@
 import useSWRMutation, { SWRMutationConfiguration } from 'swr/mutation';
 
 import { TaskCreateType, TaskType, taskSchema } from '@/schemas';
-import { clientComponentClient, getClientComponentUser } from '@/utils';
+import { getBrowserClient, getBrowserUser } from '@/utils';
 
 import { FetchTasksKey } from './keys';
 
@@ -13,9 +13,9 @@ export function useTaskCreate({ columnId }: { columnId: number }, options?: Opti
         ['TASKS', { columnId }],
 
         async (key, { arg: { title, completeAt, description } }) => {
-            const supabase = clientComponentClient();
+            const supabase = getBrowserClient();
 
-            const user = await getClientComponentUser();
+            const user = await getBrowserUser();
 
             const { error, data } = await supabase
                 .from('tasks')
