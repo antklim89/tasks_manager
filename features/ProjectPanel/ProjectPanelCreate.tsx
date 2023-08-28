@@ -49,7 +49,7 @@ const ProjectPanelCreate = () => {
 
             <Modal isOpen={isOpen} onClose={close}>
                 <Modal.Title>
-                    Are you sure you want to delete this column!
+                    Creaete Project
                 </Modal.Title>
                 <Modal.Body>
                     <Alert message={error?.message} type="error" />
