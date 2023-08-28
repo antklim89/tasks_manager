@@ -1,5 +1,4 @@
 import { useRouter } from 'next/navigation';
-import { FaTrash } from 'react-icons/fa6';
 
 import { Button, Modal } from '@/components';
 import { useProjectDelete } from '@/requests';
@@ -11,16 +10,13 @@ const ProjectPanelDelete = ({ projectId }: { projectId: number }) => {
 
     const { push } = useRouter();
 
-    const { trigger, isMutating } = useProjectDelete({ projectId }, {
+    const { trigger: deleteProject, isMutating } = useProjectDelete({ projectId }, {
         onSuccess() {
             close();
             push('/dashboard');
         },
     });
 
-    const handleDelete = async () => {
-        await trigger();
-    };
 
     return (
         <>
@@ -30,12 +26,12 @@ const ProjectPanelDelete = ({ projectId }: { projectId: number }) => {
                 isLoading={isMutating}
                 onClick={open}
             >
-                <FaTrash />
+                Delete Project
             </Button>
 
             <Modal isOpen={isOpen} onClose={close}>
                 <Modal.Title>
-                    Are you sure you want to delete this column!
+                    Are you sure you want to delete this project!
                 </Modal.Title>
                 <Modal.Footer>
                     <Button
@@ -50,7 +46,7 @@ const ProjectPanelDelete = ({ projectId }: { projectId: number }) => {
                         color="error"
                         isLoading={isMutating}
                         size="sm"
-                        onClick={handleDelete}
+                        onClick={() => deleteProject()}
                     >
                         Delete
                     </Button>
