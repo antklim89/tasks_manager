@@ -31,7 +31,7 @@ const Button = ({
             type="button"
             {...props}
             className={twMerge(
-                'btn flex-nowrap relative',
+                'btn flex-nowrap relative content-center',
                 className,
                 classes.color[color],
                 size && classes.size[size],
