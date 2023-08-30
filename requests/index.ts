@@ -9,6 +9,7 @@ export * from './useLogout';
 export * from './useProjectCreate';
 export * from './useProjectDelete';
 export * from './useProjectsFetch';
+export * from './useProjectUpdate';
 export * from './useTaskCreate';
 export * from './useTaskDelete';
 export * from './useTasksFetch';
