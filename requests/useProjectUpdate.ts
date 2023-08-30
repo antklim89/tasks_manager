@@ -7,7 +7,7 @@ import { getBrowserClient, getBrowserUser } from '@/utils';
 import { FetchProjectsKey } from './keys';
 
 
-const TOAST_ID = 'PROJECT_CREATE';
+const TOAST_ID = 'PROJECT_UPDATE';
 
 type Options = SWRMutationConfiguration<{ name: string }, Error, FetchProjectsKey, { name: string }>;
 
