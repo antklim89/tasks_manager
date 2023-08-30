@@ -9,7 +9,7 @@ import { FetchProjectsKey } from './keys';
 
 type Options = SWRConfiguration<ProjectType[], Error>;
 
-export function useProjectsFetch(options?: Options) {
+export function useProjectsFetch({ id }: { id?: number } = {}, options: Options = {}) {
     return useSWR<ProjectType[], Error, FetchProjectsKey>(
         ['PROJECTS'],
 
@@ -18,10 +18,13 @@ export function useProjectsFetch(options?: Options) {
 
             const user = await getBrowserUser();
 
-            const { error, data } = await supabase.from('projects')
+            const supabaseQuery = supabase.from('projects')
                 .select('*')
                 .eq('owner', user.id);
 
+            if (id) supabaseQuery.eq('id', null);
+
+            const { error, data } = await supabaseQuery;
             if (error) throw error;
 
             return projectSchema.array().parseAsync(data);
