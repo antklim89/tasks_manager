@@ -20,14 +20,12 @@ const ProjectPanel = ({ projectId }: { projectId?: number }) => {
                 <ProjectPanelSelect isLoading={isLoading} projectName={projectName} projects={projects} />
                 <div className="flex-grow" />
                 <Menu button={<Button aria-label="project menu" color="ghost"><FaEllipsisVertical /></Button>}>
-                    <Menu.Item>
-                        {projectId
-                            ? <ProjectPanelDelete projectId={projectId} />
-                            : null}
-                        {(projectId && projectName)
-                            ? <ProjectPanelEdit projectId={projectId} projectName={projectName} />
-                            : null}
-                    </Menu.Item>
+                    {projectId
+                        ? <Menu.Item><ProjectPanelDelete projectId={projectId} /></Menu.Item>
+                        : null}
+                    {(projectId && projectName)
+                        ? <Menu.Item><ProjectPanelEdit projectId={projectId} projectName={projectName} /></Menu.Item>
+                        : null}
                 </Menu>
             </div>
         </>
