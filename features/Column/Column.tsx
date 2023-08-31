@@ -1,12 +1,16 @@
 'use client';
 import { useDrop } from 'react-dnd';
 import { FaEllipsisVertical } from 'react-icons/fa6';
+import { useSWRConfig } from 'swr';
 import { twMerge } from 'tailwind-merge';
 
 import { Menu } from '@/components';
 import Task from '@/features/Task';
 import { useTasksFetch } from '@/requests';
-import { ColumnType } from '@/schemas';
+import { FetchTasksKey } from '@/requests/keys';
+import { ColumnType, TaskType } from '@/schemas';
+
+import { TaskDragItem } from '../Task/Task.types';
 
 import ColumnDelete from './ColumnDelete';
 import ColumnName from './ColumnName';
@@ -14,12 +18,24 @@ import ColumnTaskCreate from './ColumnTaskCreate';
 
 
 const Column = ({ id, name, project }: ColumnType) => {
+    const { mutate } = useSWRConfig();
     const { data: tasks = [], isLoading } = useTasksFetch({ columnId: id });
+
     const [{ isOver }, ref] = useDrop({
         accept: 'TASK',
         collect: (monitor) => ({
             isOver: monitor.isOver(),
         }),
+        async drop(item) {
+            const dropedTask = item as TaskDragItem;
+            if (dropedTask.task.columnId === id) return;
+            await dropedTask.updateTask({ columnId: id });
+            mutate(
+                ['TASKS', { columnId: id }] satisfies FetchTasksKey,
+                (currentData?: TaskType[]) => [...(currentData || []), { ...dropedTask.task, columnId: id }],
+                { revalidate: false },
+            );
+        },
     });
 
     return (

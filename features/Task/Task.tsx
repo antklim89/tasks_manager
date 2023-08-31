@@ -4,15 +4,21 @@ import { FaEllipsisVertical } from 'react-icons/fa6';
 import { twMerge } from 'tailwind-merge';
 
 import { Button, DateComponent, Menu } from '@/components';
+import { useTaskUpdate } from '@/requests';
 
 import { TaskProps } from './Task.types';
 import TaskDelete from './TaskDelete';
 
 
 const Task = ({ task }: TaskProps) => {
+    const { trigger: updateTask } = useTaskUpdate({ taskId: task.id, columnId: task.columnId });
+
     const [{ isDragging }, ref] = useDrag({
         type: 'TASK',
-        item: task,
+        item: {
+            task,
+            updateTask,
+        },
         collect: (m) => ({
             isDragging: m.isDragging(),
         }),
