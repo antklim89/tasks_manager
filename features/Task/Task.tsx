@@ -13,7 +13,7 @@ import TaskDelete from './TaskDelete';
 const Task = ({ task }: TaskProps) => {
     const { trigger: updateTask } = useTaskUpdate({ taskId: task.id, columnId: task.columnId });
 
-    const [{ isDragging }, ref] = useDrag({
+    const [{ isDragging }, dragRef] = useDrag({
         type: 'TASK',
         item: {
             task,
@@ -25,7 +25,7 @@ const Task = ({ task }: TaskProps) => {
     });
 
     return (
-        <div className={twMerge('card bg-primary shadow-lg', isDragging && 'opacity-50')} ref={ref}>
+        <div className={twMerge('card bg-primary shadow-lg', isDragging && 'opacity-50')} ref={dragRef}>
             <div className="card-body p-2">
                 <div className="card-title flex justify-between">
                     {task.title}
