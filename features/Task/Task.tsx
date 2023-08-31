@@ -28,7 +28,7 @@ const Task = ({ task }: TaskProps) => {
                     </Menu>
                 </div>
 
-                <div className="p-1">
+                <div className="min-h-[28px] p-1">
                     {task.description}
                 </div>
 
