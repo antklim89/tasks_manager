@@ -3,7 +3,7 @@ import { ReactNode } from 'react';
 import { SWRConfig } from 'swr';
 
 
-const SwrProvider = ({ children }: { children: ReactNode }) => {
+const Providers = ({ children }: { children: ReactNode }) => {
     return (
         <SWRConfig value={{
             revalidateIfStale: false,
@@ -19,4 +19,4 @@ const SwrProvider = ({ children }: { children: ReactNode }) => {
     );
 };
 
-export default SwrProvider;
+export default Providers;

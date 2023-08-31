@@ -6,5 +6,5 @@ export { default as DateComponent } from './DateComponent';
 export { default as Input } from './Input';
 export { default as Menu } from './Menu';
 export { default as Modal } from './Modal';
-export { default as SwrProvider } from './SwrProvider';
+export { default as Providers } from './Providers';
 export { default as Toast } from './Toast';
