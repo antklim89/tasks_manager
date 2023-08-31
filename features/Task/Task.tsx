@@ -1,5 +1,7 @@
 'use client';
+import { useDrag } from 'react-dnd';
 import { FaEllipsisVertical } from 'react-icons/fa6';
+import { twMerge } from 'tailwind-merge';
 
 import { Button, DateComponent, Menu } from '@/components';
 
@@ -8,9 +10,16 @@ import TaskDelete from './TaskDelete';
 
 
 const Task = ({ task }: TaskProps) => {
+    const [{ isDragging }, ref] = useDrag({
+        type: 'TASK',
+        item: task,
+        collect: (m) => ({
+            isDragging: m.isDragging(),
+        }),
+    });
 
     return (
-        <div className="card bg-primary shadow-lg">
+        <div className={twMerge('card bg-primary shadow-lg', isDragging && 'opacity-50')} ref={ref}>
             <div className="card-body p-2">
                 <div className="card-title flex justify-between">
                     {task.title}
