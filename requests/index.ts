@@ -13,3 +13,4 @@ export * from './useProjectUpdate';
 export * from './useTaskCreate';
 export * from './useTaskDelete';
 export * from './useTasksFetch';
+export * from './useTaskUpdate';
