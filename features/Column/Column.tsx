@@ -18,9 +18,9 @@ import ColumnTaskCreate from './ColumnTaskCreate';
 
 
 const Column = ({ id, name, project }: ColumnType) => {
-    const { mutate } = useSWRConfig();
     const { data: tasks = [], isLoading } = useTasksFetch({ columnId: id });
 
+    const { mutate } = useSWRConfig();
     const [{ isOver }, ref] = useDrop({
         accept: 'TASK',
         collect: (monitor) => ({
@@ -48,7 +48,12 @@ const Column = ({ id, name, project }: ColumnType) => {
                     </Menu.Item>
                 </Menu>
             </div>
-            <div className={twMerge('card-body p-1', isOver && 'bg-red-600')} ref={ref}>
+            <div className="card-body p-1">
+
+                <div className={twMerge('w-full h-4 -my-2', isOver && 'bg-red-600')} ref={ref}>
+                    <div className="" />
+                </div>
+
                 {isLoading ? <span className="loading loading-bars loading-lg" /> : null}
                 {tasks.map((task) => (
                     <Task key={task.id} task={task} />
