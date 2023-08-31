@@ -4,7 +4,7 @@ import { useSWRConfig } from 'swr';
 import { FetchTasksKey } from '@/requests/keys';
 import { TaskType } from '@/schemas';
 
-import type { TaskDragItem } from './useTaskDrag';
+import { TASK_DRAG_TYPE, type TaskDragItem } from './useTaskDrag';
 
 
 export function useTaskDrop({
@@ -14,7 +14,7 @@ export function useTaskDrop({
 }) {
     const { mutate } = useSWRConfig();
     const [{ isOver }, taskDropRef] = useDrop<TaskDragItem, unknown, { isOver: boolean}>({
-        accept: 'TASK',
+        accept: TASK_DRAG_TYPE,
         collect: (monitor) => ({
             isOver: monitor.isOver(),
         }),
