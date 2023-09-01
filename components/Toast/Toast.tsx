@@ -1,10 +1,9 @@
 'use client';
-
 import { Toaster, resolveValue, toast } from 'react-hot-toast';
 import { FaX, FaRegCircleCheck, FaCircleExclamation } from 'react-icons/fa6';
-import { twMerge } from 'tailwind-merge';
 
 import Button from '@/components/Button';
+import { cn } from '@/utils';
 
 
 const classes = {
@@ -32,7 +31,7 @@ const Toast = () => {
         >
             {(t) => (
                 <div>
-                    <div className={twMerge('alert p-2 flex w-80', classes.type[t.type])}>
+                    <div className={cn('alert p-2 flex w-80', classes.type[t.type])}>
                         {classes.icon[t.type]}
                         <p className="flex-grow">{resolveValue(t.message, t)}</p>
                         <Button className="self-start" color="ghost" onClick={() => toast.remove(t.id)}><FaX /></Button>

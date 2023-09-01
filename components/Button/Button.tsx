@@ -1,4 +1,4 @@
-import { twMerge } from 'tailwind-merge';
+import { cn } from '@/utils';
 
 import { ButtonProps } from './Button.types';
 
@@ -30,7 +30,7 @@ const Button = ({
         <button
             type="button"
             {...props}
-            className={twMerge(
+            className={cn(
                 'btn flex-nowrap relative content-center',
                 className,
                 classes.color[color],

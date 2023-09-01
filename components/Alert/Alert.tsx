@@ -1,4 +1,4 @@
-import { twMerge } from 'tailwind-merge';
+import { cn } from '@/utils';
 
 import { AlertProps } from './Alert.types';
 
@@ -27,7 +27,7 @@ const Alert = ({ message, type = 'error' }: AlertProps) => {
 
     if (!message) return null;
     return (
-        <div className={twMerge('alert', className[type])}>
+        <div className={cn('alert', className[type])}>
             {icons[type]}
             <span>{message}</span>
         </div>

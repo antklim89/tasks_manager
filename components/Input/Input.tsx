@@ -1,5 +1,6 @@
 import { ForwardedRef, forwardRef } from 'react';
-import { twMerge } from 'tailwind-merge';
+
+import { cn } from '@/utils';
 
 import { InputProps } from './Input.types';
 
@@ -17,7 +18,7 @@ const Input = ({ errorMessage, label, ...props }: InputProps, ref: ForwardedRef<
             <input
                 ref={ref}
                 {...props}
-                className={twMerge('input placeholder:opacity-30 input-bordered', props.className, errorMessage && 'input-error')}
+                className={cn('input placeholder:opacity-30 input-bordered', props.className, { 'input-error': errorMessage })}
             />
             <span className="text-sm text-right text-error">{errorMessage ? errorMessage : ''}&nbsp;</span>
         </div>
