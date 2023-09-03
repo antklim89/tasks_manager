@@ -14,6 +14,9 @@
     "lint": "eslint --ext .tsx,.ts . --fix"
   },
   "dependencies": {
+    "@dnd-kit/core": "^6.0.8",
+    "@dnd-kit/sortable": "^7.0.2",
+    "@dnd-kit/utilities": "^3.2.1",
     "@headlessui/react": "^1.7.15",
     "@hookform/resolvers": "^3.1.1",
     "@supabase/auth-helpers-nextjs": "^0.7.3",
@@ -31,9 +34,6 @@
     "next": "13.4.7",
     "npm": "^9.8.1",
     "react": "18.2.0",
-    "react-dnd": "^16.0.1",
-    "react-dnd-html5-backend": "^16.0.1",
-    "react-dnd-touch-backend": "^16.0.1",
     "react-dom": "18.2.0",
     "react-hook-form": "^7.45.1",
     "react-hot-toast": "^2.4.1",
