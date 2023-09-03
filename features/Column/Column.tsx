@@ -1,4 +1,5 @@
 'use client';
+// import { useDroppable } from '@dnd-kit/core';
 import { SortableContext } from '@dnd-kit/sortable';
 import { FaEllipsisVertical } from 'react-icons/fa6';
 
@@ -15,6 +16,7 @@ import ColumnTaskCreate from './ColumnTaskCreate';
 
 const Column = ({ id, name, project }: ColumnType) => {
     const { data: tasks = [], isLoading } = useTasksFetch({ columnId: id });
+    // const { setNodeRef } = useDroppable({ id });
 
     return (
         <div
@@ -31,10 +33,10 @@ const Column = ({ id, name, project }: ColumnType) => {
             <div className={cn('transition-all h-0')} />
 
             <SortableContext items={tasks.map((i) => i.id)}>
-                <div className="flex flex-col p-1">
+                <div className="flex flex-col p-1 relative">
                     {isLoading ? <span className="loading loading-bars loading-lg" /> : null}
-                    {tasks.map((task) => (
-                        <Task key={task.id} task={task} />
+                    {tasks.map((task, index) => (
+                        <Task index={index} key={task.id} task={task} />
                     ))}
                 </div>
             </SortableContext>
