@@ -1,10 +1,8 @@
 'use client';
-import { useDraggable, useDroppable } from '@dnd-kit/core';
-import { CSS } from '@dnd-kit/utilities';
-import { CSSProperties } from 'react';
 import { FaEllipsisVertical } from 'react-icons/fa6';
 
 import { Button, DateComponent, Menu } from '@/components';
+import { useTaskDnd } from '@/hooks';
 import { useTaskUpdate } from '@/requests';
 import { cn } from '@/utils';
 
@@ -14,55 +12,19 @@ import TaskDelete from './TaskDelete';
 
 const Task = ({ task, index }: TaskProps) => {
     const { trigger: updateTask } = useTaskUpdate({ taskId: task.id, columnId: task.columnId });
-
     const {
+        isNotOverArciveTask,
+        isOverPreviousTask,
         attributes,
         listeners,
-        setNodeRef: setDragRef,
-        transform,
-        isDragging,
-        active,
-        over,
-        node,
+        setDragRef,
         activeNodeRect,
-    } = useDraggable({
-        id: task.id,
-        data: {
-            task,
-            index,
-            updateTask,
-        },
-    });
-
-    const {
-        setNodeRef: setDropRef,
+        setDropRef,
         isOver,
-    } = useDroppable({
-        id: task.id,
-        data: {
-            task,
-            index,
-        },
-    });
-
-    const isNotOverArciveTask = active?.id !== over?.id;
-    const isOverPreviousTask = Boolean(over
-        && active
-        && over.data.current
-        && active.data.current
-        && typeof over.data.current.index === 'number'
-        && typeof active.data.current.index === 'number'
-        && active.data.current.task.columnId === over.data.current.task.columnId
-        && (over.data.current.index + 1 === active.data.current.index));
-
-    const style: CSSProperties = {
-        position: isDragging ? 'absolute' : 'static',
-        top: node.current?.offsetTop,
-        zIndex: isDragging ? 10 : 0,
-        scale: isDragging ? 1.02 : 1,
-        opacity: isDragging ? 0.5 : 1,
-        transform: CSS.Translate.toString(transform),
-    };
+        isDragging,
+        style,
+        node,
+    } = useTaskDnd({ task, index, updateTask });
 
     return (
         <>
@@ -105,3 +67,5 @@ const Task = ({ task, index }: TaskProps) => {
 };
 
 export default Task;
+
+
