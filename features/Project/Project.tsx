@@ -15,6 +15,7 @@ import { Button } from '@/components';
 import Column from '@/features/Column';
 import { useColumnCreate, useColumnsFetch } from '@/requests';
 import { TaskType } from '@/schemas';
+import { TasgDragData, TaskDropData } from '@/types';
 
 
 const Project = ({ projectId }: {projectId: number}) => {
@@ -32,16 +33,22 @@ const Project = ({ projectId }: {projectId: number}) => {
     const sensors = useSensors(mouseSensor, touchSensor, keyboardSensor);
 
     const handleDrop = ({ active, over }: DragEndEvent) => {
-        const activeTask: TaskType | undefined = active.data.current?.task;
-        const overTask: TaskType | undefined = over?.data.current?.task;
-        if (!overTask || !activeTask) return;
-        if (overTask.id === activeTask.id) return;
+        const activeData = active.data.current as TasgDragData | undefined;
+        const overData = over?.data.current as TaskDropData | undefined;
+        if (!overData || !activeData) return;
 
-        active.data.current?.updateTask({ columnId: overTask.columnId });
+        if (overData.columnId === activeData.columnId) return;
 
-        if (overTask.columnId === activeTask.columnId) return;
-        mutate<TaskType[]>(['TASKS', { columnId: overTask.columnId }], (currentTasks) => {
-            return [{ ...activeTask, columnId: overTask.columnId }, ...(currentTasks || [])];
+        activeData.updateTask({ columnId: overData.columnId });
+
+        if (overData.columnId === activeData.columnId) return;
+
+        mutate<TaskType[]>(['TASKS', { columnId: overData.columnId }], (currentTasks) => {
+            return [{ ...activeData.task, columnId: overData.columnId }, ...(currentTasks || [])];
+        }, { revalidate: false });
+
+        mutate<TaskType[]>(['TASKS', { columnId: activeData.columnId }], (currentTasks) => {
+            return currentTasks?.filter((task) => task.id !== activeData.task.id);
         }, { revalidate: false });
     };
 

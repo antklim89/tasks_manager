@@ -3,6 +3,7 @@ import { CSS } from '@dnd-kit/utilities';
 import { CSSProperties } from 'react';
 
 import { TaskType } from '@/schemas';
+import { TasgDragData, TaskDropData } from '@/types';
 
 
 export function useTaskDnd({
@@ -14,11 +15,19 @@ export function useTaskDnd({
     index: number;
     updateTask: (arg: { columnId: number; }) => void;
 }) {
-    const dragData = { task, index, updateTask };
-    const dropData = { task, index };
+    const dragData = { task, columnId: task.columnId, index, updateTask } satisfies TasgDragData;
+    const dropData = { task, columnId: task.columnId, index } satisfies TaskDropData;
 
     const {
-        attributes, listeners, setNodeRef: setDragRef, transform, isDragging, active, over, node, activeNodeRect,
+        attributes,
+        listeners,
+        setNodeRef: setDragRef,
+        transform,
+        isDragging,
+        active,
+        over,
+        node,
+        activeNodeRect,
     } = useDraggable({
         id: task.id,
         data: dragData,
@@ -34,10 +43,10 @@ export function useTaskDnd({
     const activeData = active && active.data.current as typeof dragData;
     const overData = over && over.data.current as typeof dragData;
 
-    const isNotOverArciveTask = active?.id !== over?.id;
+    const isOverArciveTask = active?.id === over?.id;
     const isOverPreviousTask = Boolean(activeData
         && overData
-        && activeData.task.columnId === overData.task.columnId
+        && activeData.columnId === overData.columnId
         && (overData.index + 1 === activeData.index));
 
     const style: CSSProperties = {
@@ -49,19 +58,21 @@ export function useTaskDnd({
         transform: CSS.Translate.toString(transform),
     };
 
+    const activeHeight = activeNodeRect?.height;
+
     return {
         activeData,
         overData,
-        isNotOverArciveTask,
+        isOverArciveTask,
         isOverPreviousTask,
         attributes,
         listeners,
         setDragRef,
         setDropRef,
-        activeNodeRect,
         isOver,
         isDragging,
         style,
         node,
+        activeHeight,
     };
 }

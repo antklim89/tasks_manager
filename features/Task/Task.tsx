@@ -13,12 +13,12 @@ import TaskDelete from './TaskDelete';
 const Task = ({ task, index }: TaskProps) => {
     const { trigger: updateTask } = useTaskUpdate({ taskId: task.id, columnId: task.columnId });
     const {
-        isNotOverArciveTask,
+        isOverArciveTask,
         isOverPreviousTask,
         attributes,
         listeners,
         setDragRef,
-        activeNodeRect,
+        activeHeight,
         setDropRef,
         isOver,
         isDragging,
@@ -28,40 +28,38 @@ const Task = ({ task, index }: TaskProps) => {
 
     return (
         <>
-            {(isDragging) ? <div className="border border-primary" style={{ height: node.current?.offsetHeight }} /> : null}
             <div
-                className={cn('w-full', { 'shadow-xl': isDragging })}
                 ref={(e) => {
                     setDragRef(e);
                     setDropRef(e);
                 }}
                 style={style}
                 {...attributes}
+                className={cn('card w-full p-2 bg-primary shadow-lg')}
             >
-                <div className="w-20 p-2 ml-auto mr-2 bg-primary" {...listeners}>
-                    <div className="h-1 border-t border-b" />
-                </div>
-                <div className={cn('card p-2 bg-primary shadow-lg')}>
-                    <div className="card-title flex justify-between">
-                        {task.title}
-                        <Menu button={<Button aria-label="user menu" color="ghost" size="sm"><FaEllipsisVertical /></Button>}>
-                            <TaskDelete columnId={task.columnId} id={task.id} />
-                        </Menu>
-                    </div>
+                <div className="w-36 py-[2px] mx-auto bg-primary border-t border-b" {...listeners} />
 
-                    <div className="min-h-[28px] p-1">
-                        {task.description}
-                    </div>
-
-                    <div className="card-actions">
-                        <DateComponent date={task.completeAt} />
-                    </div>
+                <div className="card-title flex justify-between">
+                    {task.title}
+                    <Menu button={<Button aria-label="user menu" color="ghost" size="sm"><FaEllipsisVertical /></Button>}>
+                        <TaskDelete columnId={task.columnId} id={task.id} />
+                    </Menu>
                 </div>
-                <div
-                    className={cn('transition-all h-2', { 'h-52': isOver && isNotOverArciveTask })}
-                    style={{ height: (isOver && (isNotOverArciveTask && !isOverPreviousTask) && activeNodeRect) ? activeNodeRect.height : '5px' }}
-                />
+
+                <div className="p-1">
+                    {task.description}
+                </div>
+
+                <div className="card-actions">
+                    <DateComponent date={task.completeAt} />
+                </div>
             </div>
+
+            {isDragging ? <div className="border border-primary" style={{ height: node.current?.offsetHeight }} /> : null}
+            <div
+                className="transition-all"
+                style={{ height: (isOver && (!isOverArciveTask && !isOverPreviousTask)) ? activeHeight : '5px' }}
+            />
         </>
     );
 };

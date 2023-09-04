@@ -1,16 +1,17 @@
 'use client';
 import { useDroppable } from '@dnd-kit/core';
 
+import { TaskDropData } from '@/types';
+
 
 export function useTaskDrop(columnId: number) {
     const {
         setNodeRef, isOver, active, over,
     } = useDroppable({
-        id: columnId,
+        id: `column ${columnId}`,
         data: {
-            index: -1,
             columnId,
-        },
+        } satisfies TaskDropData,
     });
 
     const isFirstTask = (active?.data.current?.columnId === over?.data.current?.columnId)
