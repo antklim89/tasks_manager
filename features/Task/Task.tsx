@@ -46,6 +46,14 @@ const Task = ({ task, index }: TaskProps) => {
     });
 
     const isNotOverArciveTask = active?.id !== over?.id;
+    const isOverPreviousTask = Boolean(over
+        && active
+        && over.data.current
+        && active.data.current
+        && typeof over.data.current.index === 'number'
+        && typeof active.data.current.index === 'number'
+        && active.data.current.task.columnId === over.data.current.task.columnId
+        && (over.data.current.index + 1 === active.data.current.index));
 
     const style: CSSProperties = {
         position: isDragging ? 'absolute' : 'static',
@@ -58,7 +66,7 @@ const Task = ({ task, index }: TaskProps) => {
 
     return (
         <>
-            {isDragging ? <div className="border border-primary" style={{ height: node.current?.offsetHeight }} /> : null}
+            {(isDragging) ? <div className="border border-primary" style={{ height: node.current?.offsetHeight }} /> : null}
             <div
                 className={cn('w-full', { 'shadow-xl': isDragging })}
                 ref={(e) => {
@@ -68,10 +76,12 @@ const Task = ({ task, index }: TaskProps) => {
                 style={style}
                 {...attributes}
             >
-                <Button {...listeners}>Drag</Button>
+                <div className="w-20 p-2 ml-auto mr-2 bg-primary" {...listeners}>
+                    <div className="h-1 border-t border-b" />
+                </div>
                 <div className={cn('card p-2 bg-primary shadow-lg')}>
                     <div className="card-title flex justify-between">
-                        {task.title} - {task.id} - {task.columnId}
+                        {task.title}
                         <Menu button={<Button aria-label="user menu" color="ghost" size="sm"><FaEllipsisVertical /></Button>}>
                             <TaskDelete columnId={task.columnId} id={task.id} />
                         </Menu>
@@ -87,7 +97,7 @@ const Task = ({ task, index }: TaskProps) => {
                 </div>
                 <div
                     className={cn('transition-all h-2', { 'h-52': isOver && isNotOverArciveTask })}
-                    style={{ height: (isOver && isNotOverArciveTask && activeNodeRect) ? activeNodeRect.height : '5px' }}
+                    style={{ height: (isOver && (isNotOverArciveTask && !isOverPreviousTask) && activeNodeRect) ? activeNodeRect.height : '5px' }}
                 />
             </div>
         </>
