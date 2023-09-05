@@ -55,7 +55,9 @@ const Project = ({ projectId }: {projectId: number}) => {
         activeData.updateTask({ columnId: overData.columnId });
 
         mutate<TaskType[]>(['TASKS', { columnId: overData.columnId }], (currentTasks) => {
-            return [{ ...activeData.task, columnId: overData.columnId }, ...(currentTasks || [])];
+            if (!currentTasks) return currentTasks;
+            const newTask = { ...activeData.task, columnId: overData.columnId };
+            return currentTasks.toSpliced((overData.index ?? -1) + 1, 0, newTask);
         }, { revalidate: false });
 
         mutate<TaskType[]>(['TASKS', { columnId: activeData.columnId }], (currentTasks) => {
