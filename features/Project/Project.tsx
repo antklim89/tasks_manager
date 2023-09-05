@@ -41,9 +41,11 @@ const Project = ({ projectId }: {projectId: number}) => {
 
             mutate<TaskType[]>(['TASKS', { columnId: activeData.columnId }], (currentTasks) => {
                 if (!currentTasks) return currentTasks;
-                const newTasks = [...currentTasks];
-                newTasks.splice(activeData.index, 1);
-                newTasks.splice((overData.index ?? -1) + 1, 0, activeData.task);
+                const newTasks = currentTasks.toSpliced((overData.index ?? -1) + 1, 0, activeData.task);
+
+                if ((overData.index || -1) < activeData.index) newTasks.splice(activeData.index + 1, 1);
+                else newTasks.splice(activeData.index, 1);
+
                 return newTasks;
             }, { revalidate: false });
 
