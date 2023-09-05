@@ -37,11 +37,20 @@ const Project = ({ projectId }: {projectId: number}) => {
         const overData = over?.data.current as TaskDropData | undefined;
         if (!overData || !activeData) return;
 
-        if (overData.columnId === activeData.columnId) return;
+        if (overData.columnId === activeData.columnId) {
+
+            mutate<TaskType[]>(['TASKS', { columnId: activeData.columnId }], (currentTasks) => {
+                if (!currentTasks) return currentTasks;
+                const newTasks = [...currentTasks];
+                newTasks.splice(activeData.index, 1);
+                newTasks.splice((overData.index ?? -1) + 1, 0, activeData.task);
+                return newTasks;
+            }, { revalidate: false });
+
+            return;
+        }
 
         activeData.updateTask({ columnId: overData.columnId });
-
-        if (overData.columnId === activeData.columnId) return;
 
         mutate<TaskType[]>(['TASKS', { columnId: overData.columnId }], (currentTasks) => {
             return [{ ...activeData.task, columnId: overData.columnId }, ...(currentTasks || [])];
