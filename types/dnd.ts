@@ -4,7 +4,7 @@ import { TaskType } from '@/schemas';
 export interface TasgDragData {
     task: TaskType;
     columnId: number;
-    index?: number;
+    index: number;
     updateTask: (arg: {
         columnId: number;
     }) => void;
