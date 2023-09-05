@@ -1,6 +1,8 @@
 import { Providers, Toast } from '@/components';
 import { Footer, Header } from '@/features';
+
 import '@/styles/main.scss';
+import 'core-js/actual/array/to-spliced';
 
 
 export const metadata = {
