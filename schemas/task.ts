@@ -21,7 +21,7 @@ export const taskCreateSchema = z.object({
     completeAt: z.string()
         // .datetime()
         .transform((v) => (v.length === 0 ? undefined : new Date(v).toISOString()))
-        .optional(),
+        .nullish(),
 });
 
 export type TaskType = z.infer<typeof taskSchema>
