@@ -10,7 +10,7 @@ const DateComponent = ({ date, format: dateFormat = 'dd-MMM-yyyy H:mm', ...props
         if (!date) return;
         import('date-fns')
             .then(({ format }) => setFormatedDate(format(new Date(date), dateFormat)));
-    }, []);
+    }, [date]);
 
     return (
         <span {...props}>
