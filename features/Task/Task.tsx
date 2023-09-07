@@ -59,9 +59,9 @@ const Task = ({ task, index }: TaskProps) => {
             </div>
 
             {isDragging ? <div className="border border-primary" style={{ height: node.current?.offsetHeight }} /> : null}
+
             <div
                 className="transition-all"
-                ref={setDropRef}
                 style={{ height: (isOver && !isOverArciveTask && !isOverPreviousTask) ? activeHeight : '0px' }}
             />
         </>

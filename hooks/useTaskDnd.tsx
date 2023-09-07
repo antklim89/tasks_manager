@@ -52,9 +52,8 @@ export function useTaskDnd({
     const style: CSSProperties = {
         position: isDragging ? 'absolute' : 'static',
         top: node.current?.offsetTop,
-        zIndex: isDragging ? 10 : 0,
-        scale: isDragging ? 1.02 : 1,
-        opacity: isDragging ? 0.5 : 1,
+        zIndex: isDragging ? 10 : undefined,
+        opacity: isDragging ? 0.8 : undefined,
         transform: CSS.Translate.toString(transform),
     };
 
