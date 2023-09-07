@@ -7,6 +7,7 @@ import { useTaskUpdate } from '@/requests';
 
 import { TaskProps } from './Task.types';
 import TaskDelete from './TaskDelete';
+import TaskUpdate from './TaskUpdate';
 
 
 const Task = ({ task, index }: TaskProps) => {
@@ -42,6 +43,7 @@ const Task = ({ task, index }: TaskProps) => {
                     <div className="card-title flex justify-between">
                         {task.title}
                         <Menu button={<Button aria-label="user menu" color="ghost" size="sm"><FaEllipsisVertical /></Button>}>
+                            <TaskUpdate task={task} />
                             <TaskDelete columnId={task.columnId} id={task.id} />
                         </Menu>
                     </div>
