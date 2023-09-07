@@ -14,7 +14,14 @@ const TaskUpdate = ({ task }: TaskUpdateProps) => {
 
     return (
         <>
-            <Button aria-label="add new task" isLoading={isMutating} onClick={open}>Update Task</Button>
+            <Button
+                className="w-full"
+                color="ghost"
+                isLoading={isMutating}
+                onClick={open}
+            >
+                Update Task
+            </Button>
 
             <Modal isOpen={isOpen} onClose={close}>
                 <Modal.Body>
