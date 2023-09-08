@@ -2,13 +2,15 @@ import React from 'react';
 
 import { Button, Modal } from '@/components';
 import { useTaskDelete } from '@/requests';
-import { useDisclosure } from '@/utils';
+import { cn, useDisclosure } from '@/utils';
+
+import { TaskDeleteProps } from './Task.types';
 
 
-const TaskDelete = ({ id, columnId }: { id: number, columnId: number }) => {
+const TaskDelete = ({ task, className }: TaskDeleteProps) => {
     const { isOpen, close, open } = useDisclosure();
 
-    const { trigger: deleteTask, isMutating } = useTaskDelete({ taskId: id, columnId }, {
+    const { trigger: deleteTask, isMutating } = useTaskDelete({ taskId: task.id, columnId: task.columnId }, {
         onSuccess: () => close(),
     });
 
@@ -16,12 +18,11 @@ const TaskDelete = ({ id, columnId }: { id: number, columnId: number }) => {
         <>
             <Button
                 aria-label="delete column"
-                className="w-full"
-                color="ghost"
+                className={cn('w-full', className)}
                 isLoading={isMutating}
                 onClick={open}
             >
-                Delete Task
+                Delete
             </Button>
             <Modal isOpen={isOpen} onClose={close}>
                 <Modal.Title>

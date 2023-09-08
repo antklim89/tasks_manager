@@ -32,10 +32,10 @@ const Button = ({
             {...props}
             className={cn(
                 'btn flex-nowrap relative content-center',
-                className,
                 classes.color[color],
                 size && classes.size[size],
                 outline && 'btn-outline',
+                className,
             )}
             disabled={disabled || isLoading}
         >

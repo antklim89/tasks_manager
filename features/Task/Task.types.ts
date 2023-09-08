@@ -8,4 +8,10 @@ export interface TaskProps {
 
 export interface TaskUpdateProps {
     task: TaskType
+    className?: string
+}
+
+export interface TaskDeleteProps {
+    task: TaskType
+    className?: string
 }

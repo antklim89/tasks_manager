@@ -1,11 +1,11 @@
 import { Button, Modal, TaskEditForm } from '@/components';
 import { useTaskUpdate } from '@/requests';
-import { useDisclosure } from '@/utils';
+import { cn, useDisclosure } from '@/utils';
 
 import { TaskUpdateProps } from './Task.types';
 
 
-const TaskUpdate = ({ task }: TaskUpdateProps) => {
+const TaskUpdate = ({ task, className }: TaskUpdateProps) => {
     const { isOpen, close, open } = useDisclosure();
 
     const { trigger: updateTask, isMutating } = useTaskUpdate({ columnId: task.columnId, taskId: task.id }, {
@@ -15,12 +15,11 @@ const TaskUpdate = ({ task }: TaskUpdateProps) => {
     return (
         <>
             <Button
-                className="w-full"
-                color="ghost"
+                className={cn('w-full', className)}
                 isLoading={isMutating}
                 onClick={open}
             >
-                Update Task
+                Update
             </Button>
 
             <Modal isOpen={isOpen} onClose={close}>
