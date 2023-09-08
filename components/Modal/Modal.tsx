@@ -2,17 +2,33 @@
 import { Dialog, Transition } from '@headlessui/react';
 import { Fragment } from 'react';
 
+import { cn } from '@/utils';
+
 import { ModalProps } from './Modal.types';
 import ModalBody from './ModalBody';
 import ModalFooter from './ModalFooter';
 import ModalTitle from './ModalTitle';
 
 
-const Modal = ({ isOpen, children, onClose }: ModalProps) => {
+export const classes = {
+    size: {
+        'xs': 'max-w-xs',
+        'sm': 'max-w-sm',
+        'md': 'max-w-md',
+        'lg': 'max-w-lg',
+        'xl': 'max-w-xl',
+        '2xl': 'max-w-2xl',
+        '3xl': 'max-w-3xl',
+        '4xl': 'max-w-4xl',
+        '5xl': 'max-w-5xl',
+        'full': 'max-w-full',
+    },
+};
 
+const Modal = ({ isOpen, children, onClose, size = 'md' }: ModalProps) => {
     return (
         <Transition appear as={Fragment} show={isOpen}>
-            <Dialog as="div" className="relative z-10" onClose={onClose}>
+            <Dialog as="div" className="relative z-10 w-52" onClose={onClose}>
                 <Transition.Child
                     as={Fragment}
                     enter="ease-out duration-300"
@@ -36,7 +52,12 @@ const Modal = ({ isOpen, children, onClose }: ModalProps) => {
                             leaveFrom="opacity-100 scale-100"
                             leaveTo="opacity-0 scale-95"
                         >
-                            <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-md bg-base-100 p-4 text-left align-middle shadow-xl transition-all">
+                            <Dialog.Panel
+                                className={cn(
+                                    'w-full transform overflow-hidden rounded-md bg-base-100 p-4 text-left align-middle shadow-xl transition-all',
+                                    classes.size[size],
+                                )}
+                            >
                                 {children}
                             </Dialog.Panel>
                         </Transition.Child>
