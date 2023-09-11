@@ -6,7 +6,7 @@ export const taskSchema = z.object({
     createdAt: z.string(),
     title: z.string(),
     description: z.string().optional(),
-    completeAt: z.string().nullish(),
+    completeAt: z.string()/* .datetime()*/.nullish(),
     columnId: z.number(),
     owner: z.string(),
 });
@@ -19,7 +19,8 @@ export const taskCreateSchema = z.object({
         .max(1000)
         .optional(),
     completeAt: z.string()
-        .datetime()
+        // TODO: add datetime validation
+        // .datetime()
         .nullish(),
 });
 
