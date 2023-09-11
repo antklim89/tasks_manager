@@ -54,7 +54,7 @@ const Modal = ({ isOpen, children, onClose, size = 'md' }: ModalProps) => {
                         >
                             <Dialog.Panel
                                 className={cn(
-                                    'w-full transform overflow-hidden rounded-md bg-base-100 p-4 text-left align-middle shadow-xl transition-all',
+                                    'w-full transform rounded-md bg-base-100 p-4 text-left align-middle shadow-xl transition-all',
                                     classes.size[size],
                                 )}
                             >
