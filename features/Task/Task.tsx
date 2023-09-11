@@ -1,5 +1,5 @@
 'use client';
-import { FaEllipsisVertical, FaCalendarCheck } from 'react-icons/fa6';
+import { FaCalendarCheck, FaEllipsisVertical } from 'react-icons/fa6';
 
 import { Button, DateComponent, Menu } from '@/components';
 import { useTaskDnd } from '@/hooks';
@@ -8,12 +8,11 @@ import { useDisclosure } from '@/utils';
 
 import { TaskProps } from './Task.types';
 import TaskDelete from './TaskDelete';
-import TaskFull from './TaskFull';
 import TaskUpdate from './TaskUpdate';
 
 
 const Task = ({ task, index }: TaskProps) => {
-    const { isOpen, close, open } = useDisclosure();
+    const { isOpen: updateModalisOpen, close: closeUpdateModal, open: openUpdateModal } = useDisclosure();
     const { trigger: updateTask } = useTaskUpdate({ taskId: task.id, columnId: task.columnId });
     const {
         isOverArciveTask,
@@ -31,7 +30,7 @@ const Task = ({ task, index }: TaskProps) => {
 
     return (
         <>
-            <TaskFull close={close} isOpen={isOpen} task={task} />
+            <TaskUpdate close={closeUpdateModal} isOpen={updateModalisOpen} task={task} />
             <div
                 className="w-full pb-2 text-left select-none"
                 ref={(e) => {
@@ -41,7 +40,7 @@ const Task = ({ task, index }: TaskProps) => {
                 role="button"
                 style={style}
                 tabIndex={0}
-                onDoubleClick={open}
+                onDoubleClick={openUpdateModal}
             >
                 <div className="w-16 ml-auto mr-2 p-1 bg-primary" {...listeners} {...attributes}>
                     <div className="h-1 border-t border-b" />
@@ -50,7 +49,7 @@ const Task = ({ task, index }: TaskProps) => {
                     <div className="card-title flex justify-between">
                         {task.title}
                         <Menu button={<Button aria-label="user menu" color="ghost" size="sm"><FaEllipsisVertical /></Button>}>
-                            <TaskUpdate className="w-full btn-ghost" task={task} />
+                            <Button className="w-full btn-ghost" onClick={openUpdateModal}>Update</Button>
                             <TaskDelete className="w-full btn-ghost" task={task} />
                         </Menu>
                     </div>

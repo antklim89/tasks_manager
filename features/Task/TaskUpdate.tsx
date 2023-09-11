@@ -1,38 +1,28 @@
 import { Button, Modal, TaskEditForm } from '@/components';
 import { useTaskUpdate } from '@/requests';
-import { cn, useDisclosure } from '@/utils';
+import { TaskType } from '@/schemas';
 
-import { TaskUpdateProps } from './Task.types';
+import TaskDelete from './TaskDelete';
 
 
-const TaskUpdate = ({ task, className }: TaskUpdateProps) => {
-    const { isOpen, close, open } = useDisclosure();
-
+const TaskUpdate = ({ task, close, isOpen }: { task: TaskType, isOpen: boolean, close: () => void }) => {
     const { trigger: updateTask, isMutating } = useTaskUpdate({ columnId: task.columnId, taskId: task.id }, {
         onSuccess: () => close(),
     });
 
     return (
-        <>
-            <Button
-                className={cn('w-full', className)}
-                isLoading={isMutating}
-                onClick={open}
-            >
-                Update
-            </Button>
-
-            <Modal isOpen={isOpen} onClose={close}>
-                <Modal.Body>
-                    <TaskEditForm defaultValues={task} onSubmit={updateTask}>
-                        <Modal.Footer>
-                            <Button outline isLoading={isMutating} onClick={close}>Cancel</Button>
-                            <Button isLoading={isMutating} type="submit">Update</Button>
-                        </Modal.Footer>
-                    </TaskEditForm>
-                </Modal.Body>
-            </Modal>
-        </>
+        <Modal isOpen={isOpen} size="2xl" onClose={close}>
+            <Modal.Title className="text-2xl">
+                {task.title}
+            </Modal.Title>
+            <TaskEditForm defaultValues={task} onSubmit={updateTask}>
+                <Modal.Footer>
+                    <TaskDelete className="w-auto btn-error" task={task} />
+                    <Button isLoading={isMutating} type="submit">Update</Button>
+                    <Button outline isLoading={isMutating} onClick={close}>Cancel</Button>
+                </Modal.Footer>
+            </TaskEditForm>
+        </Modal>
     );
 };
 
