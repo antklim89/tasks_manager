@@ -5,8 +5,10 @@ import { Controller, useForm } from 'react-hook-form';
 
 import Input from '@/components/Input';
 import { TaskCreateType, taskCreateSchema } from '@/schemas';
+import { cn } from '@/utils';
 
 import { TaskEditFormProps } from './TaskEditForm.types';
+
 import 'react-datepicker/dist/react-datepicker.css';
 
 
@@ -34,11 +36,18 @@ const TaskEditForm = ({ onSubmit, children, defaultValues }: TaskEditFormProps) 
                 errorMessage={errors.title?.message}
                 label="Title"
             />
-            <Input
-                {...register('description')}
-                errorMessage={errors.description?.message}
-                label="Description"
-            />
+            <div className="form-control">
+                <label className="label" htmlFor="task-description-edit-input">
+                    <span className="label-text">Description</span>
+                </label>
+                <textarea
+                    id="task-description-edit-input"
+                    {...register('description')}
+                    className={cn('input h-auto placeholder:opacity-30 input-bordered resize-none p-4', { 'input-error': errors.description?.message })}
+                    rows={10}
+                />
+                <span className="text-sm text-right text-error">{errors.description?.message}&nbsp;</span>
+            </div>
             <Controller
                 control={control}
                 name="completeAt"
