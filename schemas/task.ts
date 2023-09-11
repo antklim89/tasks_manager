@@ -19,8 +19,7 @@ export const taskCreateSchema = z.object({
         .max(1000)
         .optional(),
     completeAt: z.string()
-        // .datetime()
-        .transform((v) => (v.length === 0 ? undefined : new Date(v).toISOString()))
+        .datetime()
         .nullish(),
 });
 
