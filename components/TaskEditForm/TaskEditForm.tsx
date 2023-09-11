@@ -1,11 +1,13 @@
 'use client';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
+import DatePicker from 'react-datepicker';
+import { Controller, useForm } from 'react-hook-form';
 
 import Input from '@/components/Input';
 import { TaskCreateType, taskCreateSchema } from '@/schemas';
 
 import { TaskEditFormProps } from './TaskEditForm.types';
+import 'react-datepicker/dist/react-datepicker.css';
 
 
 const TaskEditForm = ({ onSubmit, children, defaultValues }: TaskEditFormProps) => {
@@ -14,6 +16,7 @@ const TaskEditForm = ({ onSubmit, children, defaultValues }: TaskEditFormProps) 
         handleSubmit,
         formState: { errors },
         reset,
+        control,
     } = useForm<TaskCreateType>({
         resolver: zodResolver(taskCreateSchema),
         defaultValues,
@@ -36,11 +39,22 @@ const TaskEditForm = ({ onSubmit, children, defaultValues }: TaskEditFormProps) 
                 errorMessage={errors.description?.message}
                 label="Description"
             />
-            <Input
-                {...register('completeAt')}
-                errorMessage={errors.completeAt?.message}
-                label="Complete at"
-                type="datetime-local"
+            <Controller
+                control={control}
+                name="completeAt"
+                render={({ field }) => (
+                    <DatePicker
+                        showTimeSelect
+                        className="w-full "
+                        customInput={<Input className="w-full" errorMessage={errors.completeAt?.message} label="Complete at" />}
+                        dateFormat="dd-MMM-yyyy HH:mm"
+                        selected={field.value ? new Date(field.value) : null}
+                        timeFormat="HH:mm"
+                        timeIntervals={10}
+                        wrapperClassName="w-full"
+                        onChange={(date) => field.onChange(date?.toISOString() || null)}
+                    />
+                )}
             />
             {children}
         </form>
