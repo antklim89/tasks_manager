@@ -6,6 +6,7 @@ export const columnSchema = z.object({
     name: z.string(),
     owner: z.string(),
     project: z.number(),
+    taskOrder: z.array(z.number()).nullable(),
 });
 
 export const columnUpdateSchema = z.object({

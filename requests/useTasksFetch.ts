@@ -9,7 +9,13 @@ import { FetchTasksKey } from './keys';
 
 type Options = SWRConfiguration<TaskType[], Error>;
 
-export function useTasksFetch({ columnId }: { columnId: number }, options?: Options) {
+export function useTasksFetch({
+    columnId,
+    taskOrder,
+}: {
+    columnId: number,
+    taskOrder: number[]|null
+}, options?: Options) {
     return useSWR<TaskType[], Error, FetchTasksKey>(
         ['TASKS', { columnId }],
 
@@ -25,6 +31,8 @@ export function useTasksFetch({ columnId }: { columnId: number }, options?: Opti
                 .eq('owner', user.id);
 
             if (error) throw error;
+
+            if (taskOrder) data.sort((a, b) => taskOrder.indexOf(a.id) - taskOrder.indexOf(b.id));
             return taskSchema.array().parseAsync(data);
         },
         {
