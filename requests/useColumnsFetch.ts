@@ -21,6 +21,7 @@ export function useColumnsFetch({ projectId }: { projectId: number }, options?: 
             const { error, data } = await supabase
                 .from('columns')
                 .select('*')
+                .order('id')
                 .eq('project', key.projectId)
                 .eq('owner', user.id);
 
