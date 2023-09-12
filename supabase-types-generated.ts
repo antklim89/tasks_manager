@@ -15,18 +15,21 @@ export interface Database {
           name: string
           owner: string
           project: number
+          taskOrder: number[] | null
         }
         Insert: {
           id?: number
           name?: string
           owner: string
           project: number
+          taskOrder?: number[] | null
         }
         Update: {
           id?: number
           name?: string
           owner?: string
           project?: number
+          taskOrder?: number[] | null
         }
         Relationships: [
           {
