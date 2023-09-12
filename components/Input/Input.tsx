@@ -1,11 +1,11 @@
-import { ForwardedRef, forwardRef } from 'react';
+import { ForwardedRef, createElement, forwardRef } from 'react';
 
 import { cn } from '@/utils';
 
 import { InputProps } from './Input.types';
 
 
-const Input = ({ errorMessage, label, ...props }: InputProps, ref: ForwardedRef<HTMLInputElement>) => {
+const Input = ({ errorMessage, label, as = 'input', ...props }: InputProps, ref: ForwardedRef<HTMLElement>) => {
     return (
         <div className="form-control">
             {label
@@ -15,11 +15,11 @@ const Input = ({ errorMessage, label, ...props }: InputProps, ref: ForwardedRef<
                     </label>
                 )
                 : null}
-            <input
-                ref={ref}
-                {...props}
-                className={cn('input placeholder:opacity-30 input-bordered', props.className, { 'input-error': errorMessage })}
-            />
+            {createElement(as, {
+                ref,
+                ...props,
+                className: cn('input p-4 h-auto resize-none placeholder:opacity-30 input-bordered', props.className, { 'input-error': errorMessage }),
+            })}
             <span className="text-sm text-right text-error">{errorMessage ? errorMessage : ''}&nbsp;</span>
         </div>
     );

@@ -1,7 +1,9 @@
-import { InputHTMLAttributes } from 'react';
 
 
-export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
+export type InputProps = {
     label?: string
     errorMessage?: string
-}
+} & (
+    ({as?: 'input'} & JSX.IntrinsicElements['input']) |
+    ({as: 'textarea'} & JSX.IntrinsicElements['textarea'])
+)
