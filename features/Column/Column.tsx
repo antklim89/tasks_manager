@@ -1,10 +1,11 @@
 'use client';
+import { useEffect } from 'react';
 import { FaEllipsisVertical } from 'react-icons/fa6';
 
 import { Menu } from '@/components';
 import Task from '@/features/Task';
 import { useTaskDrop } from '@/hooks';
-import { useTasksFetch } from '@/requests';
+import { useColumnUpdate, useTasksFetch } from '@/requests';
 import { ColumnType } from '@/schemas';
 
 import ColumnDelete from './ColumnDelete';
@@ -14,12 +15,22 @@ import ColumnTaskCreate from './ColumnTaskCreate';
 
 const Column = ({ id, name, project }: ColumnType) => {
     const { data: tasks = [], isLoading } = useTasksFetch({ columnId: id });
+    const { trigger: updateColumn } = useColumnUpdate({ projectId: project, columnId: id });
+
     const {
         setNodeRef: setDropRef,
         isOver,
         isFirstTask,
         activeHeight,
     } = useTaskDrop(id);
+
+    useEffect(() => {
+        updateColumn({
+            taskOrder: tasks.map((i) => i.id),
+        });
+    }, [tasks.map((i) => i.id).join('')]);
+
+    //     const x = tasks.sort((a, b) => order.indexOf(a.id) - order.indexOf(b.id));
 
     return (
         <div

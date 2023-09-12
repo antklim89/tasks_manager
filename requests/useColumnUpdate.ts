@@ -1,16 +1,16 @@
 import { toast } from 'react-hot-toast';
 import useSWRMutation, { SWRMutationConfiguration } from 'swr/mutation';
 
-import { ColumnType } from '@/schemas';
+import { ColumnType, ColumnUpdateType } from '@/schemas';
 import { getBrowserClient, getBrowserUser } from '@/utils';
 
 import { FetchColumnsKey } from './keys';
 
 
-type Options = SWRMutationConfiguration<{name: string}, Error, FetchColumnsKey, {name: string}>;
+type Options = SWRMutationConfiguration<ColumnUpdateType, Error, FetchColumnsKey, ColumnUpdateType>;
 
 export function useColumnUpdate({ columnId, projectId }: { columnId: number, projectId: number }, options?: Options) {
-    return useSWRMutation<{name: string}, Error, FetchColumnsKey, {name: string}>(
+    return useSWRMutation<ColumnUpdateType, Error, FetchColumnsKey, ColumnUpdateType>(
         ['COLUMNS', { projectId }],
 
         async (key, { arg }) => {
