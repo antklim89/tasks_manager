@@ -11,7 +11,9 @@ export const columnSchema = z.object({
 export const columnUpdateSchema = z.object({
     name: z.string()
         .min(3)
-        .max(40),
+        .max(40)
+        .optional(),
+    taskOrder: z.array(z.number()).nullish(),
 });
 
 export type ColumnType = z.infer<typeof columnSchema>
