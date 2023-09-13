@@ -42,7 +42,7 @@ export function useTaskCreate({ columnId }: { columnId: number }, options?: Opti
             },
             revalidate: false,
             populateCache(newTask, currentData?: TaskType[]) {
-                return [...currentData || [], newTask];
+                return [newTask, ...currentData || []];
             },
         },
     );
