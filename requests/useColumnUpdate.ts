@@ -9,23 +9,25 @@ import { FetchColumnsKey } from './keys';
 
 type Options = SWRMutationConfiguration<ColumnUpdateType, Error, FetchColumnsKey, ColumnUpdateType>;
 
+
+export async function columnUpdate(columnId: number, data: ColumnUpdateType): Promise<ColumnUpdateType> {
+    const supabase = getBrowserClient();
+    const user = await getBrowserUser();
+
+    const { error } = await supabase.from('columns')
+        .update(data)
+        .eq('id', columnId)
+        .eq('owner', user.id);
+
+    if (error) throw error;
+
+    return data;
+}
+
 export function useColumnUpdate({ columnId, projectId }: { columnId: number, projectId: number }, options?: Options) {
     return useSWRMutation<ColumnUpdateType, Error, FetchColumnsKey, ColumnUpdateType>(
         ['COLUMNS', { projectId }],
-
-        async (key, { arg }) => {
-            const supabase = getBrowserClient();
-            const user = await getBrowserUser();
-
-            const { error } = await supabase.from('columns')
-                .update(arg)
-                .eq('id', columnId)
-                .eq('owner', user.id);
-
-            if (error) throw error;
-
-            return arg;
-        },
+        (key, { arg }) => columnUpdate(columnId, arg),
         {
             ...options,
             revalidate: false,
