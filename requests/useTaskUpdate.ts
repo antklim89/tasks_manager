@@ -7,26 +7,27 @@ import { getBrowserClient, getBrowserUser } from '@/utils';
 import { FetchTasksKey } from './keys';
 
 
-export type TaskUpdateType = Partial<TaskCreateType> & { columnId?: number }
-type Options = SWRMutationConfiguration<TaskUpdateType, Error, FetchTasksKey, TaskUpdateType>;
+type Options = SWRMutationConfiguration<Partial<TaskCreateType>, Error, FetchTasksKey, Partial<TaskCreateType>>;
+
+export async function taskUpdate(taskId: number, data: Partial<TaskCreateType>): Promise<Partial<TaskCreateType>> {
+    const supabase = getBrowserClient();
+    const user = await getBrowserUser();
+
+    const { error } = await supabase
+        .from('tasks')
+        .update(data)
+        .eq('owner', user.id)
+        .eq('id', taskId);
+
+    if (error) throw error;
+    return data;
+}
+
 
 export function useTaskUpdate({ columnId, taskId }: { columnId: number, taskId: number }, options?: Options) {
-    return useSWRMutation<TaskUpdateType, Error, FetchTasksKey, TaskUpdateType>(
+    return useSWRMutation<Partial<TaskCreateType>, Error, FetchTasksKey, Partial<TaskCreateType>>(
         ['TASKS', { columnId }],
-
-        async (key, { arg: updatedTask }) => {
-            const supabase = getBrowserClient();
-            const user = await getBrowserUser();
-
-            const { error } = await supabase
-                .from('tasks')
-                .update(updatedTask)
-                .eq('owner', user.id)
-                .eq('id', taskId);
-
-            if (error) throw error;
-            return updatedTask;
-        },
+        (key, { arg }) => taskUpdate(taskId, arg),
         {
             ...options,
             onError(...args) {
