@@ -13,7 +13,7 @@ import { useSWRConfig } from 'swr';
 
 import { Button } from '@/components';
 import Column from '@/features/Column';
-import { columnUpdate, useColumnCreate, useColumnsFetch } from '@/requests';
+import { columnUpdate, taskUpdate, useColumnCreate, useColumnsFetch } from '@/requests';
 import { TaskType } from '@/schemas';
 import { TasgDragData, TaskDropData } from '@/types';
 
@@ -53,7 +53,7 @@ const Project = ({ projectId }: {projectId: number}) => {
             return;
         }
 
-        activeData.updateTask({ columnId: overData.columnId });
+        taskUpdate(activeData.task.id, { columnId: overData.columnId });
 
         mutate<TaskType[]>(['TASKS', { columnId: overData.columnId }], (currentTasks) => {
             if (!currentTasks) return currentTasks;
