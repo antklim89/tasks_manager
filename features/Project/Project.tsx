@@ -36,6 +36,7 @@ const Project = ({ projectId }: {projectId: number}) => {
         const activeData = active.data.current as TasgDragData | undefined;
         const overData = over?.data.current as TaskDropData | undefined;
         if (!overData || !activeData) return;
+        if (overData.task?.id === activeData.task.id) return;
 
         if (overData.columnId === activeData.columnId) {
 
