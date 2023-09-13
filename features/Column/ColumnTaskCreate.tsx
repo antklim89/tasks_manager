@@ -16,7 +16,7 @@ const ColumnTaskCreate = ({ columnId }: { columnId: number; }) => {
         <>
             <Button aria-label="add new task" isLoading={isMutating} onClick={open}><FaPlus /></Button>
 
-            <Modal isOpen={isOpen} onClose={close}>
+            <Modal isOpen={isOpen} size="2xl" onClose={close}>
                 <Modal.Body>
                     <TaskEditForm onSubmit={createTask}>
                         <Modal.Footer>
