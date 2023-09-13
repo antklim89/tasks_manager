@@ -7,7 +7,7 @@ import { InputProps } from './Input.types';
 
 const Input = ({ errorMessage, label, as = 'input', ...props }: InputProps, ref: ForwardedRef<HTMLElement>) => {
     return (
-        <div className="form-control">
+        <div className="form-control w-full">
             {label
                 ? (
                     <label className="label">
