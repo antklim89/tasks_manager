@@ -3,21 +3,10 @@ import { CSS } from '@dnd-kit/utilities';
 import { CSSProperties } from 'react';
 
 import { TaskType } from '@/schemas';
-import { TasgDragData, TaskDropData } from '@/types';
+import { TasgDragData } from '@/types';
 
 
-export function useTaskDnd({
-    task,
-    index,
-    updateTask,
-}: {
-    task: TaskType;
-    index: number;
-    updateTask: (arg: { columnId: number; }) => void;
-}) {
-    const dragData = { task, columnId: task.columnId, index, updateTask } satisfies TasgDragData;
-    const dropData = { task, columnId: task.columnId, index } satisfies TaskDropData;
-
+export function useTaskDnd({ task, index }: { task: TaskType; index: number;}) {
     const {
         attributes,
         listeners,
@@ -30,18 +19,19 @@ export function useTaskDnd({
         activeNodeRect,
     } = useDraggable({
         id: task.id,
-        data: dragData,
+        data: { task, columnId: task.columnId, index },
     });
 
     const {
-        setNodeRef: setDropRef, isOver,
+        setNodeRef: setDropRef,
+        isOver,
     } = useDroppable({
         id: task.id,
-        data: dropData,
+        data: { task, columnId: task.columnId, index },
     });
 
-    const activeData = active && active.data.current as typeof dragData;
-    const overData = over && over.data.current as typeof dragData;
+    const activeData = active && active.data.current as TasgDragData;
+    const overData = over && over.data.current as TasgDragData;
 
     const isOverArciveTask = active?.id === over?.id;
     const isOverPreviousTask = Boolean(activeData

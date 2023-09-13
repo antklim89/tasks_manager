@@ -3,7 +3,6 @@ import { FaCalendarCheck, FaEllipsisVertical } from 'react-icons/fa6';
 
 import { Button, DateComponent, Menu } from '@/components';
 import { useTaskDnd } from '@/hooks';
-import { useTaskUpdate } from '@/requests';
 import { useDisclosure } from '@/utils';
 
 import { TaskProps } from './Task.types';
@@ -13,7 +12,6 @@ import TaskUpdate from './TaskUpdate';
 
 const Task = ({ task, index }: TaskProps) => {
     const { isOpen: updateModalisOpen, close: closeUpdateModal, open: openUpdateModal } = useDisclosure();
-    const { trigger: updateTask } = useTaskUpdate({ taskId: task.id, columnId: task.columnId });
     const {
         isOverArciveTask,
         isOverPreviousTask,
@@ -26,7 +24,7 @@ const Task = ({ task, index }: TaskProps) => {
         isDragging,
         style,
         node,
-    } = useTaskDnd({ task, index, updateTask });
+    } = useTaskDnd({ task, index });
 
     return (
         <>
