@@ -3,7 +3,7 @@ import { FaCalendarCheck, FaEllipsisVertical } from 'react-icons/fa6';
 
 import { Button, DateComponent, Menu } from '@/components';
 import { useTaskDnd } from '@/hooks';
-import { useDisclosure } from '@/utils';
+import { cn, useDisclosure } from '@/utils';
 
 import { TaskProps } from './Task.types';
 import TaskDelete from './TaskDelete';
@@ -40,7 +40,7 @@ const Task = ({ task, index }: TaskProps) => {
                 tabIndex={0}
                 onDoubleClick={openUpdateModal}
             >
-                <div className="w-16 ml-auto mr-2 p-1 bg-primary" {...listeners} {...attributes}>
+                <div className={cn('w-16 ml-auto mr-2 p-1 bg-primary cursor-grab', { 'cursor-grabbing': isDragging })} {...listeners} {...attributes}>
                     <div className="h-1 border-t border-b" />
                 </div>
                 <div className="card w-full p-2 bg-primary shadow-lg">
