@@ -26,9 +26,10 @@ const Column = ({ id, name, project, taskOrder }: ColumnType) => {
         <div
             className="card w-96 bg-base-200 shadow-xl"
         >
-            <div className="card-title flex justify-between" ref={setDropRef}>
+            <div className="flex items-start" ref={setDropRef}>
                 <ColumnName id={id} name={name} projectId={project} />
-                <Menu button={<button className="btn m-1" type="button"><FaEllipsisVertical /></button>}>
+                <ColumnTaskCreate columnId={id} />
+                <Menu button={<button className="btn" type="button"><FaEllipsisVertical /></button>}>
                     <ColumnDelete id={id} projectId={project} />
                 </Menu>
             </div>
@@ -43,10 +44,6 @@ const Column = ({ id, name, project, taskOrder }: ColumnType) => {
                         task={task}
                     />
                 ))}
-            </div>
-
-            <div className="card-actions p-1 flex justify-end">
-                <ColumnTaskCreate columnId={id} />
             </div>
         </div>
     );
