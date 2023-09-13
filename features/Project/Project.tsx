@@ -13,7 +13,7 @@ import { useSWRConfig } from 'swr';
 
 import { Button } from '@/components';
 import Column from '@/features/Column';
-import { useColumnCreate, useColumnsFetch } from '@/requests';
+import { columnUpdate, useColumnCreate, useColumnsFetch } from '@/requests';
 import { TaskType } from '@/schemas';
 import { TasgDragData, TaskDropData } from '@/types';
 
@@ -46,6 +46,7 @@ const Project = ({ projectId }: {projectId: number}) => {
                 if ((overData.index || -1) < activeData.index) newTasks.splice(activeData.index + 1, 1);
                 else newTasks.splice(activeData.index, 1);
 
+                columnUpdate(overData.columnId, { taskOrder: newTasks.map((i) => i.id) });
                 return newTasks;
             }, { revalidate: false });
 
@@ -57,11 +58,17 @@ const Project = ({ projectId }: {projectId: number}) => {
         mutate<TaskType[]>(['TASKS', { columnId: overData.columnId }], (currentTasks) => {
             if (!currentTasks) return currentTasks;
             const newTask = { ...activeData.task, columnId: overData.columnId };
-            return currentTasks.toSpliced((overData.index ?? -1) + 1, 0, newTask);
+            const newTasks = currentTasks.toSpliced((overData.index ?? -1) + 1, 0, newTask);
+
+            columnUpdate(overData.columnId, { taskOrder: newTasks.map((i) => i.id) });
+            return newTasks;
         }, { revalidate: false });
 
         mutate<TaskType[]>(['TASKS', { columnId: activeData.columnId }], (currentTasks) => {
-            return currentTasks?.filter((task) => task.id !== activeData.task.id);
+            const newTasks = currentTasks?.filter((task) => task.id !== activeData.task.id);
+
+            if (newTasks) columnUpdate(activeData.columnId, { taskOrder: newTasks.map((i) => i.id) });
+            return newTasks;
         }, { revalidate: false });
     };
 
