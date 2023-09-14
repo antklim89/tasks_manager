@@ -80,7 +80,7 @@ const Project = ({ projectId }: {projectId: number}) => {
             sensors={sensors}
             onDragEnd={handleDrop}
         >
-            <div className="flex flex-grow items-start gap-2 overflow-x-scroll overflow-y-hidden">
+            <div className="h-0 flex flex-grow items-start gap-2 overflow-x-scroll overflow-y-scroll">
                 {columns.map((column) => (
                     <Column key={column.id} {...column} />
                 ))}
