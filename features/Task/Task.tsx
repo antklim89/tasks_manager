@@ -63,8 +63,8 @@ const Task = ({ task, index }: TaskProps) => {
 
                     {task.completeAt
                         ? (
-                            <div className="card-actions">
-                                <FaCalendarCheck className="text-green-500" /><DateComponent date={task.completeAt} />
+                            <div className="flex items-center">
+                                <FaCalendarCheck className="text-green-500 mr-2" /><DateComponent date={task.completeAt} />
                             </div>
                         )
                         : null}
