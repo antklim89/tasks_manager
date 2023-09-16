@@ -11,6 +11,7 @@ export interface Database {
     Tables: {
       columns: {
         Row: {
+          description: string | null
           id: number
           name: string
           owner: string
@@ -18,6 +19,7 @@ export interface Database {
           taskOrder: number[] | null
         }
         Insert: {
+          description?: string | null
           id?: number
           name?: string
           owner: string
@@ -25,6 +27,7 @@ export interface Database {
           taskOrder?: number[] | null
         }
         Update: {
+          description?: string | null
           id?: number
           name?: string
           owner?: string
@@ -73,30 +76,36 @@ export interface Database {
       }
       tasks: {
         Row: {
+          atartAt: string | null
           columnId: number
           completeAt: string | null
           createdAt: string
           description: string
           id: number
           owner: string
+          shouldByIn: number | null
           title: string
         }
         Insert: {
+          atartAt?: string | null
           columnId: number
           completeAt?: string | null
           createdAt?: string
           description?: string
           id?: number
           owner: string
+          shouldByIn?: number | null
           title: string
         }
         Update: {
+          atartAt?: string | null
           columnId?: number
           completeAt?: string | null
           createdAt?: string
           description?: string
           id?: number
           owner?: string
+          shouldByIn?: number | null
           title?: string
         }
         Relationships: [
@@ -110,6 +119,12 @@ export interface Database {
             foreignKeyName: "tasks_owner_fkey"
             columns: ["owner"]
             referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "tasks_shouldByIn_fkey"
+            columns: ["shouldByIn"]
+            referencedRelation: "columns"
             referencedColumns: ["id"]
           }
         ]
