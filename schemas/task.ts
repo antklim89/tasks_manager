@@ -7,6 +7,7 @@ export const taskSchema = z.object({
     title: z.string(),
     description: z.string().optional(),
     completeAt: z.string()/* .datetime()*/.nullish(),
+    startAt: z.string()/* .datetime()*/.nullish(),
     columnId: z.number(),
     owner: z.string(),
 });
@@ -22,6 +23,10 @@ export const taskCreateSchema = z.object({
         .positive()
         .optional(),
     completeAt: z.string()
+        // TODO: add datetime validation
+        // .datetime()
+        .nullish(),
+    startAt: z.string()
         // TODO: add datetime validation
         // .datetime()
         .nullish(),

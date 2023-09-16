@@ -1,5 +1,5 @@
 'use client';
-import { FaCalendarCheck, FaEllipsisVertical } from 'react-icons/fa6';
+import { FaEllipsisVertical, FaFlagCheckered, FaPlay } from 'react-icons/fa6';
 
 import { Button, DateComponent, Menu } from '@/components';
 import { useTaskDnd } from '@/hooks';
@@ -61,13 +61,10 @@ const Task = ({ task, index }: TaskProps) => {
                         )
                         : null}
 
-                    {task.completeAt
-                        ? (
-                            <div className="flex items-center">
-                                <FaCalendarCheck className="text-green-500 mr-2" /><DateComponent date={task.completeAt} />
-                            </div>
-                        )
-                        : null}
+                    <div className="flex flex-col items-start">
+                        { task.startAt ? <div className="flex items-center"><FaPlay className="text-green-500 mr-2" /><DateComponent date={task.startAt} /></div> : null }
+                        { task.completeAt ? <div className="flex items-center"><FaFlagCheckered className="text-green-500 mr-2" /><DateComponent date={task.completeAt} /></div> : null }
+                    </div>
                 </div>
             </div>
 
