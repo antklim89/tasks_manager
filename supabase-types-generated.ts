@@ -76,7 +76,6 @@ export interface Database {
       }
       tasks: {
         Row: {
-          atartAt: string | null
           columnId: number
           completeAt: string | null
           createdAt: string
@@ -84,10 +83,10 @@ export interface Database {
           id: number
           owner: string
           shouldByIn: number | null
+          startAt: string | null
           title: string
         }
         Insert: {
-          atartAt?: string | null
           columnId: number
           completeAt?: string | null
           createdAt?: string
@@ -95,10 +94,10 @@ export interface Database {
           id?: number
           owner: string
           shouldByIn?: number | null
+          startAt?: string | null
           title: string
         }
         Update: {
-          atartAt?: string | null
           columnId?: number
           completeAt?: string | null
           createdAt?: string
@@ -106,6 +105,7 @@ export interface Database {
           id?: number
           owner?: string
           shouldByIn?: number | null
+          startAt?: string | null
           title?: string
         }
         Relationships: [
