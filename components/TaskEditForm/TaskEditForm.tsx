@@ -1,14 +1,12 @@
 'use client';
 import { zodResolver } from '@hookform/resolvers/zod';
-import DatePicker from 'react-datepicker';
 import { Controller, useForm } from 'react-hook-form';
 
+import { DatePicker } from '@/components';
 import Input from '@/components/Input';
 import { TaskCreateType, taskCreateSchema } from '@/schemas';
 
 import { TaskEditFormProps } from './TaskEditForm.types';
-
-import 'react-datepicker/dist/react-datepicker.css';
 
 
 const TaskEditForm = ({ onSubmit, children, defaultValues }: TaskEditFormProps) => {
@@ -27,7 +25,6 @@ const TaskEditForm = ({ onSubmit, children, defaultValues }: TaskEditFormProps) 
         await onSubmit?.(data);
         if (!defaultValues) reset({}, { keepValues: false });
     });
-
     return (
         <form onSubmit={handleCreateTask}>
             <Input
@@ -44,18 +41,23 @@ const TaskEditForm = ({ onSubmit, children, defaultValues }: TaskEditFormProps) 
             />
             <Controller
                 control={control}
+                name="startAt"
+                render={({ field }) => (
+                    <DatePicker
+                        customInput={<Input className="w-full" errorMessage={errors.completeAt?.message} label="Start at" />}
+                        value={field.value}
+                        onChange={(date) => field.onChange(date?.toISOString())}
+                    />
+                )}
+            />
+            <Controller
+                control={control}
                 name="completeAt"
                 render={({ field }) => (
                     <DatePicker
-                        showTimeSelect
-                        className="w-full "
                         customInput={<Input className="w-full" errorMessage={errors.completeAt?.message} label="Complete at" />}
-                        dateFormat="dd-MMM-yyyy HH:mm"
-                        selected={field.value ? new Date(field.value) : null}
-                        timeFormat="HH:mm"
-                        timeIntervals={10}
-                        wrapperClassName="w-full"
-                        onChange={(date) => field.onChange(date?.toISOString() || null)}
+                        value={field.value}
+                        onChange={(date) => field.onChange(date?.toISOString())}
                     />
                 )}
             />
