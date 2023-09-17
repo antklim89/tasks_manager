@@ -2,6 +2,7 @@ import { formatDistance } from 'date-fns';
 import React from 'react';
 import { FaCalendarXmark, FaFlagCheckered } from 'react-icons/fa6';
 
+import { useCurrentDate } from '@/hooks';
 import { cn } from '@/utils';
 
 
@@ -10,9 +11,9 @@ const TWO_DAYS = 86400000 * 2;
 
 
 const TaskCompleteDate = ({ completeAt }: { completeAt?: string | null }) => {
+    const currentDate = useCurrentDate();
     if (!completeAt) return null;
     const providedDate = new Date(completeAt).getTime();
-    const currentDate = new Date().getTime();
     const isOutDatedTime = providedDate < currentDate;
     const isCriticalTime = providedDate > currentDate;
     const isWarningTime = providedDate > currentDate + TWO_HOURS;
