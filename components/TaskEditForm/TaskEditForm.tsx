@@ -15,6 +15,7 @@ const TaskEditForm = ({ onSubmit, children, defaultValues }: TaskEditFormProps) 
         handleSubmit,
         formState: { errors },
         reset,
+        resetField,
         control,
     } = useForm<TaskCreateType>({
         resolver: zodResolver(taskCreateSchema),
@@ -37,6 +38,7 @@ const TaskEditForm = ({ onSubmit, children, defaultValues }: TaskEditFormProps) 
                 {...register('description')}
                 errorMessage={errors.description?.message}
                 label="Description"
+                reset={() => resetField('description', { defaultValue: '' })}
                 rows={7}
             />
             <Controller
@@ -44,7 +46,14 @@ const TaskEditForm = ({ onSubmit, children, defaultValues }: TaskEditFormProps) 
                 name="startAt"
                 render={({ field }) => (
                     <DatePicker
-                        customInput={<Input className="w-full" errorMessage={errors.completeAt?.message} label="Start at" />}
+                        customInput={(
+                            <Input
+                                className="w-full"
+                                errorMessage={errors.completeAt?.message}
+                                label="Start at"
+                                reset={() => resetField('startAt', { defaultValue: null })}
+                            />
+                        )}
                         value={field.value}
                         onChange={(date) => field.onChange(date?.toISOString())}
                     />
@@ -55,7 +64,14 @@ const TaskEditForm = ({ onSubmit, children, defaultValues }: TaskEditFormProps) 
                 name="completeAt"
                 render={({ field }) => (
                     <DatePicker
-                        customInput={<Input className="w-full" errorMessage={errors.completeAt?.message} label="Complete at" />}
+                        customInput={(
+                            <Input
+                                className="w-full"
+                                errorMessage={errors.completeAt?.message}
+                                label="Complete at"
+                                reset={() => resetField('completeAt', { defaultValue: null })}
+                            />
+                        )}
                         value={field.value}
                         onChange={(date) => field.onChange(date?.toISOString())}
                     />
