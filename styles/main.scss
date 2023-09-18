@@ -17,3 +17,8 @@ body {
         flex-grow: 1;
     }
 }
+
+.btn-outline.btn-primary {
+    color: white;
+    border-color: hsl(var(--p));
+}
