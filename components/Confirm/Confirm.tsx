@@ -13,28 +13,26 @@ const Confirm = ({
     text,
 }: ConfirmProps) => {
     return (
-        <Modal isOpen={isOpen} onClose={onClose}>
-            <Modal.Title className="whitespace-pre-wrap">
+        <Modal className="p-0" isOpen={isOpen} onClose={onClose}>
+            <Modal.Title className="whitespace-pre-wrap p-4">
                 {text}
             </Modal.Title>
-            <Modal.Footer>
+            <Modal.Footer className="gap-0">
                 <Button
                     outline
+                    className="flex-1 rounded-none rounded-bl-md"
                     isLoading={isLoading}
-                    size="sm"
                     onClick={onClose}
                 >
                     Cancel
                 </Button>
                 <Button
-                    color="error"
+                    className="flex-1 rounded-none rounded-br-md"
                     isLoading={isLoading}
-                    size="sm"
                     onClick={onConfirm}
                 >
                     {confirmButtonText}
                 </Button>
-
             </Modal.Footer>
         </Modal>
     );
