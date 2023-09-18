@@ -11,7 +11,6 @@ export interface Database {
     Tables: {
       columns: {
         Row: {
-          description: string | null
           id: number
           name: string
           owner: string
@@ -19,7 +18,6 @@ export interface Database {
           taskOrder: number[] | null
         }
         Insert: {
-          description?: string | null
           id?: number
           name?: string
           owner: string
@@ -27,7 +25,6 @@ export interface Database {
           taskOrder?: number[] | null
         }
         Update: {
-          description?: string | null
           id?: number
           name?: string
           owner?: string
@@ -51,16 +48,19 @@ export interface Database {
       }
       projects: {
         Row: {
+          description: string | null
           id: number
           name: string
           owner: string | null
         }
         Insert: {
+          description?: string | null
           id?: number
           name: string
           owner?: string | null
         }
         Update: {
+          description?: string | null
           id?: number
           name?: string
           owner?: string | null
