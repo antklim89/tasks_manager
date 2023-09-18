@@ -26,7 +26,7 @@ const ProjectPanelDelete = ({ projectId }: { projectId: number }) => {
                 isLoading={isMutating}
                 onClick={open}
             >
-                Delete Project
+                Delete
             </Button>
 
             <Modal isOpen={isOpen} onClose={close}>
