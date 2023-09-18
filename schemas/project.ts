@@ -5,7 +5,7 @@ export const projectSchema = z.object({
     id: z.number(),
     name: z.string(),
     owner: z.string(),
-    description: z.string().optional(),
+    description: z.string().nullish(),
 });
 
 export const projectUpdateSchema = z.object({
@@ -14,7 +14,7 @@ export const projectUpdateSchema = z.object({
         .max(40),
     description: z.string()
         .max(500)
-        .optional(),
+        .nullish(),
 });
 
 export type ProjectUpdateType = z.infer<typeof projectUpdateSchema>

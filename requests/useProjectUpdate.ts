@@ -1,7 +1,7 @@
 import { toast } from 'react-hot-toast';
 import useSWRMutation, { SWRMutationConfiguration } from 'swr/mutation';
 
-import { ProjectType } from '@/schemas';
+import { ProjectType, ProjectUpdateType } from '@/schemas';
 import { getBrowserClient, getBrowserUser } from '@/utils';
 
 import { FetchProjectsKey } from './keys';
@@ -9,13 +9,13 @@ import { FetchProjectsKey } from './keys';
 
 const TOAST_ID = 'PROJECT_UPDATE';
 
-type Options = SWRMutationConfiguration<{ name: string }, Error, FetchProjectsKey, { name: string }>;
+type Options = SWRMutationConfiguration<ProjectUpdateType, Error, FetchProjectsKey, ProjectUpdateType>;
 
 export function useProjectUpdate({ id }: { id?: number }, options?: Options) {
-    return useSWRMutation<{ name: string }, Error, FetchProjectsKey, { name: string }>(
+    return useSWRMutation<ProjectUpdateType, Error, FetchProjectsKey, ProjectUpdateType>(
         ['PROJECTS'],
 
-        async (key, { arg: { name } }) => {
+        async (key, { arg }) => {
             if (!id) throw new Error('Project id is required.');
 
             toast.loading('Project is updating...', { id: TOAST_ID });
@@ -24,11 +24,12 @@ export function useProjectUpdate({ id }: { id?: number }, options?: Options) {
             const user = await getBrowserUser();
 
             const { error } = await supabase.from('projects')
-                .update({ name, owner: user.id })
+                .update(arg)
+                .eq('owner', user.id)
                 .eq('id', id);
 
             if (error) throw error;
-            return { name };
+            return arg;
         },
         {
             ...options,
