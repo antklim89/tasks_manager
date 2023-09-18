@@ -25,7 +25,7 @@ export const classes = {
     },
 };
 
-const Modal = ({ isOpen, children, onClose, size = 'md' }: ModalProps) => {
+const Modal = ({ isOpen, children, onClose, size = 'md', className }: ModalProps) => {
     return (
         <Transition appear as={Fragment} show={isOpen}>
             <Dialog as="div" className="relative z-10 w-52" onClose={onClose}>
@@ -56,6 +56,7 @@ const Modal = ({ isOpen, children, onClose, size = 'md' }: ModalProps) => {
                                 className={cn(
                                     'w-full transform rounded-md bg-base-100 p-4 text-left align-middle shadow-xl transition-all',
                                     classes.size[size],
+                                    className,
                                 )}
                             >
                                 {children}

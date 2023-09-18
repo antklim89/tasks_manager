@@ -8,4 +8,5 @@ export interface ModalProps {
     children: ReactNode
     onClose: () => void
     size?: keyof typeof classes['size']
+    className?: string
 }

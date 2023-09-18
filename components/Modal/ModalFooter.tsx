@@ -1,9 +1,11 @@
 import { ReactNode } from 'react';
 
+import { cn } from '@/utils';
 
-const ModalFooter = ({ children }: { children: ReactNode }) => {
+
+const ModalFooter = ({ children, className }: { children: ReactNode, className?: string }) => {
     return (
-        <div className="flex justify-end gap-2">
+        <div className={cn('flex justify-end gap-2', className)}>
             {children}
         </div>
     );
