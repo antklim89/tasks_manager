@@ -1,6 +1,4 @@
-import React from 'react';
-
-import { Button, Modal } from '@/components';
+import { Button, Confirm } from '@/components';
 import { useTaskDelete } from '@/requests';
 import { cn, useDisclosure } from '@/utils';
 
@@ -10,9 +8,10 @@ import { TaskDeleteProps } from './Task.types';
 const TaskDelete = ({ task, className }: TaskDeleteProps) => {
     const { isOpen, close, open } = useDisclosure();
 
-    const { trigger: deleteTask, isMutating } = useTaskDelete({ taskId: task.id, columnId: task.columnId }, {
-        onSuccess: () => close(),
-    });
+    const { trigger: deleteTask, isMutating } = useTaskDelete(
+        { taskId: task.id, columnId: task.columnId },
+        { onSuccess: close },
+    );
 
     return (
         <>
@@ -24,29 +23,14 @@ const TaskDelete = ({ task, className }: TaskDeleteProps) => {
             >
                 Delete
             </Button>
-            <Modal isOpen={isOpen} onClose={close}>
-                <Modal.Title>
-                    Are you sure you want to delete this task!
-                </Modal.Title>
-                <Modal.Footer>
-                    <Button
-                        outline
-                        isLoading={isMutating}
-                        size="sm"
-                        onClick={close}
-                    >
-                        Cancel
-                    </Button>
-                    <Button
-                        color="error"
-                        isLoading={isMutating}
-                        size="sm"
-                        onClick={deleteTask}
-                    >
-                        Delete
-                    </Button>
-                </Modal.Footer>
-            </Modal>
+            <Confirm
+                confirmButtonText="Delete"
+                isLoading={isMutating}
+                isOpen={isOpen}
+                text="Are you sure you want to delete this task!"
+                onClose={close}
+                onConfirm={deleteTask}
+            />
         </>
     );
 };

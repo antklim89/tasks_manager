@@ -1,6 +1,6 @@
 import { useRouter } from 'next/navigation';
 
-import { Button, Modal } from '@/components';
+import { Button, Confirm } from '@/components';
 import { useProjectDelete } from '@/requests';
 import { useDisclosure } from '@/utils';
 
@@ -28,31 +28,14 @@ const ProjectPanelDelete = ({ projectId }: { projectId: number }) => {
             >
                 Delete
             </Button>
-
-            <Modal isOpen={isOpen} onClose={close}>
-                <Modal.Title>
-                    Are you sure you want to delete this project!
-                </Modal.Title>
-                <Modal.Footer>
-                    <Button
-                        outline
-                        isLoading={isMutating}
-                        size="sm"
-                        onClick={close}
-                    >
-                        Cancel
-                    </Button>
-                    <Button
-                        color="error"
-                        isLoading={isMutating}
-                        size="sm"
-                        onClick={() => deleteProject()}
-                    >
-                        Delete
-                    </Button>
-
-                </Modal.Footer>
-            </Modal>
+            <Confirm
+                confirmButtonText="Delete"
+                isLoading={isMutating}
+                isOpen={isOpen}
+                text="Are you sure you want to delete this project!"
+                onClose={close}
+                onConfirm={deleteProject}
+            />
         </>
     );
 };
