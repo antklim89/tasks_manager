@@ -17,9 +17,13 @@ const ProjectPanelSelect = ({
     return (
         <Menu button={<Button outline isLoading={isLoading} tabIndex={0}>{projectName}</Button>}>
             {projects?.map((project) => (
-                <Button outline className="text-white" key={project.id}>
-                    <Link href={`/dashboard/${project.id}`}>{project.name}</Link>
-                </Button>
+                <Link
+                    className="btn btn-primary btn-outline w-full"
+                    href={`/dashboard/${project.id}`}
+                    key={project.id}
+                >
+                    {project.name}
+                </Link>
             ))}
         </Menu>
     );
