@@ -12,7 +12,7 @@ import ColumnName from './ColumnName';
 import ColumnTaskCreate from './ColumnTaskCreate';
 
 
-const Column = ({ id, name, project, taskOrder }: ColumnType) => {
+const Column = ({ id, name, projectId, taskOrder }: ColumnType) => {
     const { data: tasks = [], isLoading } = useTasksFetch({ columnId: id, taskOrder });
 
     const {
@@ -27,10 +27,10 @@ const Column = ({ id, name, project, taskOrder }: ColumnType) => {
             className="card w-96 bg-base-200 shadow-xl"
         >
             <div className="flex items-start" ref={setDropRef}>
-                <ColumnName id={id} name={name} projectId={project} />
+                <ColumnName id={id} name={name} projectId={projectId} />
                 <ColumnTaskCreate columnId={id} />
                 <Menu button={<button className="btn" type="button"><FaEllipsisVertical /></button>}>
-                    <ColumnDelete id={id} projectId={project} />
+                    <ColumnDelete id={id} projectId={projectId} />
                 </Menu>
             </div>
 

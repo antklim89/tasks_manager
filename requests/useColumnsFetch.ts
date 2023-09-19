@@ -22,7 +22,7 @@ export function useColumnsFetch({ projectId }: { projectId: number }, options?: 
                 .from('columns')
                 .select('*')
                 .order('id')
-                .eq('project', key.projectId)
+                .eq('projectId', key.projectId)
                 .eq('owner', user.id);
 
             if (error) throw error;

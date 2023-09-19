@@ -14,21 +14,21 @@ export interface Database {
           id: number
           name: string
           owner: string
-          project: number
+          projectId: number
           taskOrder: number[] | null
         }
         Insert: {
           id?: number
           name?: string
           owner: string
-          project: number
+          projectId: number
           taskOrder?: number[] | null
         }
         Update: {
           id?: number
           name?: string
           owner?: string
-          project?: number
+          projectId?: number
           taskOrder?: number[] | null
         }
         Relationships: [
@@ -39,8 +39,8 @@ export interface Database {
             referencedColumns: ["id"]
           },
           {
-            foreignKeyName: "columns_project_fkey"
-            columns: ["project"]
+            foreignKeyName: "columns_projectId_fkey"
+            columns: ["projectId"]
             referencedRelation: "projects"
             referencedColumns: ["id"]
           }

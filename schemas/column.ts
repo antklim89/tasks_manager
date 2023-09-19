@@ -5,7 +5,7 @@ export const columnSchema = z.object({
     id: z.number(),
     name: z.string(),
     owner: z.string(),
-    project: z.number(),
+    projectId: z.number(),
     taskOrder: z.array(z.number()).nullable(),
 });
 

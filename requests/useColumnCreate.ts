@@ -23,7 +23,7 @@ export function useColumnCreate({ projectId }: { projectId: number }, options?: 
             const user = await getBrowserUser();
 
             const { error, data } = await supabase.from('columns')
-                .insert({ name: 'New Column', owner: user.id, project: projectId })
+                .insert({ name: 'New Column', owner: user.id, projectId })
                 .select('*')
                 .single();
 
