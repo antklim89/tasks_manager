@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 
-import { getServerUser } from '@/utils';
+import { getServerUser } from '@/supabase/server';
 
 
 const DashboardLayout = async ({ login, children }: { login: ReactNode, children: ReactNode }) => {

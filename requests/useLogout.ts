@@ -2,7 +2,7 @@ import { useRouter } from 'next/navigation';
 import { toast } from 'react-hot-toast';
 import useSWRMutation from 'swr/mutation';
 
-import { getBrowserClient } from '@/utils';
+import { getBrowserClient } from '@/supabase/browser';
 
 
 const TOAST_ID = 'LOGOUT';

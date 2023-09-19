@@ -2,9 +2,9 @@
 
 import { Button, Modal } from '@/components';
 import ProjectEditForm from '@/components/ProjectEditForm';
+import { useDisclosure } from '@/hooks';
 import { useProjectUpdate } from '@/requests';
 import { ProjectType } from '@/schemas';
-import { useDisclosure } from '@/utils';
 
 
 const ProjectPanelUpdate = ({ project }: { project: ProjectType }) => {

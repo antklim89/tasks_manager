@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { FaUser } from 'react-icons/fa6';
 
 import { Button, Menu } from '@/components';
-import { getServerUser } from '@/utils';
+import { getServerUser } from '@/supabase/server';
 
 import HeaderLogout from './HeaderLogout';
 

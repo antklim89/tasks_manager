@@ -2,7 +2,7 @@ import { useRouter } from 'next/navigation';
 import useSWRMutation, { SWRMutationConfiguration } from 'swr/mutation';
 
 import { AuthFotmInput } from '@/schemas';
-import { getBrowserClient } from '@/utils';
+import { getBrowserClient } from '@/supabase/browser';
 
 import { AuthKey } from './keys';
 

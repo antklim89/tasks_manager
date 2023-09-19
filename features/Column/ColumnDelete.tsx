@@ -1,6 +1,6 @@
 import { Button, Confirm } from '@/components';
+import { useDisclosure } from '@/hooks';
 import { useColumnDelete } from '@/requests';
-import { useDisclosure } from '@/utils';
 
 
 const ColumnDelete = ({ id, projectId }: { id: number, projectId: number }) => {

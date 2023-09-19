@@ -1,6 +1,7 @@
 import { Button, Confirm } from '@/components';
+import { useDisclosure } from '@/hooks';
 import { useTaskDelete } from '@/requests';
-import { cn, useDisclosure } from '@/utils';
+import { cn } from '@/utils';
 
 import { TaskDeleteProps } from './Task.types';
 

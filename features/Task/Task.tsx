@@ -2,8 +2,8 @@
 import { FaEllipsisVertical } from 'react-icons/fa6';
 
 import { Button, Menu } from '@/components';
-import { useTaskDnd } from '@/hooks';
-import { cn, useDisclosure } from '@/utils';
+import { useDisclosure, useTaskDnd } from '@/hooks';
+import { cn } from '@/utils';
 
 import { TaskProps } from './Task.types';
 import TaskCompleteDate from './TaskCompleteDate';

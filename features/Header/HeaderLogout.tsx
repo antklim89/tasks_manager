@@ -1,8 +1,8 @@
 'use client';
 
 import { Button, Confirm } from '@/components';
+import { useDisclosure } from '@/hooks';
 import { useLogout } from '@/requests';
-import { useDisclosure } from '@/utils';
 
 
 const HeaderLogout = () => {

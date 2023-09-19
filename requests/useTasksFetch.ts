@@ -2,7 +2,7 @@ import { toast } from 'react-hot-toast';
 import useSWR, { SWRConfiguration } from 'swr';
 
 import { TaskType, taskSchema } from '@/schemas';
-import { getBrowserClient, getBrowserUser } from '@/utils';
+import { getBrowserClient, getBrowserUser } from '@/supabase/browser';
 
 import { FetchTasksKey } from './keys';
 

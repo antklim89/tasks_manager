@@ -2,7 +2,7 @@ import { toast } from 'react-hot-toast';
 import useSWRMutation, { SWRMutationConfiguration } from 'swr/mutation';
 
 import { ColumnType, columnSchema } from '@/schemas';
-import { getBrowserClient, getBrowserUser } from '@/utils';
+import { getBrowserClient, getBrowserUser } from '@/supabase/browser';
 
 import { FetchColumnsKey } from './keys';
 
