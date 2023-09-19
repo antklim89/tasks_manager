@@ -15,7 +15,9 @@ export const metadata = {
 const RootLayout = async ({ children }: { children: React.ReactNode }) => {
     return (
         <html data-theme="dark" lang="en">
-            <head />
+            <head>
+                <link href="/favicon.svg" rel="icon" sizes="any" />
+            </head>
             <body>
                 <Providers>
                     <Header />
