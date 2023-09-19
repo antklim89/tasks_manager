@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import { FaUser } from 'react-icons/fa6';
 
@@ -12,7 +13,15 @@ const Header = async () => {
 
     return (
         <header className="flex items-center container px-2 m-auto h-12">
-            <Link className="mr-auto" href="/">Tasks Manager</Link>
+            <Link className="mr-auto flex items-center" href="/">
+                <Image
+                    alt="logo"
+                    height={48}
+                    src="/favicon.svg"
+                    width={48}
+                />
+                <span className="hidden sm:inline text-2xl font-bold">TASK MANAGER</span>
+            </Link>
 
             <div className="flex gap-4 items-center">
                 <Link href="/dashboard">{user ? 'Dashboard' : 'Sign In'}</Link>
