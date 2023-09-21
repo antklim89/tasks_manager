@@ -6,12 +6,13 @@ import { useCurrentDate } from '@/hooks';
 import { cn } from '@/utils';
 
 
+const DAY = 86400000;
 const TWO_HOURS = 3600000 * 2;
-const TWO_DAYS = 86400000 * 2;
+const TWO_DAYS = DAY * 2;
 
 
 const TaskCompleteDate = ({ completeAt }: { completeAt?: string | null }) => {
-    const currentDate = useCurrentDate();
+    const currentDate = useCurrentDate({ isDisabled: !completeAt });
     if (!completeAt) return null;
     const providedDate = new Date(completeAt).getTime();
     const isOutDatedTime = providedDate < currentDate;

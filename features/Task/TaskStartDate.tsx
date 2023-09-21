@@ -5,7 +5,7 @@ import { useCurrentDate } from '@/hooks';
 
 
 const TaskStartDate = ({ startAt }: { startAt?: string | null }) => {
-    const currentDate = useCurrentDate();
+    const currentDate = useCurrentDate({ isDisabled: !startAt });
 
     if (!startAt) return null;
     const providedDate = new Date(startAt).getTime();
