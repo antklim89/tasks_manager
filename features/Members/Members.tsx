@@ -2,6 +2,7 @@
 import { useMembersFetch } from '@/requests';
 
 import { MembersProps } from './Members.types';
+import MembersItem from './MembersItem';
 
 
 const Members = ({ projectId }: MembersProps) => {
@@ -9,8 +10,20 @@ const Members = ({ projectId }: MembersProps) => {
 
     if (isLoading) return null;
     return (
-        <div>
-            {members.map((member) => member.email) }
+        <div className="overflow-x-auto">
+            <table className="table">
+                <thead>
+                    <tr>
+                        <th>User</th>
+                        <th>Role</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {members.map((member) => (
+                        <MembersItem key={member.id} member={member} />
+                    )) }
+                </tbody>
+            </table>
         </div>
     );
 };
