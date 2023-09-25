@@ -14,18 +14,21 @@ const ProjectPanel = ({ projectId }: { projectId?: number }) => {
     const { data: projects, isLoading } = useProjectsFetch();
     const project = projects?.find((p) => p.id === projectId);
 
+    if (isLoading) return <div className="flex h-12 my-2 px-2 skeleton" />;
     return (
-        <>
-            <div className="flex py-4 bpx-2">
-                <ProjectPanelCreate />
-                <ProjectPanelSelect isLoading={isLoading} projectName={project?.name} projects={projects} />
-                <div className="flex-grow" />
-                <Menu button={<Button aria-label="project menu" color="ghost"><FaEllipsisVertical /></Button>}>
-                    {project ? <ProjectPanelDelete projectId={project.id} /> : null}
-                    {project ? <ProjectPanelUpdate project={project} /> : null}
-                </Menu>
-            </div>
-        </>
+        <div className="flex h-12 my-2 px-2">
+            <ProjectPanelCreate />
+            <ProjectPanelSelect projectName={project?.name} projects={projects} />
+            <div className="flex-grow" />
+            {project
+                ? (
+                    <Menu button={<Button aria-label="project menu" color="ghost"><FaEllipsisVertical /></Button>}>
+                        <ProjectPanelDelete projectId={project.id} />
+                        <ProjectPanelUpdate project={project} />
+                    </Menu>
+                )
+                : null}
+        </div>
     );
 };
 
