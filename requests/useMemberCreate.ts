@@ -21,7 +21,7 @@ export function useMemberCreate({ projectId }: { projectId: number }, options?: 
             const user = await getBrowserUser();
 
             const { error, data } = await supabase.from('member')
-                .insert({ role: 'read-only', user: user.id, projectId })
+                .insert({ role: 'read-only', userId: user.id, projectId })
                 .select('*')
                 .single();
 
