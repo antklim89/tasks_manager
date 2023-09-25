@@ -46,6 +46,43 @@ export interface Database {
           }
         ]
       }
+      member: {
+        Row: {
+          createdAt: string
+          id: number
+          projectId: number
+          role: string
+          user: string
+        }
+        Insert: {
+          createdAt?: string
+          id?: number
+          projectId: number
+          role: string
+          user: string
+        }
+        Update: {
+          createdAt?: string
+          id?: number
+          projectId?: number
+          role?: string
+          user?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "member_projectId_fkey"
+            columns: ["projectId"]
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "member_user_fkey"
+            columns: ["user"]
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
       projects: {
         Row: {
           description: string | null
