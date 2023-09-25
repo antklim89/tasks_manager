@@ -2,9 +2,8 @@ import { SupabaseClient, User, createClientComponentClient } from '@supabase/aut
 
 import type { Database } from '@/supabase-types-generated';
 
-// @ts-expect-error test
-export const getBrowserClient = () => console.log(process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY)
- || createClientComponentClient<Database>({});
+
+export const getBrowserClient = () => createClientComponentClient<Database>({});
 
 export async function getUser(supabase: SupabaseClient) {
     const { data: { session } } = await supabase.auth.getSession();
