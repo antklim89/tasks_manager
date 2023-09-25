@@ -22,3 +22,16 @@ body {
     color: white;
     border-color: hsl(var(--p));
 }
+
+.skeleton {
+    animation: skeleton 1s infinite forwards alternate;
+}
+
+@keyframes skeleton {
+    from {
+        @apply bg-slate-400;
+    }
+    to {
+        @apply bg-slate-700;
+    }
+}
