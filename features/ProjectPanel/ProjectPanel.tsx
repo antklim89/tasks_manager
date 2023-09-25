@@ -6,6 +6,7 @@ import { useProjectsFetch } from '@/requests';
 
 import ProjectPanelCreate from './ProjectPanelCreate';
 import ProjectPanelDelete from './ProjectPanelDelete';
+import ProjectPanelMembers from './ProjectPanelMembers';
 import ProjectPanelSelect from './ProjectPanelSelect';
 import ProjectPanelUpdate from './ProjectPanelUpdate';
 
@@ -23,8 +24,9 @@ const ProjectPanel = ({ projectId }: { projectId?: number }) => {
             {project
                 ? (
                     <Menu button={<Button aria-label="project menu" color="ghost"><FaEllipsisVertical /></Button>}>
-                        <ProjectPanelDelete projectId={project.id} />
+                        <ProjectPanelMembers projectId={project.id} />
                         <ProjectPanelUpdate project={project} />
+                        <ProjectPanelDelete projectId={project.id} />
                     </Menu>
                 )
                 : null}
