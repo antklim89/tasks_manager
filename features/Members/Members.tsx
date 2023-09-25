@@ -16,6 +16,7 @@ const Members = ({ projectId }: MembersProps) => {
                     <tr>
                         <th>User</th>
                         <th>Role</th>
+                        <th>Remove</th>
                     </tr>
                 </thead>
                 <tbody>
