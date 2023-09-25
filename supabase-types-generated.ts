@@ -49,24 +49,30 @@ export interface Database {
       member: {
         Row: {
           createdAt: string
+          email: string
           id: number
+          name: string
           projectId: number
           role: string
-          user: string
+          userId: string
         }
         Insert: {
           createdAt?: string
+          email?: string
           id?: number
+          name?: string
           projectId: number
           role: string
-          user: string
+          userId: string
         }
         Update: {
           createdAt?: string
+          email?: string
           id?: number
+          name?: string
           projectId?: number
           role?: string
-          user?: string
+          userId?: string
         }
         Relationships: [
           {
@@ -76,8 +82,8 @@ export interface Database {
             referencedColumns: ["id"]
           },
           {
-            foreignKeyName: "member_user_fkey"
-            columns: ["user"]
+            foreignKeyName: "member_userId_fkey"
+            columns: ["userId"]
             referencedRelation: "users"
             referencedColumns: ["id"]
           }

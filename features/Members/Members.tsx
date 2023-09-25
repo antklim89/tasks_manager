@@ -10,7 +10,7 @@ const Members = ({ projectId }: MembersProps) => {
     if (isLoading) return null;
     return (
         <div>
-            {members.map((member) => member.user) }
+            {members.map((member) => member.email) }
         </div>
     );
 };

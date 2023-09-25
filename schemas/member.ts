@@ -6,7 +6,9 @@ export const roles = ['invited', 'read-only', 'member', 'admin'] as const;
 export const memberSchema = z.object({
     id: z.number(),
     createdAt: z.string(),
-    user: z.string(),
+    userId: z.string(),
+    email: z.string(),
+    name: z.string(),
     role: z.enum(roles),
     projectId: z.number(),
 });
