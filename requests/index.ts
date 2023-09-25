@@ -7,6 +7,7 @@ export * from './useColumnsFetch';
 export * from './useColumnUpdate';
 export * from './useLogout';
 export * from './useMemberCreate';
+export * from './useMembersFetch';
 export * from './useProjectCreate';
 export * from './useProjectDelete';
 export * from './useProjectsFetch';
