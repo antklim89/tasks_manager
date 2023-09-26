@@ -13,7 +13,6 @@ const MembersPage = ({ params }: { params: { projectId?: string[] } }) => {
     return (
         <div className="flex flex-col h-full">
             <ProjectPanel projectId={projectId} />
-            <h3 className="text-center">Members</h3>
             <Members projectId={projectId} />
         </div>
     );
