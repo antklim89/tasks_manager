@@ -16,9 +16,12 @@ const Members = ({ projectId }: MembersProps) => {
         </>
     );
     return (
-        <div>
+        <div className="card container p-2 border border-base-200 max-w-3xl mx-auto ">
+            <div className="card-title justify-center">
+                <h3>Members</h3>
+            </div>
             <MembersInvite projectId={projectId} />
-            <div className="overflow-x-auto">
+            <div className="card-body">
                 <table className="table">
                     <thead>
                         <tr>
