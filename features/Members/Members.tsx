@@ -8,7 +8,12 @@ import MembersItem from './MembersItem';
 const Members = ({ projectId }: MembersProps) => {
     const { data: members = [], isLoading } = useMembersFetch({ projectId });
 
-    if (isLoading) return null;
+    if (isLoading) return (
+        <>
+            <span className="skeleton h-10 mb-1" />
+            <span className="skeleton h-10 mb-1" />
+        </>
+    );
     return (
         <div className="overflow-x-auto">
             <table className="table">
