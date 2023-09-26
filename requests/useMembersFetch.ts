@@ -17,7 +17,7 @@ export function useMembersFetch({ projectId }: { projectId: number }, options: O
             const supabase = getBrowserClient();
             // const user = await getBrowserUser();
 
-            const supabaseQuery = supabase.from('member')
+            const supabaseQuery = supabase.from('members')
                 .select('*')
                 .eq('projectId', projectId);
 

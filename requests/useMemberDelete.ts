@@ -19,7 +19,7 @@ export function useMemberDelete({ projectId, memberId }: { projectId: number, me
             const supabase = getBrowserClient();
             // const user = await getBrowserUser();
 
-            const { error } = await supabase.from('member')
+            const { error } = await supabase.from('members')
                 .delete()
                 .eq('id', memberId);
 
