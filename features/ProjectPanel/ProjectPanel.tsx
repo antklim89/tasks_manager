@@ -1,4 +1,5 @@
 'use client';
+import Link from 'next/link';
 import { FaEllipsisVertical } from 'react-icons/fa6';
 
 import { Button, Menu } from '@/components';
@@ -6,7 +7,6 @@ import { useProjectsFetch } from '@/requests';
 
 import ProjectPanelCreate from './ProjectPanelCreate';
 import ProjectPanelDelete from './ProjectPanelDelete';
-import ProjectPanelMembers from './ProjectPanelMembers';
 import ProjectPanelSelect from './ProjectPanelSelect';
 import ProjectPanelUpdate from './ProjectPanelUpdate';
 
@@ -20,11 +20,11 @@ const ProjectPanel = ({ projectId }: { projectId?: number }) => {
         <div className="flex h-12 my-2 px-2">
             <ProjectPanelCreate />
             <ProjectPanelSelect projectName={project?.name} projects={projects} />
+            <Link className="btn btn-primary" href={`/dashboard/${projectId}/members`}>Members</Link>
             <div className="flex-grow" />
             {project
                 ? (
                     <Menu button={<Button aria-label="project menu" color="ghost"><FaEllipsisVertical /></Button>}>
-                        <ProjectPanelMembers projectId={project.id} />
                         <ProjectPanelUpdate project={project} />
                         <ProjectPanelDelete projectId={project.id} />
                     </Menu>

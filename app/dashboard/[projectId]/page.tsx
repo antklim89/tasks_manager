@@ -1,19 +1,19 @@
 import { z } from 'zod';
 
-import { DashboardHome, Project, ProjectPanel } from '@/features';
+import { Project, ProjectPanel } from '@/features';
 
 
 export const metadata = {
-    title: 'Dashboard',
+    title: 'Project',
 };
 
 const DashboardPage = ({ params }: { params: { projectId?: string[] } }) => {
-    const projectId = z.coerce.number().optional().parse(params?.projectId?.[0]);
+    const projectId = z.coerce.number().parse(params?.projectId);
 
     return (
         <div className="flex flex-col h-full">
             <ProjectPanel projectId={projectId} />
-            { projectId ? <Project projectId={projectId} /> : <DashboardHome /> }
+            <Project projectId={projectId} />
         </div>
     );
 };
