@@ -46,7 +46,7 @@ export interface Database {
           }
         ]
       }
-      member: {
+      members: {
         Row: {
           createdAt: string
           email: string
@@ -76,13 +76,13 @@ export interface Database {
         }
         Relationships: [
           {
-            foreignKeyName: "member_projectId_fkey"
+            foreignKeyName: "members_projectId_fkey"
             columns: ["projectId"]
             referencedRelation: "projects"
             referencedColumns: ["id"]
           },
           {
-            foreignKeyName: "member_userId_fkey"
+            foreignKeyName: "members_userId_fkey"
             columns: ["userId"]
             referencedRelation: "users"
             referencedColumns: ["id"]
