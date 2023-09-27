@@ -1,9 +1,8 @@
 import { User, createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 import { cookies } from 'next/headers';
 
-import type { Database } from '@/supabase-types-generated';
-
 import { getUser } from './browser';
+import type { Database } from './generated-types';
 
 
 export const getServerClient = () => createServerComponentClient<Database>({ cookies });

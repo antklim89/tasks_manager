@@ -10,7 +10,7 @@
     "build": "next build",
     "start": "next start",
     "typecheck": "tsc --noEmit -w --preserveWatchOutput",
-    "typegen": "supabase gen types typescript --project-id owmyjpfdbksekhxmknmw > ./supabase-types-generated.ts",
+    "typegen": "supabase gen types typescript --project-id owmyjpfdbksekhxmknmw > ./supabase/generated-types.ts",
     "lint": "eslint --ext .tsx,.ts . --fix"
   },
   "dependencies": {

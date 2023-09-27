@@ -6,7 +6,7 @@ import { Button, Input, Modal } from '@/components';
 import { SUPABASE_ANON_KEY } from '@/constants';
 import { useDisclosure } from '@/hooks';
 import { getBrowserUser } from '@/supabase/browser';
-import { Database } from '@/supabase-types-generated';
+import { Database } from '@/supabase/generated-types';
 
 
 const MembersInvite = ({ projectId }: { projectId: number }) => {
