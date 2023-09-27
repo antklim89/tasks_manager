@@ -2,7 +2,7 @@ import { toast } from 'react-hot-toast';
 import useSWR, { SWRConfiguration } from 'swr';
 
 import { ColumnType, columnSchema } from '@/schemas';
-import { getBrowserClient, getBrowserUser } from '@/supabase/browser';
+import { getBrowserClient } from '@/supabase/browser';
 
 import { FetchColumnsKey } from './keys';
 
@@ -13,17 +13,13 @@ export function useColumnsFetch({ projectId }: { projectId: number }, options?: 
     return useSWR<ColumnType[], Error, FetchColumnsKey>(
         ['COLUMNS', { projectId }],
 
-        async ([, key]) => {
+        async () => {
             const supabase = getBrowserClient();
-
-            const user = await getBrowserUser();
-
             const { error, data } = await supabase
                 .from('columns')
                 .select('*')
                 .order('id')
-                .eq('projectId', key.projectId)
-                .eq('owner', user.id);
+                .eq('projectId', projectId);
 
             if (error) throw error;
             return columnSchema.array().parseAsync(data);
