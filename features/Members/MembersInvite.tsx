@@ -35,7 +35,7 @@ const MembersInvite = ({ projectId }: { projectId: number }) => {
                 projectId,
                 userId: user.id,
                 email: data.email,
-            } satisfies Database['public']['Tables']['member']['Insert']),
+            } satisfies Database['public']['Tables']['members']['Insert']),
         });
     });
 
