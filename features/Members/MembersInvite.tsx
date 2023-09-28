@@ -18,6 +18,7 @@ const MembersInvite = ({ projectId }: { projectId: number }) => {
     });
 
     const handleInvite = handleSubmit(async ({ email }) => {
+        // TODO: should be sent invitation fo member
         await getBrowserClient().functions.invoke('invite', {
             body: { email, projectId },
         });
