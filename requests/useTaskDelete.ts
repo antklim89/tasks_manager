@@ -2,7 +2,7 @@ import { toast } from 'react-hot-toast';
 import useSWRMutation, { SWRMutationConfiguration } from 'swr/mutation';
 
 import { TaskType } from '@/schemas';
-import { getBrowserClient, getBrowserUser } from '@/supabase/browser';
+import { getBrowserClient } from '@/supabase/browser';
 
 import { FetchTasksKey } from './keys';
 
@@ -19,13 +19,11 @@ export function useTaskDelete({ taskId, columnId }: { columnId: number, taskId: 
             toast.loading('Task is deleting...', { id: TOAST_ID });
             const supabase = getBrowserClient();
 
-            const user = await getBrowserUser();
 
             const { error } = await supabase
                 .from('tasks')
                 .delete()
-                .eq('id', taskId)
-                .eq('owner', user.id);
+                .eq('id', taskId);
 
             if (error) throw error;
         },

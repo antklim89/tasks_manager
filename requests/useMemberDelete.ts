@@ -17,7 +17,6 @@ export function useMemberDelete({ projectId, memberId }: { projectId: number, me
 
         async () => {
             const supabase = getBrowserClient();
-            // const user = await getBrowserUser();
 
             const { error } = await supabase.from('members')
                 .delete()

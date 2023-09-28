@@ -2,7 +2,7 @@ import { toast } from 'react-hot-toast';
 import useSWR, { SWRConfiguration } from 'swr';
 
 import { TaskType, taskSchema } from '@/schemas';
-import { getBrowserClient, getBrowserUser } from '@/supabase/browser';
+import { getBrowserClient } from '@/supabase/browser';
 
 import { FetchTasksKey } from './keys';
 
@@ -22,13 +22,10 @@ export function useTasksFetch({
         async ([, key]) => {
             const supabase = getBrowserClient();
 
-            const user = await getBrowserUser();
-
             const { error, data } = await supabase
                 .from('tasks')
                 .select('*')
-                .eq('columnId', key.columnId)
-                .eq('owner', user.id);
+                .eq('columnId', key.columnId);
 
             if (error) throw error;
 

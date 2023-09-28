@@ -2,7 +2,7 @@ import { toast } from 'react-hot-toast';
 import useSWRMutation, { SWRMutationConfiguration } from 'swr/mutation';
 
 import { ProjectType } from '@/schemas';
-import { getBrowserClient, getBrowserUser } from '@/supabase/browser';
+import { getBrowserClient } from '@/supabase/browser';
 
 import { FetchProjectsKey } from './keys';
 
@@ -18,11 +18,9 @@ export function useProjectDelete({ projectId }: { projectId: number }, options?:
         async () => {
             toast.loading('Project is deleting...', { id: TOAST_ID });
             const supabase = getBrowserClient();
-            const user = await getBrowserUser();
 
             const { error } = await supabase.from('projects')
                 .delete()
-                .eq('owner', user.id)
                 .eq('id', projectId);
 
             if (error) throw error;

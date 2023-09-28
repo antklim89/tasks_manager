@@ -2,7 +2,7 @@ import { toast } from 'react-hot-toast';
 import useSWRMutation, { SWRMutationConfiguration } from 'swr/mutation';
 
 import { TaskCreateType, TaskType, taskSchema } from '@/schemas';
-import { getBrowserClient, getBrowserUser } from '@/supabase/browser';
+import { getBrowserClient } from '@/supabase/browser';
 
 import { FetchTasksKey } from './keys';
 
@@ -11,7 +11,7 @@ const TOAST_ID = 'TASK_CREATE';
 
 type Options = SWRMutationConfiguration<TaskType, Error, FetchTasksKey, TaskCreateType>;
 
-export function useTaskCreate({ columnId }: { columnId: number }, options?: Options) {
+export function useTaskCreate({ columnId, projectId }: { columnId: number, projectId: number }, options?: Options) {
     return useSWRMutation<TaskType, Error, FetchTasksKey, TaskCreateType>(
         ['TASKS', { columnId }],
 
@@ -19,11 +19,9 @@ export function useTaskCreate({ columnId }: { columnId: number }, options?: Opti
             toast.loading('Task is creating...', { id: TOAST_ID });
             const supabase = getBrowserClient();
 
-            const user = await getBrowserUser();
-
             const { error, data } = await supabase
                 .from('tasks')
-                .insert({ title, description, completeAt, columnId, owner: user.id })
+                .insert({ title, description, completeAt, columnId, projectId })
                 .select('*')
                 .single();
 

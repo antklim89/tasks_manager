@@ -9,7 +9,7 @@ export const taskSchema = z.object({
     completeAt: z.string()/* .datetime()*/.nullish(),
     startAt: z.string()/* .datetime()*/.nullish(),
     columnId: z.number(),
-    owner: z.string(),
+    projectId: z.number(),
 });
 
 export const taskCreateSchema = z.object({

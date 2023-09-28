@@ -28,7 +28,7 @@ const Column = ({ id, name, projectId, taskOrder }: ColumnType) => {
         >
             <div className="flex items-start" ref={setDropRef}>
                 <ColumnName id={id} name={name} projectId={projectId} />
-                <ColumnTaskCreate columnId={id} />
+                <ColumnTaskCreate columnId={id} projectId={projectId} />
                 <Menu button={<button className="btn" type="button"><FaEllipsisVertical /></button>}>
                     <ColumnDelete id={id} projectId={projectId} />
                 </Menu>

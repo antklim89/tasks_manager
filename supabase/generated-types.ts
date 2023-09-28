@@ -13,31 +13,22 @@ export interface Database {
         Row: {
           id: number
           name: string
-          owner: string
           projectId: number
           taskOrder: number[] | null
         }
         Insert: {
           id?: number
           name?: string
-          owner: string
           projectId: number
           taskOrder?: number[] | null
         }
         Update: {
           id?: number
           name?: string
-          owner?: string
           projectId?: number
           taskOrder?: number[] | null
         }
         Relationships: [
-          {
-            foreignKeyName: "columns_owner_fkey"
-            columns: ["owner"]
-            referencedRelation: "users"
-            referencedColumns: ["id"]
-          },
           {
             foreignKeyName: "columns_projectId_fkey"
             columns: ["projectId"]
@@ -94,28 +85,18 @@ export interface Database {
           description: string | null
           id: number
           name: string
-          owner: string | null
         }
         Insert: {
           description?: string | null
           id?: number
           name: string
-          owner?: string | null
         }
         Update: {
           description?: string | null
           id?: number
           name?: string
-          owner?: string | null
         }
-        Relationships: [
-          {
-            foreignKeyName: "projects_owner_fkey"
-            columns: ["owner"]
-            referencedRelation: "users"
-            referencedColumns: ["id"]
-          }
-        ]
+        Relationships: []
       }
       tasks: {
         Row: {
@@ -124,7 +105,7 @@ export interface Database {
           createdAt: string
           description: string
           id: number
-          owner: string
+          projectId: number
           shouldByIn: number | null
           startAt: string | null
           title: string
@@ -135,7 +116,7 @@ export interface Database {
           createdAt?: string
           description?: string
           id?: number
-          owner: string
+          projectId: number
           shouldByIn?: number | null
           startAt?: string | null
           title: string
@@ -146,7 +127,7 @@ export interface Database {
           createdAt?: string
           description?: string
           id?: number
-          owner?: string
+          projectId?: number
           shouldByIn?: number | null
           startAt?: string | null
           title?: string
@@ -159,9 +140,9 @@ export interface Database {
             referencedColumns: ["id"]
           },
           {
-            foreignKeyName: "tasks_owner_fkey"
-            columns: ["owner"]
-            referencedRelation: "users"
+            foreignKeyName: "tasks_projectId_fkey"
+            columns: ["projectId"]
+            referencedRelation: "projects"
             referencedColumns: ["id"]
           },
           {

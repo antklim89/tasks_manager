@@ -2,7 +2,7 @@ import { toast } from 'react-hot-toast';
 import useSWRMutation, { SWRMutationConfiguration } from 'swr/mutation';
 
 import { ColumnType, columnSchema } from '@/schemas';
-import { getBrowserClient, getBrowserUser } from '@/supabase/browser';
+import { getBrowserClient } from '@/supabase/browser';
 
 import { FetchColumnsKey } from './keys';
 
@@ -20,10 +20,8 @@ export function useColumnCreate({ projectId }: { projectId: number }, options?: 
             toast.loading('Column is creating...', { id: TOAST_ID });
             const supabase = getBrowserClient();
 
-            const user = await getBrowserUser();
-
             const { error, data } = await supabase.from('columns')
-                .insert({ name: 'New Column', owner: user.id, projectId })
+                .insert({ name: 'New Column', projectId })
                 .select('*')
                 .single();
 

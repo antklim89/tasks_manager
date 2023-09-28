@@ -2,7 +2,7 @@ import { toast } from 'react-hot-toast';
 import useSWRMutation, { SWRMutationConfiguration } from 'swr/mutation';
 
 import { TaskCreateType, TaskType } from '@/schemas';
-import { getBrowserClient, getBrowserUser } from '@/supabase/browser';
+import { getBrowserClient } from '@/supabase/browser';
 
 import { FetchTasksKey } from './keys';
 
@@ -11,12 +11,10 @@ type Options = SWRMutationConfiguration<Partial<TaskCreateType>, Error, FetchTas
 
 export async function taskUpdate(taskId: number, data: Partial<TaskCreateType>): Promise<Partial<TaskCreateType>> {
     const supabase = getBrowserClient();
-    const user = await getBrowserUser();
 
     const { error } = await supabase
         .from('tasks')
         .update(data)
-        .eq('owner', user.id)
         .eq('id', taskId);
 
     if (error) throw error;

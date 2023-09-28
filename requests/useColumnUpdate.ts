@@ -2,7 +2,7 @@ import { toast } from 'react-hot-toast';
 import useSWRMutation, { SWRMutationConfiguration } from 'swr/mutation';
 
 import { ColumnType, ColumnUpdateType } from '@/schemas';
-import { getBrowserClient, getBrowserUser } from '@/supabase/browser';
+import { getBrowserClient } from '@/supabase/browser';
 
 import { FetchColumnsKey } from './keys';
 
@@ -12,12 +12,10 @@ type Options = SWRMutationConfiguration<ColumnUpdateType, Error, FetchColumnsKey
 
 export async function columnUpdate(columnId: number, data: ColumnUpdateType): Promise<ColumnUpdateType> {
     const supabase = getBrowserClient();
-    const user = await getBrowserUser();
 
     const { error } = await supabase.from('columns')
         .update(data)
-        .eq('id', columnId)
-        .eq('owner', user.id);
+        .eq('id', columnId);
 
     if (error) throw error;
 

@@ -2,7 +2,7 @@ import { toast } from 'react-hot-toast';
 import useSWRMutation, { SWRMutationConfiguration } from 'swr/mutation';
 
 import { ProjectType, ProjectUpdateType } from '@/schemas';
-import { getBrowserClient, getBrowserUser } from '@/supabase/browser';
+import { getBrowserClient } from '@/supabase/browser';
 
 import { FetchProjectsKey } from './keys';
 
@@ -21,11 +21,8 @@ export function useProjectUpdate({ id }: { id?: number }, options?: Options) {
             toast.loading('Project is updating...', { id: TOAST_ID });
             const supabase = getBrowserClient();
 
-            const user = await getBrowserUser();
-
             const { error } = await supabase.from('projects')
                 .update(arg)
-                .eq('owner', user.id)
                 .eq('id', id);
 
             if (error) throw error;

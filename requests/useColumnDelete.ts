@@ -2,7 +2,7 @@ import { toast } from 'react-hot-toast';
 import useSWRMutation, { SWRMutationConfiguration } from 'swr/mutation';
 
 import { ColumnType } from '@/schemas';
-import { getBrowserClient, getBrowserUser } from '@/supabase/browser';
+import { getBrowserClient } from '@/supabase/browser';
 
 import { FetchColumnsKey } from './keys';
 
@@ -18,12 +18,10 @@ export function useColumnDelete({ columnId, projectId }: { columnId: number, pro
         async () => {
             toast.loading('Column is deleting...', { id: TOAST_ID });
             const supabase = getBrowserClient();
-            const user = await getBrowserUser();
 
             const { error } = await supabase.from('columns')
                 .delete()
-                .eq('id', columnId)
-                .eq('owner', user.id);
+                .eq('id', columnId);
 
             if (error) throw error;
         },

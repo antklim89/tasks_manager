@@ -15,7 +15,6 @@ export function useMembersFetch({ projectId }: { projectId: number }, options: O
 
         async () => {
             const supabase = getBrowserClient();
-            // const user = await getBrowserUser();
 
             const supabaseQuery = supabase.from('members')
                 .select('*')
