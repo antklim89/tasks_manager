@@ -6,6 +6,7 @@ export * from './useColumnDelete';
 export * from './useColumnsFetch';
 export * from './useColumnUpdate';
 export * from './useLogout';
+export * from './useMember';
 export * from './useMemberDelete';
 export * from './useMembersFetch';
 export * from './useProjectCreate';
