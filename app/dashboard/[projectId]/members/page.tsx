@@ -7,8 +7,8 @@ export const metadata = {
     title: 'Members',
 };
 
-const MembersPage = ({ params }: { params: { projectId?: string[] } }) => {
-    const projectId = z.coerce.number().parse(params?.projectId);
+const MembersPage = async ({ params }: { params: { projectId?: string[] } }) => {
+    const projectId = await z.coerce.number().parseAsync(params?.projectId);
 
     return (
         <div className="flex flex-col h-full">
