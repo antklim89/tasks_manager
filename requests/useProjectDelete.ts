@@ -1,6 +1,7 @@
 import { toast } from 'react-hot-toast';
 import useSWRMutation, { SWRMutationConfiguration } from 'swr/mutation';
 
+import { useProjectId } from '@/hooks';
 import { ProjectType } from '@/schemas';
 import { getBrowserClient } from '@/supabase/browser';
 
@@ -11,7 +12,9 @@ const TOAST_ID = 'PROJECT_DELETE';
 
 type Options = SWRMutationConfiguration<void, Error, FetchProjectsKey, void>;
 
-export function useProjectDelete({ projectId }: { projectId: number }, options?: Options) {
+export function useProjectDelete(options?: Options) {
+    const projectId = useProjectId();
+
     return useSWRMutation<void, Error, FetchProjectsKey, void>(
         ['PROJECTS'],
 
@@ -23,7 +26,7 @@ export function useProjectDelete({ projectId }: { projectId: number }, options?:
                 .delete()
                 .eq('id', projectId);
 
-            if (error) throw error;
+            if (error) throw new Error('Failed to delete a project. Try again later.');
         },
         {
             ...options,
@@ -35,9 +38,9 @@ export function useProjectDelete({ projectId }: { projectId: number }, options?:
                 toast.success('Project deleted succesfully.', { id: TOAST_ID });
                 options?.onSuccess?.(...args);
             },
-            onError(...args) {
-                toast.error('Failed to delete a project. Try again later.', { id: TOAST_ID });
-                options?.onError?.(...args);
+            onError(err, ...args) {
+                toast.error(err.message, { id: TOAST_ID });
+                options?.onError?.(err, ...args);
             },
         },
     );

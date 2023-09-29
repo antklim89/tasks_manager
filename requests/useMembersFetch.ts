@@ -1,6 +1,7 @@
 import { toast } from 'react-hot-toast';
 import useSWR, { SWRConfiguration } from 'swr';
 
+import { useProjectId } from '@/hooks';
 import { MemberType, memberSchema } from '@/schemas';
 import { getBrowserClient } from '@/supabase/browser';
 
@@ -9,7 +10,8 @@ import { FetchMembersKey } from './keys';
 
 type Options = SWRConfiguration<MemberType[], Error>;
 
-export function useMembersFetch({ projectId }: { projectId: number }, options: Options = {}) {
+export function useMembersFetch(options: Options = {}) {
+    const projectId = useProjectId();
     return useSWR<MemberType[], Error, FetchMembersKey>(
         ['MEMBERS', { projectId }],
 

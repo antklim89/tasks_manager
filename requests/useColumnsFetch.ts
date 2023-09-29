@@ -1,6 +1,7 @@
 import { toast } from 'react-hot-toast';
 import useSWR, { SWRConfiguration } from 'swr';
 
+import { useProjectId } from '@/hooks';
 import { ColumnType, columnSchema } from '@/schemas';
 import { getBrowserClient } from '@/supabase/browser';
 
@@ -9,7 +10,8 @@ import { FetchColumnsKey } from './keys';
 
 type Options = SWRConfiguration<ColumnType[], Error>;
 
-export function useColumnsFetch({ projectId }: { projectId: number }, options?: Options) {
+export function useColumnsFetch(options?: Options) {
+    const projectId = useProjectId();
     return useSWR<ColumnType[], Error, FetchColumnsKey>(
         ['COLUMNS', { projectId }],
 

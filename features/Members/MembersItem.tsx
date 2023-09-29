@@ -1,8 +1,9 @@
+import { MemberType } from '@/schemas';
+
 import MemberDelete from './MemberDelete';
-import { MembersItemProps } from './Members.types';
 
 
-const MembersItem = ({ member }: MembersItemProps) => {
+const MembersItem = ({ member }: { member: MemberType }) => {
     return (
         <tr>
             <td>{member.email}</td>

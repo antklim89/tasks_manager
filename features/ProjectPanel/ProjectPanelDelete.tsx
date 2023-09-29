@@ -5,12 +5,12 @@ import { useDisclosure } from '@/hooks';
 import { useProjectDelete } from '@/requests';
 
 
-const ProjectPanelDelete = ({ projectId }: { projectId: number }) => {
+const ProjectPanelDelete = () => {
     const { isOpen, close, open } = useDisclosure();
 
     const { push } = useRouter();
 
-    const { trigger: deleteProject, isMutating } = useProjectDelete({ projectId }, {
+    const { trigger: deleteProject, isMutating } = useProjectDelete({
         onSuccess() {
             close();
             push('/dashboard');

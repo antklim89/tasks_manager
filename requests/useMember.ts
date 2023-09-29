@@ -1,13 +1,12 @@
-import { toast } from 'react-hot-toast';
-import useSWR, { SWRConfiguration } from 'swr';
+import toast from 'react-hot-toast';
+import useSWR from 'swr';
 
+import { useProjectId } from '@/hooks';
 import { MemberType, memberSchema } from '@/schemas';
 import { getBrowserClient, getBrowserUser } from '@/supabase/browser';
 
 import { MemberKey } from './keys';
 
-
-type Options = SWRConfiguration<MemberType, Error>;
 
 export async function getMember(projectId: number) {
     const supabase = getBrowserClient();
@@ -20,21 +19,19 @@ export async function getMember(projectId: number) {
         .single();
 
     if (!data) throw new Error('You are not member of this project');
-    if (error) throw error;
+    if (error) throw new Error('Failed to fetch member. Try again later.');
 
     return memberSchema.parseAsync(data);
 }
 
-export function useMember({ projectId }: { projectId: number }, options: Options = {}) {
+export function useMember() {
+    const projectId = useProjectId();
     return useSWR<MemberType, Error, MemberKey>(
-        ['MEMBER'],
-
+        ['MEMBER', { projectId }],
         () => getMember(projectId),
         {
-            ...options,
-            onError(...args) {
-                toast.error('You are not member of this project', { id: 'MEMBER_FETCH' });
-                options?.onError?.(...args);
+            onError(err) {
+                toast.error(err.message, { id: 'MEMBER_FETCH' });
             },
         },
     );

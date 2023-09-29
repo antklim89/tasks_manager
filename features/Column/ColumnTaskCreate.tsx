@@ -5,10 +5,10 @@ import { useDisclosure } from '@/hooks';
 import { useTaskCreate } from '@/requests';
 
 
-const ColumnTaskCreate = ({ columnId, projectId }: { columnId: number; projectId: number; }) => {
+const ColumnTaskCreate = ({ columnId }: { columnId: number }) => {
     const { isOpen, close, open } = useDisclosure();
 
-    const { trigger: createTask, isMutating } = useTaskCreate({ columnId, projectId }, {
+    const { trigger: createTask, isMutating } = useTaskCreate({ columnId }, {
         onSuccess: () => close(),
     });
 

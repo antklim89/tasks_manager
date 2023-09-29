@@ -26,7 +26,7 @@ const ProjectPanel = ({ projectId }: { projectId?: number }) => {
                 ? (
                     <Menu button={<Button aria-label="project menu" color="ghost"><FaEllipsisVertical /></Button>}>
                         <ProjectPanelUpdate project={project} />
-                        <ProjectPanelDelete projectId={project.id} />
+                        <ProjectPanelDelete />
                     </Menu>
                 )
                 : null}

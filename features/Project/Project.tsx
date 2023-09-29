@@ -18,9 +18,9 @@ import { TaskType } from '@/schemas';
 import { TasgDragData, TaskDropData } from '@/types';
 
 
-const Project = ({ projectId }: {projectId: number}) => {
-    const { trigger: createColumn, isMutating } = useColumnCreate({ projectId });
-    const { data: columns = [], isLoading } = useColumnsFetch({ projectId });
+const Project = () => {
+    const { trigger: createColumn, isMutating } = useColumnCreate();
+    const { data: columns = [], isLoading } = useColumnsFetch();
     const { mutate } = useSWRConfig();
 
     const handleCreateColumn = () => {

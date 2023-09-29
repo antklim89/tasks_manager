@@ -1,6 +1,7 @@
 import { toast } from 'react-hot-toast';
 import useSWRMutation, { SWRMutationConfiguration } from 'swr/mutation';
 
+import { useProjectId } from '@/hooks';
 import { ColumnType } from '@/schemas';
 import { getBrowserClient } from '@/supabase/browser';
 
@@ -11,7 +12,8 @@ const TOAST_ID = 'COLUMN_DELETE';
 
 type Options = SWRMutationConfiguration<void, Error, FetchColumnsKey, void>;
 
-export function useColumnDelete({ columnId, projectId }: { columnId: number, projectId: number }, options?: Options) {
+export function useColumnDelete({ columnId }: { columnId: number }, options?: Options) {
+    const projectId = useProjectId();
     return useSWRMutation<void, Error, FetchColumnsKey, void>(
         ['COLUMNS', { projectId }],
 

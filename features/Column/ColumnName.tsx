@@ -7,8 +7,8 @@ import { useColumnUpdate } from '@/requests';
 import { columnUpdateSchema } from '@/schemas';
 
 
-const ColumnName = ({ name, id, projectId }: { name: string, id: number, projectId: number }) => {
-    const { trigger: updateColumn } = useColumnUpdate({ columnId: id, projectId });
+const ColumnName = ({ name, id }: { name: string, id: number }) => {
+    const { trigger: updateColumn } = useColumnUpdate({ columnId: id });
     const prevName = useRef(name);
     const {
         register,

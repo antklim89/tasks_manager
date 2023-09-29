@@ -1,13 +1,12 @@
 'use client';
 import { useMembersFetch } from '@/requests';
 
-import { MembersProps } from './Members.types';
 import MembersInvite from './MembersInvite';
 import MembersItem from './MembersItem';
 
 
-const Members = ({ projectId }: MembersProps) => {
-    const { data: members = [], isLoading } = useMembersFetch({ projectId });
+const Members = () => {
+    const { data: members = [], isLoading } = useMembersFetch();
 
     if (isLoading) return (
         <>
@@ -20,7 +19,7 @@ const Members = ({ projectId }: MembersProps) => {
             <div className="card-title justify-center">
                 <h3>Members</h3>
             </div>
-            <MembersInvite projectId={projectId} />
+            <MembersInvite />
             <div className="card-body">
                 <table className="table">
                     <thead>

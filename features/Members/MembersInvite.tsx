@@ -3,11 +3,12 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
 import { Button, Input, Modal } from '@/components';
-import { useDisclosure } from '@/hooks';
+import { useDisclosure, useProjectId } from '@/hooks';
 import { getBrowserClient } from '@/supabase/browser';
 
 
-const MembersInvite = ({ projectId }: { projectId: number }) => {
+const MembersInvite = () => {
+    const projectId = useProjectId();
     const { isOpen, close, open } = useDisclosure();
     const {
         register,

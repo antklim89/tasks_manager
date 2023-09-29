@@ -15,7 +15,7 @@ const DashboardPage = ({ params }: { params: { projectId?: string[] } }) => {
         <ProjectIdProvider projectId={projectId}>
             <div className="flex flex-col h-full">
                 <ProjectPanel projectId={projectId} />
-                <Project projectId={projectId} />
+                <Project />
             </div>
         </ProjectIdProvider>
     );

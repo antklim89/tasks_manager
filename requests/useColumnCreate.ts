@@ -1,6 +1,7 @@
 import { toast } from 'react-hot-toast';
 import useSWRMutation, { SWRMutationConfiguration } from 'swr/mutation';
 
+import { useProjectId } from '@/hooks';
 import { ColumnType, columnSchema } from '@/schemas';
 import { getBrowserClient } from '@/supabase/browser';
 
@@ -11,7 +12,8 @@ const TOAST_ID = 'COLUMN_CREATE';
 
 type Options = SWRMutationConfiguration<ColumnType, Error, FetchColumnsKey, void>;
 
-export function useColumnCreate({ projectId }: { projectId: number }, options?: Options) {
+export function useColumnCreate(options?: Options) {
+    const projectId = useProjectId();
 
     return useSWRMutation<ColumnType, Error, FetchColumnsKey, void>(
         ['COLUMNS', { projectId }],

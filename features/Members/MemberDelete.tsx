@@ -3,12 +3,11 @@ import { FaX } from 'react-icons/fa6';
 import { Button, Confirm } from '@/components';
 import { useDisclosure } from '@/hooks';
 import { useMemberDelete } from '@/requests';
+import { MemberType } from '@/schemas';
 
-import { MembersItemProps } from './Members.types';
 
-
-const MemberDelete = ({ member }: MembersItemProps) => {
-    const { trigger: deleteMember, isMutating } = useMemberDelete({ memberId: member.id, projectId: member.projectId });
+const MemberDelete = ({ member }: { member: MemberType }) => {
+    const { trigger: deleteMember, isMutating } = useMemberDelete({ memberId: member.id });
     const { isOpen, close, open } = useDisclosure();
 
     return (
