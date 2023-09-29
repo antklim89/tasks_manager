@@ -3,7 +3,7 @@ import { FaEllipsisVertical } from 'react-icons/fa6';
 
 import { Menu } from '@/components';
 import Task from '@/features/Task';
-import { useTaskDrop } from '@/hooks';
+import { useMember, useTaskDrop } from '@/hooks';
 import { useTasksFetch } from '@/requests';
 import { ColumnType } from '@/schemas';
 
@@ -14,6 +14,7 @@ import ColumnTaskCreate from './ColumnTaskCreate';
 
 const Column = ({ id, name, taskOrder }: ColumnType) => {
     const { data: tasks = [], isLoading } = useTasksFetch({ columnId: id, taskOrder });
+    const { isAdmin, isAdminOrMember } = useMember();
 
     const {
         setNodeRef: setDropRef,
@@ -28,10 +29,14 @@ const Column = ({ id, name, taskOrder }: ColumnType) => {
         >
             <div className="flex items-start" ref={setDropRef}>
                 <ColumnName id={id} name={name} />
-                <ColumnTaskCreate columnId={id} />
-                <Menu button={<button className="btn" type="button"><FaEllipsisVertical /></button>}>
-                    <ColumnDelete id={id} />
-                </Menu>
+                {isAdminOrMember ? <ColumnTaskCreate columnId={id} /> : null}
+                {isAdmin
+                    ? (
+                        <Menu button={<button className="btn" type="button"><FaEllipsisVertical /></button>}>
+                            <ColumnDelete id={id} />
+                        </Menu>
+                    )
+                    : null}
             </div>
 
             <div className="flex flex-col p-1 relative">

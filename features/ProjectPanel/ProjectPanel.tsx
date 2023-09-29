@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { FaEllipsisVertical } from 'react-icons/fa6';
 
 import { Button, Menu } from '@/components';
+import { useMember } from '@/hooks';
 import { useProjectsFetch } from '@/requests';
 
 import ProjectPanelCreate from './ProjectPanelCreate';
@@ -13,6 +14,7 @@ import ProjectPanelUpdate from './ProjectPanelUpdate';
 
 const ProjectPanel = ({ projectId }: { projectId?: number }) => {
     const { data: projects, isLoading } = useProjectsFetch();
+    const { isAdmin } = useMember();
     const project = projects?.find((p) => p.id === projectId);
 
     if (isLoading) return <div className="flex h-12 my-2 px-2 skeleton" />;
@@ -22,7 +24,7 @@ const ProjectPanel = ({ projectId }: { projectId?: number }) => {
             <ProjectPanelSelect projectName={project?.name} projects={projects} />
             {projectId ? <Link className="btn btn-primary" href={`/dashboard/${projectId}/members`}>Members</Link> : null}
             <div className="flex-grow" />
-            {project
+            {(isAdmin && project)
                 ? (
                     <Menu button={<Button aria-label="project menu" color="ghost"><FaEllipsisVertical /></Button>}>
                         <ProjectPanelUpdate project={project} />

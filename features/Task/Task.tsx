@@ -2,7 +2,7 @@
 import { FaEllipsisVertical } from 'react-icons/fa6';
 
 import { Button, Menu } from '@/components';
-import { useDisclosure, useTaskDnd } from '@/hooks';
+import { useDisclosure, useMember, useTaskDnd } from '@/hooks';
 import { cn } from '@/utils';
 
 import { TaskProps } from './Task.types';
@@ -14,6 +14,7 @@ import TaskUpdate from './TaskUpdate';
 
 const Task = ({ task, index }: TaskProps) => {
     const { isOpen: updateModalisOpen, close: closeUpdateModal, open: openUpdateModal } = useDisclosure();
+    const { isAdminOrMember } = useMember();
     const {
         isOverArciveTask,
         isOverPreviousTask,
@@ -40,18 +41,26 @@ const Task = ({ task, index }: TaskProps) => {
                 role="button"
                 style={style}
                 tabIndex={0}
-                onDoubleClick={openUpdateModal}
+                onDoubleClick={isAdminOrMember ? openUpdateModal : undefined}
             >
-                <div className={cn('w-16 ml-auto mr-2 p-1 bg-primary cursor-grab', { 'cursor-grabbing': isDragging })} {...listeners} {...attributes}>
-                    <div className="h-1 border-t border-b" />
-                </div>
+                {isAdminOrMember
+                    ? (
+                        <div className={cn('w-16 ml-auto mr-2 p-1 bg-primary cursor-grab', { 'cursor-grabbing': isDragging })} {...listeners} {...attributes}>
+                            <div className="h-1 border-t border-b" />
+                        </div>
+                    )
+                    : null}
                 <div className="card w-full p-2 bg-primary shadow-lg">
                     <div className="card-title flex justify-between">
                         {task.title}
-                        <Menu button={<Button aria-label="user menu" color="ghost" size="sm"><FaEllipsisVertical /></Button>}>
-                            <Button className="w-full btn-ghost" onClick={openUpdateModal}>Update</Button>
-                            <TaskDelete className="w-full btn-ghost" task={task} />
-                        </Menu>
+                        {isAdminOrMember
+                            ? (
+                                <Menu button={<Button aria-label="user menu" color="ghost" size="sm"><FaEllipsisVertical /></Button>}>
+                                    <Button className="w-full btn-ghost" onClick={openUpdateModal}>Update</Button>
+                                    <TaskDelete className="w-full btn-ghost" task={task} />
+                                </Menu>
+                            )
+                            : null}
                     </div>
 
                     {task.description

@@ -13,6 +13,7 @@ import { useSWRConfig } from 'swr';
 
 import { Button } from '@/components';
 import Column from '@/features/Column';
+import { useMember } from '@/hooks';
 import { columnUpdate, taskUpdate, useColumnCreate, useColumnsFetch } from '@/requests';
 import { TaskType } from '@/schemas';
 import { TasgDragData, TaskDropData } from '@/types';
@@ -22,6 +23,7 @@ const Project = () => {
     const { trigger: createColumn, isMutating } = useColumnCreate();
     const { data: columns = [], isLoading } = useColumnsFetch();
     const { mutate } = useSWRConfig();
+    const { isAdmin } = useMember();
 
     const handleCreateColumn = () => {
         createColumn();
@@ -84,7 +86,9 @@ const Project = () => {
                 {columns.map((column) => (
                     <Column key={column.id} {...column} />
                 ))}
-                <Button isLoading={isMutating} onClick={handleCreateColumn}>Create new column</Button>
+                {isAdmin
+                    ? <Button isLoading={isMutating} onClick={handleCreateColumn}>Create new column</Button>
+                    : null}
             </div>
         </DndContext>
     );
