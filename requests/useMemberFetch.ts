@@ -24,7 +24,7 @@ export async function getMember(projectId: number) {
     return memberSchema.parseAsync(data);
 }
 
-export function useMember() {
+export function useFetchMember() {
     const projectId = useProjectId();
     return useSWR<MemberType, Error, MemberKey>(
         ['MEMBER', { projectId }],
