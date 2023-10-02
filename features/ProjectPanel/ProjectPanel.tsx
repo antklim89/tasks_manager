@@ -15,12 +15,12 @@ import ProjectPanelUpdate from './ProjectPanelUpdate';
 const ProjectPanel = () => {
     const { projectId } = useProject(false);
     const { data: projects, isLoading } = useProjectsFetch();
-    const { isAdmin } = useMember();
+    const { isAdmin, member } = useMember();
     const project = projects?.find((p) => p.id === projectId);
 
     if (isLoading) return <div className="flex h-12 my-2 px-2 skeleton" />;
     return (
-        <div className="flex h-12 my-2 px-2">
+        <div className="flex h-12 my-2 px-2 items-center">
             <ProjectPanelCreate />
             <ProjectPanelSelect projectName={project?.name} projects={projects} />
             {projectId ? <Link className="btn btn-primary" href={`/dashboard/${projectId}/members`}>Members</Link> : null}
@@ -28,11 +28,13 @@ const ProjectPanel = () => {
             {(isAdmin && project)
                 ? (
                     <Menu button={<Button aria-label="project menu" color="ghost"><FaEllipsisVertical /></Button>}>
+                        {member ? <p className="text-md mb-4 text-center uppercase">{member.role}</p> : null}
                         <ProjectPanelUpdate project={project} />
                         <ProjectPanelDelete />
                     </Menu>
                 )
                 : null}
+
         </div>
     );
 };
