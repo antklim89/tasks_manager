@@ -25,10 +25,10 @@ export async function getMember(projectId: number) {
 }
 
 export function useFetchMember() {
-    const projectId = useProjectId();
-    return useSWR<MemberType, Error, MemberKey>(
-        ['MEMBER', { projectId }],
-        () => getMember(projectId),
+    const projectId = useProjectId(false);
+    return useSWR<MemberType, Error, MemberKey|undefined>(
+        projectId ? ['MEMBER', { projectId }] : undefined,
+        () => getMember(projectId || 0),
         {
             onError(err) {
                 toast.error(err.message, { id: 'MEMBER_FETCH' });
