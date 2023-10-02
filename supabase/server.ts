@@ -1,7 +1,6 @@
 import { User, createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 import { cookies } from 'next/headers';
 
-import { getUser } from './browser';
 import type { Database } from './generated-types';
 
 
@@ -9,5 +8,8 @@ export const getServerClient = () => createServerComponentClient<Database>({ coo
 
 export async function getServerUser(): Promise<User> {
     const supabase = getServerClient();
-    return getUser(supabase);
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) throw new Error('You are not authenticated!');
+
+    return user;
 }
