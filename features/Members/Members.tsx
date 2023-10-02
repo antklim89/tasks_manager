@@ -1,4 +1,5 @@
 'use client';
+import { useMember } from '@/hooks';
 import { useMembersFetch } from '@/requests';
 
 import MembersInvite from './MembersInvite';
@@ -7,6 +8,7 @@ import MembersItem from './MembersItem';
 
 const Members = () => {
     const { data: members = [], isLoading } = useMembersFetch();
+    const { isAdmin } = useMember();
 
 
     return (
@@ -14,7 +16,7 @@ const Members = () => {
             <div className="card-title justify-center">
                 <h3>Members</h3>
             </div>
-            <MembersInvite />
+            {isAdmin ? <MembersInvite members={members} /> : null}
             <div className="card-body">
                 <table className="table">
                     <thead>
