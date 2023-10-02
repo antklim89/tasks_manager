@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { FaEllipsisVertical } from 'react-icons/fa6';
 
 import { Button, Menu } from '@/components';
-import { useMember } from '@/hooks';
+import { useMember, useProject } from '@/hooks';
 import { useProjectsFetch } from '@/requests';
 
 import ProjectPanelCreate from './ProjectPanelCreate';
@@ -12,7 +12,8 @@ import ProjectPanelSelect from './ProjectPanelSelect';
 import ProjectPanelUpdate from './ProjectPanelUpdate';
 
 
-const ProjectPanel = ({ projectId }: { projectId?: number }) => {
+const ProjectPanel = () => {
+    const { projectId } = useProject(false);
     const { data: projects, isLoading } = useProjectsFetch();
     const { isAdmin } = useMember();
     const project = projects?.find((p) => p.id === projectId);
