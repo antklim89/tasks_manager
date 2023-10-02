@@ -9,7 +9,7 @@ export { default as Input } from './Input';
 export { default as Menu } from './Menu';
 export { default as Modal } from './Modal';
 export { default as ProjectEditForm } from './ProjectEditForm';
-export { default as ProjectIdProvider } from './ProjectIdProvider';
+export { default as ProjectIdProvider } from './ProjectProvider';
 export { default as Providers } from './Providers';
 export { default as TaskEditForm } from './TaskEditForm';
 export { default as Toast } from './Toast';

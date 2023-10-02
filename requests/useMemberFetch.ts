@@ -1,7 +1,7 @@
 import toast from 'react-hot-toast';
 import useSWR from 'swr';
 
-import { useProjectId } from '@/hooks';
+import { useProject } from '@/hooks';
 import { MemberType, memberSchema } from '@/schemas';
 import { getBrowserClient, getBrowserUser } from '@/supabase/browser';
 
@@ -25,7 +25,7 @@ export async function getMember(projectId: number) {
 }
 
 export function useFetchMember() {
-    const projectId = useProjectId(false);
+    const { projectId } = useProject(false);
     return useSWR<MemberType, Error, MemberKey|undefined>(
         projectId ? ['MEMBER', { projectId }] : undefined,
         () => getMember(projectId || 0),

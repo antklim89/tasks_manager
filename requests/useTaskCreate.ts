@@ -1,7 +1,7 @@
 import { toast } from 'react-hot-toast';
 import useSWRMutation, { SWRMutationConfiguration } from 'swr/mutation';
 
-import { useProjectId } from '@/hooks';
+import { useProject } from '@/hooks';
 import { TaskCreateType, TaskType, taskSchema } from '@/schemas';
 import { getBrowserClient } from '@/supabase/browser';
 
@@ -13,7 +13,7 @@ const TOAST_ID = 'TASK_CREATE';
 type Options = SWRMutationConfiguration<TaskType, Error, FetchTasksKey, TaskCreateType>;
 
 export function useTaskCreate({ columnId }: { columnId: number }, options?: Options) {
-    const projectId = useProjectId();
+    const { projectId } = useProject();
 
     return useSWRMutation<TaskType, Error, FetchTasksKey, TaskCreateType>(
         ['TASKS', { columnId }],

@@ -3,6 +3,6 @@
 export * from './useCurrentDate';
 export * from './useDisclosure';
 export * from './useMember';
-export * from './useProjectId';
+export * from './useProject';
 export * from './useTaskDnd';
 export * from './useTaskDrop';

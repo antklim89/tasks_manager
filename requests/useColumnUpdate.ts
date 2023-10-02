@@ -1,7 +1,7 @@
 import { toast } from 'react-hot-toast';
 import useSWRMutation, { SWRMutationConfiguration } from 'swr/mutation';
 
-import { useProjectId } from '@/hooks';
+import { useProject } from '@/hooks';
 import { ColumnType, ColumnUpdateType } from '@/schemas';
 import { getBrowserClient } from '@/supabase/browser';
 
@@ -24,7 +24,7 @@ export async function columnUpdate(columnId: number, data: ColumnUpdateType): Pr
 }
 
 export function useColumnUpdate({ columnId }: { columnId: number }, options?: Options) {
-    const projectId = useProjectId();
+    const { projectId } = useProject();
     return useSWRMutation<ColumnUpdateType, Error, FetchColumnsKey, ColumnUpdateType>(
         ['COLUMNS', { projectId }],
         (key, { arg }) => columnUpdate(columnId, arg),

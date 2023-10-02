@@ -1,7 +1,7 @@
 import { toast } from 'react-hot-toast';
 import useSWRMutation, { SWRMutationConfiguration } from 'swr/mutation';
 
-import { useProjectId } from '@/hooks';
+import { useProject } from '@/hooks';
 import { MemberType } from '@/schemas';
 import { getBrowserClient } from '@/supabase/browser';
 
@@ -13,7 +13,7 @@ const TOAST_ID = 'MEMBER_DELETE';
 type Options = SWRMutationConfiguration<void, Error, FetchMembersKey, void>;
 
 export function useMemberDelete({ memberId }: { memberId: number }, options?: Options) {
-    const projectId = useProjectId();
+    const { projectId } = useProject();
     return useSWRMutation<void, Error, FetchMembersKey, void>(
         ['MEMBERS', { projectId }],
 

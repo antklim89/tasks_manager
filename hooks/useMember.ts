@@ -1,8 +1,8 @@
-import { useFetchMember } from '@/requests';
+import { useProject } from './useProject';
 
 
 export function useMember() {
-    const { data: member } = useFetchMember();
+    const { member } = useProject(false);
 
     const isAdmin = member?.role === 'admin';
     const isMember = member?.role === 'member';
