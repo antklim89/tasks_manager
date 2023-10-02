@@ -4,10 +4,11 @@ import { z } from 'zod';
 
 import { Button, Input, Modal } from '@/components';
 import { useDisclosure, useProject } from '@/hooks';
+import { MemberType } from '@/schemas';
 import { getBrowserClient } from '@/supabase/browser';
 
 
-const MembersInvite = () => {
+const MembersInvite = ({ members }: { members: MemberType[] }) => {
     const { projectId } = useProject();
     const { isOpen, close, open } = useDisclosure();
     const {
@@ -15,7 +16,14 @@ const MembersInvite = () => {
         handleSubmit,
         formState: { errors },
     } = useForm<{email: string}>({
-        resolver: zodResolver(z.object({ email: z.string().email() })),
+        resolver(values, context, options) {
+            if (members.some((m) => m.email === values.email)) {
+                return { errors: { email: { type: 'pattern', message: 'The member with this email is already exists.' } }, values: {} };
+            }
+
+            return zodResolver(z.object({ email: z.string().email() }))(values, context, options);
+        },
+
     });
 
     const handleInvite = handleSubmit(async ({ email }) => {
