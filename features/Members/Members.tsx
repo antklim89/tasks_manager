@@ -21,7 +21,8 @@ const Members = () => {
                 <table className="table">
                     <thead>
                         <tr>
-                            <th>User</th>
+                            <th>Name</th>
+                            <th>Email</th>
                             <th>Role</th>
                             <th>Remove</th>
                         </tr>
@@ -30,6 +31,7 @@ const Members = () => {
                         {isLoading
                             ? [1, 2, 3].map((i) => (
                                 <tr key={i}>
+                                    <td className="skeleton h-10 w-6 mb-1" />
                                     <td className="skeleton h-10 w-6 mb-1" />
                                     <td className="skeleton h-10 w-6 mb-1" />
                                     <td className="skeleton h-10 w-6 mb-1" />

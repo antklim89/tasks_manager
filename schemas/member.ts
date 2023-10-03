@@ -14,7 +14,7 @@ export const memberSchema = z.object({
 });
 
 export const memberUpdateSchema = z.object({
-    role: z.enum(roles),
+    name: z.string().max(200).optional(),
 });
 
 export type MemberType = z.infer<typeof memberSchema>
