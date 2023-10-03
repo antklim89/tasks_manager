@@ -5,6 +5,7 @@ export * from './useColumnCreate';
 export * from './useColumnDelete';
 export * from './useColumnsFetch';
 export * from './useColumnUpdate';
+export * from './useInvite';
 export * from './useLogout';
 export * from './useMemberDelete';
 export * from './useMemberFetch';
