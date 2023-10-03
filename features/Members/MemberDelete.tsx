@@ -20,7 +20,7 @@ const MemberDelete = ({ member }: { member: MemberType }) => {
                 onConfirm={deleteMember}
             />
             <Button
-                aria-label="remove nenber"
+                aria-label="remove member"
                 color="error"
                 isLoading={isMutating}
                 size="xs"
