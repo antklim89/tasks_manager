@@ -2,7 +2,7 @@ import { notFound } from 'next/navigation';
 import { ReactNode } from 'react';
 import { z } from 'zod';
 
-import { ProjectIdProvider } from '@/components';
+import { ProjectProvider } from '@/components';
 import { memberSchema } from '@/schemas';
 import { getServerClient, getServerUser } from '@/supabase/server';
 
@@ -20,7 +20,7 @@ const ProjectLayout = async ({ children, params }: { children: ReactNode, params
 
     if (!data) return notFound();
     const member = await memberSchema.parseAsync(data);
-    return <ProjectIdProvider member={member} projectId={projectId}>{children}</ProjectIdProvider>;
+    return <ProjectProvider member={member} projectId={projectId}>{children}</ProjectProvider>;
 };
 
 export default ProjectLayout;
