@@ -4,7 +4,7 @@ import { z } from 'zod';
 
 import { Button, Input, Modal } from '@/components';
 import { useDisclosure } from '@/hooks';
-import { useInvite } from '@/requests/useIvite';
+import { useInvite } from '@/requests';
 import { MemberType } from '@/schemas';
 
 
@@ -27,7 +27,7 @@ const MembersInvite = ({ members }: { members: MemberType[] }) => {
 
     const { trigger: invite, isMutating: isInviting } = useInvite({
         onSuccess() {
-            reset({}, { keepValues: false });
+            reset({ email: '' }, { keepValues: false });
             close();
         },
     });
