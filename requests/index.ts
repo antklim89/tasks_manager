@@ -10,6 +10,7 @@ export * from './useLogout';
 export * from './useMemberDelete';
 export * from './useMemberFetch';
 export * from './useMembersFetch';
+export * from './useMemberUpdate';
 export * from './useProjectCreate';
 export * from './useProjectDelete';
 export * from './useProjectsFetch';
