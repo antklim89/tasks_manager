@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
 
-export const roles = ['invited', 'read-only', 'member', 'admin'] as const;
+export const roles = ['read-only', 'member', 'admin'] as const;
 
 export const memberSchema = z.object({
     id: z.number(),
