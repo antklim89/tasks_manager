@@ -21,7 +21,7 @@ const RootLayout = async ({ children }: { children: React.ReactNode }) => {
             <body>
                 <Providers>
                     <Header />
-                    <main className="mx-4">
+                    <main>
                         {children}
                     </main>
                     <Footer />
