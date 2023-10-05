@@ -31,7 +31,7 @@ const Button = ({
             type="button"
             {...props}
             className={cn(
-                'btn flex-nowrap relative content-center',
+                'btn flex-nowrap relative content-center whitespace-nowrap',
                 classes.color[color],
                 size && classes.size[size],
                 outline && 'btn-outline',
