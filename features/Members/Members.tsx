@@ -17,32 +17,29 @@ const Members = () => {
                 <h3>Members</h3>
             </div>
             {isAdmin ? <MembersInvite members={members} /> : null}
-            <div className="card-body">
-                <table className="table">
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Role</th>
-                            <th>Remove</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {isLoading
-                            ? [1, 2, 3].map((i) => (
-                                <tr key={i}>
-                                    <td className="skeleton h-10 w-6 mb-1" />
-                                    <td className="skeleton h-10 w-6 mb-1" />
-                                    <td className="skeleton h-10 w-6 mb-1" />
-                                    <td className="skeleton h-10 w-6 mb-1" />
-                                </tr>
-                            ))
-                            : members.map((member) => (
-                                <MembersItem key={member.id} member={member} />
-                            )) }
-                    </tbody>
-                </table>
-            </div>
+            <table className="table table-xs sm:table-md">
+                <thead>
+                    <tr>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <th>Remove</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {isLoading
+                        ? [1, 2, 3].map((i) => (
+                            <tr key={i}>
+                                <td className="skeleton h-10 w-6 mb-1" />
+                                <td className="skeleton h-10 w-6 mb-1" />
+                                <td className="skeleton h-10 w-6 mb-1" />
+                                <td className="skeleton h-10 w-6 mb-1" />
+                            </tr>
+                        ))
+                        : members.map((member) => (
+                            <MembersItem key={member.id} member={member} />
+                        )) }
+                </tbody>
+            </table>
         </div>
     );
 };

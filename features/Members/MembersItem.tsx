@@ -2,7 +2,6 @@ import { useMember } from '@/hooks';
 import { MemberType } from '@/schemas';
 
 import MemberDelete from './MemberDelete';
-import MemberName from './MemberName';
 import MemberRole from './MemberRole';
 
 
@@ -12,7 +11,6 @@ const MembersItem = ({ member }: { member: MemberType }) => {
 
     return (
         <tr>
-            <td><MemberName member={member} /></td>
             <td>{member.email}</td>
             <td><MemberRole member={member} /></td>
             { (isAdmin || isYou)

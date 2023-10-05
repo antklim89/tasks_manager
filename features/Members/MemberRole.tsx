@@ -13,12 +13,11 @@ const MemberRole = ({ member }: { member: MemberType }) => {
     if (!isAdmin) return <Button className="font-normal" color="ghost">{currentRole}</Button>;
 
     const handleSelectRole: MouseEventHandler<HTMLButtonElement> = (e) => {
-        console.log(e.currentTarget.name);
         e.currentTarget.blur();
     };
 
     return (
-        <Menu button={<Button outline className="font-normal">{currentRole}</Button>}>
+        <Menu button={<Button outline className="font-normal btn-xs sm:btn-sm">{currentRole}</Button>}>
             {roles.map((role) => (
                 <Button
                     color="ghost"
