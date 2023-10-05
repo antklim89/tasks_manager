@@ -12,7 +12,7 @@ const Header = async () => {
     const user = await getServerUser().catch(() => null);
 
     return (
-        <header className="flex items-center container px-2 m-auto h-12">
+        <header className="flex items-center container h-12">
             <Link className="mr-auto flex items-center" href="/">
                 <Image
                     alt="logo"
