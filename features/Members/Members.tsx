@@ -17,29 +17,30 @@ const Members = () => {
                 <h3>Members</h3>
             </div>
             {isAdmin ? <MembersInvite members={members} /> : null}
-            <table className="table table-xs sm:table-md">
-                <thead>
-                    <tr>
-                        <th>Email</th>
-                        <th>Role</th>
-                        <th>Remove</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {isLoading
-                        ? [1, 2, 3].map((i) => (
-                            <tr key={i}>
-                                <td className="skeleton h-10 w-6 mb-1" />
-                                <td className="skeleton h-10 w-6 mb-1" />
-                                <td className="skeleton h-10 w-6 mb-1" />
-                                <td className="skeleton h-10 w-6 mb-1" />
-                            </tr>
-                        ))
-                        : members.map((member) => (
-                            <MembersItem key={member.id} member={member} />
-                        )) }
-                </tbody>
-            </table>
+            <div className="overflow-x-scroll overflow-y-hidden">
+                <table className="table table-xs sm:table-md">
+                    <thead>
+                        <tr>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th>Remove</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {isLoading
+                            ? [1, 2, 3].map((i) => (
+                                <tr key={i}>
+                                    <td className="skeleton h-10 w-6 mb-1" />
+                                    <td className="skeleton h-10 w-6 mb-1" />
+                                    <td className="skeleton h-10 w-6 mb-1" />
+                                </tr>
+                            ))
+                            : members.map((member) => (
+                                <MembersItem key={member.id} member={member} />
+                            )) }
+                    </tbody>
+                </table>
+            </div>
         </div>
     );
 };
