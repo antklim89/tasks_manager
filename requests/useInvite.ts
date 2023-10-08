@@ -15,8 +15,7 @@ export function useInvite(options?: Options) {
         'INVITE',
 
         async (key, { arg: { email } }) => {
-            // TODO: should be sent invitation fo member
-            const { error } = await getBrowserClient().functions.invoke<null>('accept-invite', {
+            const { error } = await getBrowserClient().functions.invoke<null>('invite', {
                 body: { email, projectId },
             });
 
