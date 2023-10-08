@@ -42,6 +42,7 @@ export interface Database {
           createdAt: string
           email: string
           id: number
+          inviteToken: string | null
           name: string
           projectId: number
           role: string
@@ -51,6 +52,7 @@ export interface Database {
           createdAt?: string
           email?: string
           id?: number
+          inviteToken?: string | null
           name?: string
           projectId: number
           role: string
@@ -60,6 +62,7 @@ export interface Database {
           createdAt?: string
           email?: string
           id?: number
+          inviteToken?: string | null
           name?: string
           projectId?: number
           role?: string
