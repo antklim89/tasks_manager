@@ -1,7 +1,7 @@
 import { serve } from 'https://deno.land/std@0.168.0/http/server.ts';
+import { SMTPClient, type ClientOptions } from 'https://deno.land/x/denomailer@1.6.0/mod.ts';
 import { nanoid } from 'https://deno.land/x/nanoid@v3.0.0/mod.ts';
 import * as postgres from 'https://deno.land/x/postgres@v0.14.2/mod.ts';
-import { SmtpClient } from 'https://deno.land/x/smtp@v0.7.0/mod.ts';
 import { z } from 'https://deno.land/x/zod@v3.22.2/mod.ts';
 import { type User, createClient } from 'https://esm.sh/@supabase/supabase-js@2.36.0';
 
@@ -28,12 +28,18 @@ const {
 
 const pool = new postgres.Pool(SUPABASE_DB_URL, 3, true);
 
-const connectConfig = {
-    hostname: 'smtp.mail.ru',
-    port: 465,
-    username: SEND_EMAIL,
-    password: EMAIL_PASSWORD,
-} as const;
+const mailConfig: ClientOptions = {
+    connection: {
+        tls: true,
+        hostname: 'smtp.mail.ru',
+        port: 465,
+        auth: {
+            username: SEND_EMAIL,
+            password: EMAIL_PASSWORD,
+        },
+    },
+};
+
 
 const bodySchema = z.object({
     email: z.string().email(),
@@ -119,16 +125,15 @@ async function createMember(req: Request, {
     }
 }
 
+
 async function sendEmail(inviteToken: string) {
-    const client = new SmtpClient();
+    const client = new SMTPClient(mailConfig);
     try {
-        await client.connectTLS(connectConfig);
         const inviteLink = new URL(`${SUPABASE_URL}/functions/v1/accept-invite`);
         inviteLink.searchParams.set('token', inviteToken);
         const content = `
-<h1>You have been invited to Tasks Manager.</h1>
-
-<p>Follow the link to accept it.</p>
+<h1>You have been invited to the Task Manager.</h1>
+<p>Follow the link to accept the invitation..</p>
 <a href="${inviteLink}">${inviteLink}</a>
         `;
 
@@ -136,7 +141,7 @@ async function sendEmail(inviteToken: string) {
             from: SEND_EMAIL,
             to: RECV_EMAIL,
             subject: 'Tasks Manager Invitation!',
-            content,
+            html: content,
         });
         return new Response('Ok', { headers: cors, status: 200 });
     } catch (error) {
