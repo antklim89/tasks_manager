@@ -17,7 +17,7 @@ const Members = () => {
                 <h3>Members</h3>
             </div>
             {isAdmin ? <MembersInvite members={members} /> : null}
-            <div className="overflow-x-scroll overflow-y-hidden">
+            <div className="overflow-x-scroll sm:overflow-x-hidden overflow-y-hidden">
                 <table className="table table-xs sm:table-md">
                     <thead>
                         <tr>
