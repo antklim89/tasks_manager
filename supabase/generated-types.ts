@@ -43,7 +43,6 @@ export interface Database {
           email: string
           id: number
           inviteToken: string | null
-          name: string
           projectId: number
           role: string
           userId: string
@@ -53,7 +52,6 @@ export interface Database {
           email?: string
           id?: number
           inviteToken?: string | null
-          name?: string
           projectId: number
           role: string
           userId: string
@@ -63,7 +61,6 @@ export interface Database {
           email?: string
           id?: number
           inviteToken?: string | null
-          name?: string
           projectId?: number
           role?: string
           userId?: string
