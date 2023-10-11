@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
 
-export const updateRoles = ['read-only', 'member', 'admin'] as const;
+export const updateRoles = ['guest', 'user', 'admin'] as const;
 export const roles = ['invited', ...updateRoles] as const;
 
 

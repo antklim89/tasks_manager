@@ -14,7 +14,7 @@ import ColumnTaskCreate from './ColumnTaskCreate';
 
 const Column = ({ id, name, taskOrder }: ColumnType) => {
     const { data: tasks = [], isLoading } = useTasksFetch({ columnId: id, taskOrder });
-    const { isAdmin, isAdminOrMember } = useMember();
+    const { isAdmin, isAdminOrUser: isAdminOrMember } = useMember();
 
     const {
         setNodeRef: setDropRef,

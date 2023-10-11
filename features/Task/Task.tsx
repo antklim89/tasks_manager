@@ -14,7 +14,7 @@ import TaskUpdate from './TaskUpdate';
 
 const Task = ({ task, index }: TaskProps) => {
     const { isOpen: updateModalisOpen, close: closeUpdateModal, open: openUpdateModal } = useDisclosure();
-    const { isAdminOrMember } = useMember();
+    const { isAdminOrUser: isAdminOrMember } = useMember();
     const {
         isOverArciveTask,
         isOverPreviousTask,

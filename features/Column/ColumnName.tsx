@@ -10,7 +10,7 @@ import { columnUpdateSchema } from '@/schemas';
 
 const ColumnName = ({ name, id }: { name: string, id: number }) => {
     const { trigger: updateColumn } = useColumnUpdate({ columnId: id });
-    const { isAdminOrMember } = useMember();
+    const { isAdminOrUser: isAdminOrMember } = useMember();
     const prevName = useRef(name);
     const {
         register,
