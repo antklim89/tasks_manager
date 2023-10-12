@@ -1,7 +1,7 @@
 import { toast } from 'react-hot-toast';
 import useSWRMutation, { SWRMutationConfiguration } from 'swr/mutation';
 
-import { ProjectType, projectSchema } from '@/schemas';
+import { ProjectType, ProjectUpdateType, projectSchema } from '@/schemas';
 import { getBrowserClient } from '@/supabase/browser';
 
 import { FetchProjectsKey } from './keys';
@@ -9,20 +9,17 @@ import { FetchProjectsKey } from './keys';
 
 const TOAST_ID = 'PROJECT_CREATE';
 
-type Options = SWRMutationConfiguration<ProjectType, Error, FetchProjectsKey, { name: string }>;
+type Options = SWRMutationConfiguration<ProjectType, Error, FetchProjectsKey, ProjectUpdateType>;
 
 export function useProjectCreate(options?: Options) {
-    return useSWRMutation<ProjectType, Error, FetchProjectsKey, { name: string }>(
+    return useSWRMutation<ProjectType, Error, FetchProjectsKey, ProjectUpdateType>(
         ['PROJECTS'],
 
-        async (key, { arg: { name } }) => {
+        async (key, { arg }) => {
             toast.loading('Project is creating...', { id: TOAST_ID });
             const supabase = getBrowserClient();
 
-            const { error, data } = await supabase.from('projects')
-                .insert({ name })
-                .select('*')
-                .single();
+            const { data, error } = await supabase.rpc('create_project', arg);
 
             if (error) throw error;
 
