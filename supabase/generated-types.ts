@@ -80,6 +80,37 @@ export interface Database {
           }
         ]
       }
+      profiles: {
+        Row: {
+          created_at: string
+          email: string
+          firstName: string
+          id: string
+          lastName: string
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          firstName?: string
+          id: string
+          lastName?: string
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          firstName?: string
+          id?: string
+          lastName?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "profiles_id_fkey"
+            columns: ["id"]
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
       projects: {
         Row: {
           description: string
