@@ -29,9 +29,8 @@ const Header = async () => {
                 {user
                     ? (
                         <Menu button={<Button aria-label="user menu" color="ghost" size="sm"><FaUser /></Button>}>
-                            <Menu.Item>
-                                <HeaderLogout />
-                            </Menu.Item>
+                            <span className="text-center py-4">{user.email}</span>
+                            <HeaderLogout />
                         </Menu>
                     )
                     : null}
