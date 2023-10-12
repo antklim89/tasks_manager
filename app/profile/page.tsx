@@ -1,3 +1,5 @@
+import { Profile } from '@/features';
+
 
 export const metadata = {
     title: 'Profile',
@@ -6,9 +8,7 @@ export const metadata = {
 const DashboardPage = () => {
 
     return (
-        <div>
-            PROFILE
-        </div>
+        <Profile />
     );
 };
 
