@@ -1,12 +1,22 @@
 'use client';
 import { useProfileFetch } from '@/requests';
 
+import ProfileForm from './ProfileForm';
+
 
 const Profile = () => {
-    const { data } = useProfileFetch();
+    const { data: profile } = useProfileFetch();
 
+    if (!profile) return null;
     return (
-        <div>Profile {data?.email}</div>
+        <div className="card container max-w-3xl">
+            <div className="card-title">
+                Profile {profile.email}
+            </div>
+            <div className="card-body">
+                <ProfileForm profile={profile} />
+            </div>
+        </div>
     );
 };
 
