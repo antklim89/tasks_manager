@@ -20,12 +20,22 @@ export function useProfileFetch(options?: Options) {
             const { error, data } = await supabase
                 .from('profiles')
                 .select('*')
-                .eq('id', user.id)
-                .single();
+                .eq('id', user.id);
 
+            if (!data || !data[0]) {
+                const newProfile = await supabase
+                    .from('profiles')
+                    .insert({ id: user.id, email: user.email || '' })
+                    .eq('id', user.id)
+                    .select('*')
+                    .single();
+
+                if (newProfile.error) throw newProfile.error;
+                return profileSchema.parseAsync(newProfile.data);
+            }
             if (error) throw error;
 
-            return profileSchema.parseAsync(data);
+            return profileSchema.parseAsync(data[0]);
         },
         {
             ...options,
