@@ -5,6 +5,7 @@ import { Button, Modal } from '@/components';
 import ProjectEditForm from '@/components/ProjectEditForm';
 import { useDisclosure } from '@/hooks';
 import { useProjectCreate } from '@/requests';
+import { ProjectType } from '@/schemas';
 
 
 const ProjectPanelCreate = () => {
@@ -14,8 +15,9 @@ const ProjectPanelCreate = () => {
     const { trigger: createNewProject, isMutating: isCreating } = useProjectCreate({
         onSuccess(newProject) {
             close();
-            if (Array.isArray(newProject) && newProject.at(-1)) push(`/dashboard/${newProject.at(-1).id}`);
-            else push(`/dashboard/${newProject.id}`);
+            if (Array.isArray(newProject) && newProject.at(-1)) {
+                push(`/dashboard/${(newProject.at(-1) as ProjectType).id}`);
+            } else push(`/dashboard/${newProject.id}`);
         },
     });
 

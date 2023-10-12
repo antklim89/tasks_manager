@@ -4,7 +4,7 @@ import { z } from 'zod';
 export const projectSchema = z.object({
     id: z.number(),
     name: z.string(),
-    description: z.string().nullish(),
+    description: z.string().optional(),
 });
 
 export const projectUpdateSchema = z.object({
@@ -13,7 +13,7 @@ export const projectUpdateSchema = z.object({
         .max(40),
     description: z.string()
         .max(500)
-        .nullish(),
+        .optional(),
 });
 
 export type ProjectUpdateType = z.infer<typeof projectUpdateSchema>

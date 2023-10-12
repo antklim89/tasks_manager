@@ -82,17 +82,17 @@ export interface Database {
       }
       projects: {
         Row: {
-          description: string | null
+          description: string
           id: number
           name: string
         }
         Insert: {
-          description?: string | null
+          description?: string
           id?: number
           name: string
         }
         Update: {
-          description?: string | null
+          description?: string
           id?: number
           name?: string
         }
@@ -158,11 +158,46 @@ export interface Database {
       [_ in never]: never
     }
     Functions: {
+      create_project: {
+        Args: {
+          name: string
+          description?: string
+        }
+        Returns: {
+          description: string
+          id: number
+          name: string
+        }
+      }
       get_user_id_by_email: {
         Args: {
           email: string
         }
         Returns: string
+      }
+      is_admin: {
+        Args: {
+          project_id: number
+        }
+        Returns: boolean
+      }
+      is_admin_or_user: {
+        Args: {
+          project_id: number
+        }
+        Returns: boolean
+      }
+      is_member: {
+        Args: {
+          project_id: number
+        }
+        Returns: boolean
+      }
+      is_user: {
+        Args: {
+          project_id: number
+        }
+        Returns: boolean
       }
     }
     Enums: {
