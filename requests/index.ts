@@ -11,6 +11,7 @@ export * from './useMemberDelete';
 export * from './useMemberFetch';
 export * from './useMembersFetch';
 export * from './useMemberUpdate';
+export * from './useProfileFetch';
 export * from './useProjectCreate';
 export * from './useProjectDelete';
 export * from './useProjectsFetch';
