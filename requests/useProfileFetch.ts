@@ -2,7 +2,7 @@ import { toast } from 'react-hot-toast';
 import useSWR, { SWRConfiguration } from 'swr';
 
 import { ProfileType, profileSchema } from '@/schemas';
-import { getBrowserClient } from '@/supabase/browser';
+import { getBrowserClient, getBrowserUser } from '@/supabase/browser';
 
 import { ProfileKey } from './keys';
 
@@ -15,10 +15,12 @@ export function useProfileFetch(options?: Options) {
 
         async () => {
             const supabase = getBrowserClient();
+            const user = await getBrowserUser();
 
             const { error, data } = await supabase
                 .from('profiles')
                 .select('*')
+                .eq('id', user.id)
                 .single();
 
             if (error) throw error;
