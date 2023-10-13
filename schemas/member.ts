@@ -11,7 +11,6 @@ export const memberSchema = z.object({
     id: z.number(),
     createdAt: z.string(),
     userId: z.string(),
-    email: z.string(),
     role: z.enum(roles),
     projectId: z.number(),
     profile: profileSchema,

@@ -17,7 +17,7 @@ const MembersInvite = ({ members }: { members: MemberType[] }) => {
         reset,
     } = useForm<{email: string}>({
         resolver(values, context, options) {
-            if (members.some((m) => m.email === values.email)) {
+            if (members.some((m) => m.profile.email === values.email)) {
                 return { errors: { email: { type: 'pattern', message: 'The member with this email is already exists.' } }, values: {} };
             }
             return zodResolver(z.object({ email: z.string().email() }))(values, context, options);
