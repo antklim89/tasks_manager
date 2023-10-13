@@ -13,7 +13,7 @@ const ProjectLayout = async ({ children, params }: { children: ReactNode, params
     const user = await getServerUser();
 
     const { data } = await supabase.from('members')
-        .select('*')
+        .select('*, profile:userId(*)')
         .eq('projectId', projectId)
         .eq('userId', user.id)
         .single();

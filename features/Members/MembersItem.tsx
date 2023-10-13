@@ -11,7 +11,11 @@ const MembersItem = ({ member }: { member: MemberType }) => {
 
     return (
         <tr>
-            <td className="break-all">{member.email}</td>
+            <td className="break-all">
+                {member.profile?.firstName} {member.profile?.lastName}
+                <br />
+                {member.profile?.email}
+            </td>
             <td><MemberRole member={member} /></td>
             { (isAdmin || isYou)
                 ? <td className="text-center"><MemberDelete member={member} /></td>

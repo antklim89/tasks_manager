@@ -13,7 +13,7 @@ export async function getMember(projectId: number) {
     const user = await getBrowserUser();
 
     const { error, data } = await supabase.from('members')
-        .select('*')
+        .select('*, profile:userId(*)')
         .eq('projectId', projectId)
         .eq('userId', user.id)
         .single();

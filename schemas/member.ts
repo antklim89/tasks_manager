@@ -1,5 +1,7 @@
 import { z } from 'zod';
 
+import { profileSchema } from './profile';
+
 
 export const updateRoles = ['guest', 'user', 'admin'] as const;
 export const roles = ['invited', ...updateRoles] as const;
@@ -12,6 +14,7 @@ export const memberSchema = z.object({
     email: z.string(),
     role: z.enum(roles),
     projectId: z.number(),
+    profile: profileSchema,
 });
 
 export const memberUpdateSchema = z.object({

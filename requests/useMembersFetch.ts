@@ -19,7 +19,7 @@ export function useMembersFetch(options: Options = {}) {
             const supabase = getBrowserClient();
 
             const supabaseQuery = supabase.from('members')
-                .select('*')
+                .select('*, profile:userId(*)')
                 .eq('projectId', projectId);
 
             const { error, data } = await supabaseQuery;
