@@ -40,29 +40,26 @@ export interface Database {
       members: {
         Row: {
           createdAt: string
-          email: string
           id: number
           inviteToken: string | null
           projectId: number
-          role: string
+          role: Database["public"]["Enums"]["roles"]
           userId: string
         }
         Insert: {
           createdAt?: string
-          email?: string
           id?: number
           inviteToken?: string | null
           projectId: number
-          role: string
+          role?: Database["public"]["Enums"]["roles"]
           userId: string
         }
         Update: {
           createdAt?: string
-          email?: string
           id?: number
           inviteToken?: string | null
           projectId?: number
-          role?: string
+          role?: Database["public"]["Enums"]["roles"]
           userId?: string
         }
         Relationships: [
@@ -75,7 +72,7 @@ export interface Database {
           {
             foreignKeyName: "members_userId_fkey"
             columns: ["userId"]
-            referencedRelation: "users"
+            referencedRelation: "profiles"
             referencedColumns: ["id"]
           }
         ]
@@ -235,7 +232,7 @@ export interface Database {
       }
     }
     Enums: {
-      [_ in never]: never
+      roles: "admin" | "user" | "guest" | "invited"
     }
     CompositeTypes: {
       [_ in never]: never
