@@ -39,6 +39,12 @@ const ProfileForm = ({ profile }: { profile: ProfileType }) => {
                 errorMessage={errors.lastName?.message}
                 label="Last name"
             />
+            <Input
+                {...register('description')}
+                as="textarea"
+                errorMessage={errors.description?.message}
+                label="Description"
+            />
             <div className="flex justify-end mt-4">
                 <Button
                     outline

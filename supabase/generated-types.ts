@@ -83,6 +83,7 @@ export interface Database {
       profiles: {
         Row: {
           created_at: string
+          description: string
           email: string
           firstName: string
           id: string
@@ -90,6 +91,7 @@ export interface Database {
         }
         Insert: {
           created_at?: string
+          description?: string
           email: string
           firstName?: string
           id: string
@@ -97,6 +99,7 @@ export interface Database {
         }
         Update: {
           created_at?: string
+          description?: string
           email?: string
           firstName?: string
           id?: string
