@@ -30,7 +30,7 @@ const Header = async () => {
                     ? (
                         <Menu button={<Button aria-label="user menu" color="ghost" size="sm"><FaUser /></Button>}>
                             <span className="text-center py-4">{user.email}</span>
-                            <Link className="btn btn-ghost" href="/profile">PROFILE</Link>
+                            <Link className="btn btn-ghost" href="/dashboard/profile">PROFILE</Link>
                             <HeaderLogout />
                         </Menu>
                     )
