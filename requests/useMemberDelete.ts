@@ -30,7 +30,7 @@ export function useMemberDelete({ memberId }: { memberId: number }, options?: Op
             ...options,
             revalidate: false,
             populateCache(_, currentData: MemberType[]) {
-                currentData.filter((member) => member.id !== memberId);
+                return currentData.filter((member) => member.id !== memberId);
             },
             onSuccess(...args) {
                 toast.success('Member deleted succesfully.', { id: TOAST_ID });
