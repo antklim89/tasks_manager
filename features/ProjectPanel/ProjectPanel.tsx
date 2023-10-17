@@ -23,7 +23,10 @@ const ProjectPanel = () => {
         <div className="flex h-12 my-2 px-2 items-center">
             <ProjectPanelCreate />
             <ProjectPanelSelect projectName={project?.name} projects={projects} />
+
             {projectId ? <Link className="btn btn-primary" href={`/dashboard/${projectId}/members`}>Members</Link> : null}
+            {projectId ? <Link className="btn btn-primary" href={`/dashboard/${projectId}/history`}>History</Link> : null}
+
             <div className="flex-grow" />
             {(isAdmin && project)
                 ? (
