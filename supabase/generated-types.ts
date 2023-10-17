@@ -37,6 +37,52 @@ export interface Database {
           }
         ]
       }
+      history: {
+        Row: {
+          createdAt: string
+          id: number
+          newData: Json | null
+          oldData: Json | null
+          operation: Database["public"]["Enums"]["operations"]
+          projectId: number
+          table: Database["public"]["Enums"]["tables"]
+          userId: string | null
+        }
+        Insert: {
+          createdAt?: string
+          id?: number
+          newData?: Json | null
+          oldData?: Json | null
+          operation: Database["public"]["Enums"]["operations"]
+          projectId: number
+          table: Database["public"]["Enums"]["tables"]
+          userId?: string | null
+        }
+        Update: {
+          createdAt?: string
+          id?: number
+          newData?: Json | null
+          oldData?: Json | null
+          operation?: Database["public"]["Enums"]["operations"]
+          projectId?: number
+          table?: Database["public"]["Enums"]["tables"]
+          userId?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "history_projectId_fkey"
+            columns: ["projectId"]
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "history_userId_fkey"
+            columns: ["userId"]
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
       members: {
         Row: {
           createdAt: string
@@ -189,6 +235,14 @@ export interface Database {
       [_ in never]: never
     }
     Functions: {
+      can_change_role: {
+        Args: {
+          role: Database["public"]["Enums"]["roles"]
+          project_id: number
+          member_id: number
+        }
+        Returns: boolean
+      }
       create_project: {
         Args: {
           name: string
@@ -232,7 +286,9 @@ export interface Database {
       }
     }
     Enums: {
+      operations: "INSERT" | "UPDATE" | "DELETE"
       roles: "admin" | "user" | "guest" | "invited"
+      tables: "tasks" | "projects" | "columns" | "members"
     }
     CompositeTypes: {
       [_ in never]: never
