@@ -2,6 +2,7 @@
 
 export * from './auth';
 export * from './column';
+export * from './history';
 export * from './member';
 export * from './profile';
 export * from './project';
