@@ -24,15 +24,15 @@ export function useHistoryFetch(options?: Options) {
                 .select('*')
                 .eq('projectId', projectId);
 
-            if (error) throw error;
+            if (error) throw new Error('Failed to fetch history. Try again later.');
 
             return historySchema.array().parseAsync(data);
         },
         {
             ...options,
-            onError(...args) {
-                toast.error('Failed to fetch history. Try again later.', { id: 'HISTORY_FETCH' });
-                options?.onError?.(...args);
+            onError(err, ...args) {
+                toast.error(err.message, { id: 'HISTORY_FETCH' });
+                options?.onError?.(err, ...args);
             },
         },
     );
