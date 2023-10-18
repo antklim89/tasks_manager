@@ -35,7 +35,7 @@ const Members = () => {
                             </tr>
                         ))
                         : members.map((member) => (
-                            <MembersItem key={member.id} member={member} />
+                            <MembersItem key={member.id} member={member} members={members} />
                         )) }
                 </tbody>
             </table>
