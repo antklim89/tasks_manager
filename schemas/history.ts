@@ -6,6 +6,7 @@ export const operations = ['INSERT', 'UPDATE', 'DELETE'] as const;
 
 export const historySchema = z.object({
     id: z.number(),
+    createdAt: z.string(),
     projectId: z.number(),
     userId: z.string().nullable(),
     table: z.enum(tables),
