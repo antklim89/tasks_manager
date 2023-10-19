@@ -6,13 +6,11 @@ import { useMemberUpdate } from '@/requests';
 import { MemberType, MemberUpdateType, updateRoles } from '@/schemas';
 
 
-const MemberRole = ({ member }: { member: MemberType }) => {
+const MemberRole = ({ member, members }: { member: MemberType, members: MemberType[] }) => {
     const { trigger: updateMember, isMutating } = useMemberUpdate({ memberId: member.id });
     const { isAdmin, member: userMember } = useMember();
     const isYou = userMember?.id === member.id;
-    const currentRole = isYou ? `${member.role} (you)` : member.role;
-
-    if (!isAdmin) return <Button className="font-normal" color="ghost">{currentRole}</Button>;
+    const canUpdate = member.role !== 'admin' || members.filter((m) => m.role === 'admin').length > 1;
 
     const handleSelectRole: MouseEventHandler<HTMLButtonElement> = (e) => {
         e.currentTarget.blur();
@@ -21,19 +19,32 @@ const MemberRole = ({ member }: { member: MemberType }) => {
     };
 
     return (
-        <Menu button={<Button outline className="font-normal btn-xs sm:btn-sm" isLoading={isMutating}>{currentRole}</Button>}>
-            {updateRoles.map((role) => (
+        <Menu
+            button={(
                 <Button
-                    className="btn-xs sm:btn-sm"
-                    color="ghost"
+                    outline
+                    className="font-normal btn-xs sm:btn-sm"
+                    disabled={!canUpdate || !isAdmin}
                     isLoading={isMutating}
-                    key={role}
-                    name={role}
-                    onClick={handleSelectRole}
                 >
-                    {role}
+                    {isYou ? `${member.role} (you)` : member.role}
                 </Button>
-            ))}
+            )}
+        >
+            {updateRoles
+                .filter((role) => role !== member.role)
+                .map((role) => (
+                    <Button
+                        className="btn-xs sm:btn-sm"
+                        color="ghost"
+                        isLoading={isMutating}
+                        key={role}
+                        name={role}
+                        onClick={handleSelectRole}
+                    >
+                        {role}
+                    </Button>
+                ))}
         </Menu>
     );
 };

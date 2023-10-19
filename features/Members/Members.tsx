@@ -42,7 +42,7 @@ const Members = () => {
                                     <br />
                                     {member.profile?.email}
                                 </td>
-                                <td><MemberRole member={member} /></td>
+                                <td><MemberRole member={member} members={members} /></td>
                                 <td className="text-center"><MemberDelete member={member} members={members} /></td>
                             </tr>
                         )) }
