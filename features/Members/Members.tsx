@@ -2,8 +2,9 @@
 import { useMember } from '@/hooks';
 import { useMembersFetch } from '@/requests';
 
+import MemberDelete from './MemberDelete';
+import MemberRole from './MemberRole';
 import MembersInvite from './MembersInvite';
-import MembersItem from './MembersItem';
 
 
 const Members = () => {
@@ -35,7 +36,15 @@ const Members = () => {
                             </tr>
                         ))
                         : members.map((member) => (
-                            <MembersItem key={member.id} member={member} members={members} />
+                            <tr key={member.id}>
+                                <td className="break-all">
+                                    {member.profile?.firstName} {member.profile?.lastName}
+                                    <br />
+                                    {member.profile?.email}
+                                </td>
+                                <td><MemberRole member={member} /></td>
+                                <td className="text-center"><MemberDelete member={member} members={members} /></td>
+                            </tr>
                         )) }
                 </tbody>
             </table>
