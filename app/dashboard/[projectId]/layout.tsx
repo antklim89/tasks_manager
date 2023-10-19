@@ -4,12 +4,13 @@ import { z } from 'zod';
 
 import { ProjectProvider } from '@/components';
 import { memberSchema } from '@/schemas';
-import { getServerClient, getServerUser } from '@/supabase/server';
+import { getSupabaseClient } from '@/supabase/client';
+import { getServerUser } from '@/supabase/server';
 
 
 const ProjectLayout = async ({ children, params }: { children: ReactNode, params: { projectId?: string[] } }) => {
     const projectId = await z.coerce.number().parseAsync(params?.projectId);
-    const supabase = getServerClient();
+    const supabase = await getSupabaseClient();
     const user = await getServerUser();
 
     const { data } = await supabase.from('members')
