@@ -2,7 +2,7 @@ import { toast } from 'react-hot-toast';
 import useSWRMutation, { SWRMutationConfiguration } from 'swr/mutation';
 
 import { TaskType } from '@/schemas';
-import { getBrowserClient } from '@/supabase/browser';
+import { getSupabaseClient } from '@/supabase/client';
 
 import { FetchTasksKey } from './keys';
 
@@ -17,7 +17,7 @@ export function useTaskDelete({ taskId, columnId }: { columnId: number, taskId: 
 
         async () => {
             toast.loading('Task is deleting...', { id: TOAST_ID });
-            const supabase = getBrowserClient();
+            const supabase = await getSupabaseClient();
 
 
             const { error } = await supabase

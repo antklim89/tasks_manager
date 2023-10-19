@@ -3,7 +3,7 @@ import useSWRMutation, { SWRMutationConfiguration } from 'swr/mutation';
 
 import { useProject } from '@/hooks';
 import { ProjectType } from '@/schemas';
-import { getBrowserClient } from '@/supabase/browser';
+import { getSupabaseClient } from '@/supabase/client';
 
 import { FetchProjectsKey } from './keys';
 
@@ -20,7 +20,7 @@ export function useProjectDelete(options?: Options) {
 
         async () => {
             toast.loading('Project is deleting...', { id: TOAST_ID });
-            const supabase = getBrowserClient();
+            const supabase = await getSupabaseClient();
 
             const { error } = await supabase.from('projects')
                 .delete()

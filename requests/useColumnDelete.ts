@@ -3,7 +3,7 @@ import useSWRMutation, { SWRMutationConfiguration } from 'swr/mutation';
 
 import { useProject } from '@/hooks';
 import { ColumnType } from '@/schemas';
-import { getBrowserClient } from '@/supabase/browser';
+import { getSupabaseClient } from '@/supabase/client';
 
 import { FetchColumnsKey } from './keys';
 
@@ -19,7 +19,7 @@ export function useColumnDelete({ columnId }: { columnId: number }, options?: Op
 
         async () => {
             toast.loading('Column is deleting...', { id: TOAST_ID });
-            const supabase = getBrowserClient();
+            const supabase = await getSupabaseClient();
 
             const { error } = await supabase.from('columns')
                 .delete()

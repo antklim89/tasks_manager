@@ -2,7 +2,7 @@ import { useRouter } from 'next/navigation';
 import { toast } from 'react-hot-toast';
 import useSWRMutation from 'swr/mutation';
 
-import { getBrowserClient } from '@/supabase/browser';
+import { getSupabaseClient } from '@/supabase/client';
 
 
 const TOAST_ID = 'LOGOUT';
@@ -14,7 +14,8 @@ export function useLogout() {
         'LOGOUT',
 
         async () => {
-            const { error } = await getBrowserClient().auth.signOut();
+            const supabase = await getSupabaseClient();
+            const { error } = await supabase.auth.signOut();
 
             if (error) throw error;
             refresh();

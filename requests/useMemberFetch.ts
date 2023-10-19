@@ -3,14 +3,14 @@ import useSWR from 'swr';
 
 import { useProject } from '@/hooks';
 import { MemberType, memberSchema } from '@/schemas';
-import { getBrowserClient, getBrowserUser } from '@/supabase/browser';
+import { getSupabaseClient, getSupabaseUser } from '@/supabase/client';
 
 import { MemberKey } from './keys';
 
 
 export async function getMember(projectId: number) {
-    const supabase = getBrowserClient();
-    const user = await getBrowserUser();
+    const supabase = await getSupabaseClient();
+    const user = await getSupabaseUser();
 
     const { error, data } = await supabase.from('members')
         .select('*, profile:userId(*)')

@@ -3,13 +3,13 @@ import Link from 'next/link';
 import { FaUser } from 'react-icons/fa6';
 
 import { Button, Menu } from '@/components';
-import { getServerUser } from '@/supabase/server';
+import { getSupabaseUser } from '@/supabase/client';
 
 import HeaderLogout from './HeaderLogout';
 
 
 const Header = async () => {
-    const user = await getServerUser().catch(() => null);
+    const user = await getSupabaseUser().catch(() => null);
 
     return (
         <header className="flex items-center container h-12">

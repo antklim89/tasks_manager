@@ -4,7 +4,7 @@ import useSWRMutation, { SWRMutationConfiguration } from 'swr/mutation';
 
 import { useProject } from '@/hooks';
 import { MemberType, MemberUpdateType } from '@/schemas';
-import { getBrowserClient } from '@/supabase/browser';
+import { getSupabaseClient } from '@/supabase/client';
 
 import { FetchMembersKey, MemberKey } from './keys';
 
@@ -21,7 +21,7 @@ export function useMemberUpdate({ memberId }: { memberId: number }, options?: Op
         ['MEMBERS', { projectId }],
 
         async (key, { arg }) => {
-            const supabase = getBrowserClient();
+            const supabase = await getSupabaseClient();
 
             const { error } = await supabase.from('members')
                 .update(arg)

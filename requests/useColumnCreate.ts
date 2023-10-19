@@ -3,7 +3,7 @@ import useSWRMutation, { SWRMutationConfiguration } from 'swr/mutation';
 
 import { useProject } from '@/hooks';
 import { ColumnType, columnSchema } from '@/schemas';
-import { getBrowserClient } from '@/supabase/browser';
+import { getSupabaseClient } from '@/supabase/client';
 
 import { FetchColumnsKey } from './keys';
 
@@ -20,7 +20,7 @@ export function useColumnCreate(options?: Options) {
 
         async () => {
             toast.loading('Column is creating...', { id: TOAST_ID });
-            const supabase = getBrowserClient();
+            const supabase = await getSupabaseClient();
 
             const { error, data } = await supabase.from('columns')
                 .insert({ name: 'New Column', projectId })

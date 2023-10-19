@@ -2,7 +2,7 @@ import { toast } from 'react-hot-toast';
 import useSWRMutation, { SWRMutationConfiguration } from 'swr/mutation';
 
 import { ProfileType, ProfileUpdateType } from '@/schemas';
-import { getBrowserClient } from '@/supabase/browser';
+import { getSupabaseClient } from '@/supabase/client';
 
 import { ProfileKey } from './keys';
 
@@ -16,7 +16,7 @@ export function useProfileUpdate({ userId }: { userId: string }, options?: Optio
         ['PROFILE'],
 
         async (key, { arg }) => {
-            const supabase = getBrowserClient();
+            const supabase = await getSupabaseClient();
 
             const { error } = await supabase.from('profiles')
                 .update(arg)

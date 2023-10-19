@@ -3,7 +3,7 @@ import useSWR, { SWRConfiguration } from 'swr';
 
 import { useProject } from '@/hooks';
 import { ColumnType, columnSchema } from '@/schemas';
-import { getBrowserClient } from '@/supabase/browser';
+import { getSupabaseClient } from '@/supabase/client';
 
 import { FetchColumnsKey } from './keys';
 
@@ -16,7 +16,7 @@ export function useColumnsFetch(options?: Options) {
         ['COLUMNS', { projectId }],
 
         async () => {
-            const supabase = getBrowserClient();
+            const supabase = await getSupabaseClient();
             const { error, data } = await supabase
                 .from('columns')
                 .select('*')

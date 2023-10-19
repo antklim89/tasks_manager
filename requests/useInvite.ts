@@ -2,7 +2,7 @@ import toast from 'react-hot-toast';
 import useSWRMutation, { SWRMutationConfiguration } from 'swr/mutation';
 
 import { useProject } from '@/hooks';
-import { getBrowserClient } from '@/supabase/browser';
+import { getSupabaseClient } from '@/supabase/client';
 
 
 const TOAST_ID = 'INVITE';
@@ -15,7 +15,8 @@ export function useInvite(options?: Options) {
         'INVITE',
 
         async (key, { arg: { email } }) => {
-            const { error } = await getBrowserClient().functions.invoke<null>('invite', {
+            const supabase = await getSupabaseClient();
+            const { error } = await supabase.functions.invoke<null>('invite', {
                 body: { email, projectId },
             });
 

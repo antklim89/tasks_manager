@@ -2,7 +2,7 @@ import { toast } from 'react-hot-toast';
 import useSWR, { SWRConfiguration } from 'swr';
 
 import { ProjectType, projectSchema } from '@/schemas';
-import { getBrowserClient } from '@/supabase/browser';
+import { getSupabaseClient } from '@/supabase/client';
 
 import { FetchProjectsKey } from './keys';
 
@@ -14,7 +14,7 @@ export function useProjectsFetch({ id }: { id?: number } = {}, options: Options 
         ['PROJECTS'],
 
         async () => {
-            const supabase = getBrowserClient();
+            const supabase = await getSupabaseClient();
             const supabaseQuery = supabase.from('projects').select('*');
 
             if (id) supabaseQuery.eq('id', null);

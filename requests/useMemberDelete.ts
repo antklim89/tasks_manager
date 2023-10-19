@@ -3,7 +3,7 @@ import useSWRMutation, { SWRMutationConfiguration } from 'swr/mutation';
 
 import { useProject } from '@/hooks';
 import { MemberType } from '@/schemas';
-import { getBrowserClient } from '@/supabase/browser';
+import { getSupabaseClient } from '@/supabase/client';
 
 import { FetchMembersKey } from './keys';
 
@@ -18,7 +18,7 @@ export function useMemberDelete({ memberId }: { memberId: number }, options?: Op
         ['MEMBERS', { projectId }],
 
         async () => {
-            const supabase = getBrowserClient();
+            const supabase = await getSupabaseClient();
 
             const { error } = await supabase.from('members')
                 .delete()

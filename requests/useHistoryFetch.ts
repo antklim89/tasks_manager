@@ -3,7 +3,7 @@ import useSWR, { SWRConfiguration } from 'swr';
 
 import { useProject } from '@/hooks';
 import { HistoryType, historySchema } from '@/schemas';
-import { getBrowserClient } from '@/supabase/browser';
+import { getSupabaseClient } from '@/supabase/client';
 
 import type { HistoryKey } from './keys';
 
@@ -17,7 +17,7 @@ export function useHistoryFetch(options?: Options) {
         ['HISTORY', { projectId }],
 
         async () => {
-            const supabase = getBrowserClient();
+            const supabase = await getSupabaseClient();
 
             const { error, data } = await supabase
                 .from('history')

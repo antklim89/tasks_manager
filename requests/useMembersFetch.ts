@@ -3,7 +3,7 @@ import useSWR, { SWRConfiguration } from 'swr';
 
 import { useProject } from '@/hooks';
 import { MemberType, memberSchema } from '@/schemas';
-import { getBrowserClient } from '@/supabase/browser';
+import { getSupabaseClient } from '@/supabase/client';
 
 import { FetchMembersKey } from './keys';
 
@@ -16,7 +16,7 @@ export function useMembersFetch(options: Options = {}) {
         ['MEMBERS', { projectId }],
 
         async () => {
-            const supabase = getBrowserClient();
+            const supabase = await getSupabaseClient();
 
             const supabaseQuery = supabase.from('members')
                 .select('*, profile:userId(*)')

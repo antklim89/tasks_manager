@@ -3,7 +3,7 @@ import useSWRMutation, { SWRMutationConfiguration } from 'swr/mutation';
 
 import { useProject } from '@/hooks';
 import { TaskCreateType, TaskType, taskSchema } from '@/schemas';
-import { getBrowserClient } from '@/supabase/browser';
+import { getSupabaseClient } from '@/supabase/client';
 
 import { FetchTasksKey } from './keys';
 
@@ -20,7 +20,7 @@ export function useTaskCreate({ columnId }: { columnId: number }, options?: Opti
 
         async (key, { arg: { title, completeAt, description } }) => {
             toast.loading('Task is creating...', { id: TOAST_ID });
-            const supabase = getBrowserClient();
+            const supabase = await getSupabaseClient();
 
             const { error, data } = await supabase
                 .from('tasks')

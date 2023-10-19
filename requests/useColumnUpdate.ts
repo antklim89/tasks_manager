@@ -3,7 +3,7 @@ import useSWRMutation, { SWRMutationConfiguration } from 'swr/mutation';
 
 import { useProject } from '@/hooks';
 import { ColumnType, ColumnUpdateType } from '@/schemas';
-import { getBrowserClient } from '@/supabase/browser';
+import { getSupabaseClient } from '@/supabase/client';
 
 import { FetchColumnsKey } from './keys';
 
@@ -12,7 +12,7 @@ type Options = SWRMutationConfiguration<ColumnUpdateType, Error, FetchColumnsKey
 
 
 export async function columnUpdate(columnId: number, data: ColumnUpdateType): Promise<ColumnUpdateType> {
-    const supabase = getBrowserClient();
+    const supabase = await getSupabaseClient();
 
     const { error } = await supabase.from('columns')
         .update(data)
