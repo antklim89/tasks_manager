@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { FaChevronDown } from 'react-icons/fa6';
 
 import { Button, Menu } from '@/components';
 import { ProjectType } from '@/schemas';
@@ -6,25 +7,29 @@ import { ProjectType } from '@/schemas';
 
 const ProjectPanelSelect = ({
     projects,
-    projectName = 'Select Project',
+    project,
 }: {
-    projectName?: string,
     projects?: ProjectType[],
+    project?: ProjectType,
 }) => {
+    const projectName = project?.name || 'Select Project';
 
     if (!projects || projects.length === 0) return null;
     return (
-        <Menu button={<Button outline tabIndex={0}>{projectName}</Button>}>
-            {projects.map((project) => (
-                <Link
-                    className="btn btn-primary btn-outline w-full"
-                    href={`/dashboard/${project.id}`}
-                    key={project.id}
-                >
-                    {project.name}
-                </Link>
-            ))}
-        </Menu>
+        <div className="join join-item">
+            <Link className="btn btn-primary btn-outline join-item" href={`/dashboard/${project?.id || ''}`}>{projectName}</Link>
+            <Menu button={<Button aria-label="show projects" className="join-item px-2" tabIndex={0}><FaChevronDown /></Button>}>
+                {projects.map((p) => (
+                    <Link
+                        className="btn btn-primary btn-outline w-full"
+                        href={`/dashboard/${p.id}`}
+                        key={p.id}
+                    >
+                        {p.name}
+                    </Link>
+                ))}
+            </Menu>
+        </div>
     );
 };
 

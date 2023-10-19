@@ -1,5 +1,6 @@
 'use client';
 import { useRouter } from 'next/navigation';
+import { FaPlus } from 'react-icons/fa6';
 
 import { Button, Modal } from '@/components';
 import ProjectEditForm from '@/components/ProjectEditForm';
@@ -25,11 +26,12 @@ const ProjectPanelCreate = () => {
         <>
             <Button
                 aria-label="delete column"
+                className="join-item"
                 color="primary"
                 isLoading={isCreating}
                 onClick={open}
             >
-                Create
+                <FaPlus />
             </Button>
 
             <Modal isOpen={isOpen} onClose={close}>
