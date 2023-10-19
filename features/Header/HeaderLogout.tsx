@@ -26,7 +26,7 @@ const HeaderLogout = () => {
                 isOpen={isOpen}
                 text="Are you sure you want to log out!"
                 onClose={close}
-                onConfirm={logout}
+                onConfirm={() => logout()}
             />
         </>
     );

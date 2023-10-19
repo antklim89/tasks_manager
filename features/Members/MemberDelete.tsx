@@ -23,7 +23,7 @@ const MemberDelete = ({ member, members }: { member: MemberType, members: Member
                 isOpen={isOpen}
                 text="Are you sure you want to remove member."
                 onClose={close}
-                onConfirm={deleteMember}
+                onConfirm={() => deleteMember()}
             />
             <Button
                 aria-label="remove member"

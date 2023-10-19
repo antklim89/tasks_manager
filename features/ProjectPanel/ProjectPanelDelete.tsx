@@ -34,7 +34,7 @@ const ProjectPanelDelete = () => {
                 isOpen={isOpen}
                 text="Are you sure you want to delete this project!"
                 onClose={close}
-                onConfirm={deleteProject}
+                onConfirm={() => deleteProject()}
             />
         </>
     );

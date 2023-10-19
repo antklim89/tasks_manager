@@ -30,7 +30,7 @@ const TaskDelete = ({ task, className }: TaskDeleteProps) => {
                 isOpen={isOpen}
                 text="Are you sure you want to delete this task!"
                 onClose={close}
-                onConfirm={deleteTask}
+                onConfirm={() => deleteTask()}
             />
         </>
     );

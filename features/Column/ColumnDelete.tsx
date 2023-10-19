@@ -24,7 +24,7 @@ const ColumnDelete = ({ id }: { id: number }) => {
                 isOpen={isOpen}
                 text="Are you sure you want to delete this column!   All tasks will be deleted!"
                 onClose={close}
-                onConfirm={deleteColumn}
+                onConfirm={() => deleteColumn()}
             />
         </>
     );

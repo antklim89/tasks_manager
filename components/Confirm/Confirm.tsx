@@ -11,7 +11,9 @@ const Confirm = ({
     onClose,
     confirmButtonText = 'Confirm',
     text,
+    ...props
 }: ConfirmProps) => {
+
     return (
         <Modal className="p-0" isOpen={isOpen} onClose={onClose}>
             <Modal.Title className="whitespace-pre-wrap p-4">
@@ -29,6 +31,7 @@ const Confirm = ({
                 <Button
                     className="flex-1 rounded-none rounded-br-md"
                     isLoading={isLoading}
+                    {...props}
                     onClick={onConfirm}
                 >
                     {confirmButtonText}
