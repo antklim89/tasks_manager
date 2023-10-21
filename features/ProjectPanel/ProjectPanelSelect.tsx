@@ -18,7 +18,7 @@ const ProjectPanelSelect = ({
     return (
         <div className="join join-item">
             <Link className="btn btn-primary btn-outline join-item" href={`/dashboard/${project?.id || ''}`}>{projectName}</Link>
-            <Menu button={<Button aria-label="show projects" className="join-item px-2" tabIndex={0}><FaChevronDown /></Button>}>
+            <Menu button={<Button aria-label="show projects" className="px-2" tabIndex={0}><FaChevronDown /></Button>} className="join-item">
                 {projects.map((p) => (
                     <Link
                         className="btn btn-primary btn-outline w-full"
