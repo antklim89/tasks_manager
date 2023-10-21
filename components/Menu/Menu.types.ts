@@ -1,7 +1,7 @@
 import { ReactNode, HTMLAttributes } from 'react';
 
 
-export interface MenuProps {
+export interface MenuProps extends HTMLAttributes<HTMLDivElement> {
     children: ReactNode
     button: ReactNode
 }
