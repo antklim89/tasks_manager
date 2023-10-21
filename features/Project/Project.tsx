@@ -30,7 +30,7 @@ const Project = ({ columns: defaultColumns }: { columns: ColumnType[] }) => {
         >
             <div className="h-0 flex flex-grow items-start gap-2 overflow-x-scroll overflow-y-scroll">
                 {columns.map((column) => (
-                    <Column key={column.id} {...column} />
+                    <Column column={column} key={column.id} />
                 ))}
                 {isAdmin
                     ? <Button isLoading={isMutating} onClick={() => createColumn()}>Create new column</Button>

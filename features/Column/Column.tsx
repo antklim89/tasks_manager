@@ -12,8 +12,8 @@ import ColumnName from './ColumnName';
 import ColumnTaskCreate from './ColumnTaskCreate';
 
 
-const Column = ({ id, name, taskOrder }: ColumnType) => {
-    const { data: tasks = [], isLoading } = useTasksFetch({ columnId: id, taskOrder });
+const Column = ({ column }: { column: ColumnType }) => {
+    const { data: tasks = [], isLoading } = useTasksFetch({ columnId: column.id, taskOrder: column.taskOrder });
     const { isAdmin, isAdminOrUser: isAdminOrMember } = useMember();
 
     const {
@@ -21,19 +21,19 @@ const Column = ({ id, name, taskOrder }: ColumnType) => {
         isOver,
         isFirstTask,
         activeHeight,
-    } = useTaskDrop(id);
+    } = useTaskDrop(column.id);
 
     return (
         <div
             className="card w-96 bg-base-200 shadow-xl"
         >
             <div className="flex items-start" ref={setDropRef}>
-                <ColumnName id={id} name={name} />
-                {isAdminOrMember ? <ColumnTaskCreate columnId={id} /> : null}
+                <ColumnName id={column.id} name={column.name} />
+                {isAdminOrMember ? <ColumnTaskCreate columnId={column.id} /> : null}
                 {isAdmin
                     ? (
                         <Menu button={<button className="btn" type="button"><FaEllipsisVertical /></button>}>
-                            <ColumnDelete id={id} />
+                            <ColumnDelete id={column.id} />
                         </Menu>
                     )
                     : null}
