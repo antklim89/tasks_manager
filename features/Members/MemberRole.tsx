@@ -2,7 +2,7 @@ import { Fragment, MouseEventHandler } from 'react';
 
 import { Button, Confirm, Menu } from '@/components';
 import { useDisclosure, useMember } from '@/hooks';
-import { useMemberUpdate } from '@/requests';
+import { useMemberUpdate } from '@/request-hooks';
 import { MemberType, MemberUpdateType, updateRoles } from '@/schemas';
 
 

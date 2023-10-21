@@ -1,7 +1,7 @@
 'use client';
 import format from 'date-fns/esm/format';
 
-import { useHistoryFetch } from '@/requests';
+import { useHistoryFetch } from '@/request-hooks';
 
 
 const History = () => {

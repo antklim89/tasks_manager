@@ -4,7 +4,7 @@ import { z } from 'zod';
 
 import { Button, Input, Modal } from '@/components';
 import { useDisclosure } from '@/hooks';
-import { useInvite } from '@/requests';
+import { useInvite } from '@/request-hooks';
 import { MemberType } from '@/schemas';
 
 

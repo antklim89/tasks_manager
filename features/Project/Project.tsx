@@ -14,14 +14,14 @@ import { useSWRConfig } from 'swr';
 import { Button } from '@/components';
 import Column from '@/features/Column';
 import { useMember } from '@/hooks';
-import { columnUpdate, taskUpdate, useColumnCreate, useColumnsFetch } from '@/requests';
-import { TaskType } from '@/schemas';
+import { columnUpdate, taskUpdate, useColumnCreate, useColumnsFetch } from '@/request-hooks';
+import { ColumnType, TaskType } from '@/schemas';
 import { TasgDragData, TaskDropData } from '@/types';
 
 
-const Project = () => {
+const Project = ({ columns: defaultColumns }: { columns: ColumnType[] }) => {
     const { trigger: createColumn, isMutating } = useColumnCreate();
-    const { data: columns = [], isLoading } = useColumnsFetch();
+    const { data: columns = [], isLoading } = useColumnsFetch({ defaultValue: defaultColumns });
     const { mutate } = useSWRConfig();
     const { isAdmin } = useMember();
 

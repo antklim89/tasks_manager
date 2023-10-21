@@ -3,7 +3,7 @@
 import { Button, Modal } from '@/components';
 import ProjectEditForm from '@/components/ProjectEditForm';
 import { useDisclosure } from '@/hooks';
-import { useProjectUpdate } from '@/requests';
+import { useProjectUpdate } from '@/request-hooks';
 import { ProjectType } from '@/schemas';
 
 

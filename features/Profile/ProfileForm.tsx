@@ -2,7 +2,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 
 import { Button, Input } from '@/components';
-import { useProfileUpdate } from '@/requests/useProfileUpdate';
+import { useProfileUpdate } from '@/request-hooks/useProfileUpdate';
 import { ProfileType, ProfileUpdateType, profileUpdateSchema } from '@/schemas';
 
 

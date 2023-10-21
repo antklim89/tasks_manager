@@ -4,7 +4,7 @@ import { FaEllipsisVertical } from 'react-icons/fa6';
 
 import { Button, Menu } from '@/components';
 import { useMember, useProject } from '@/hooks';
-import { useProjectsFetch } from '@/requests';
+import { useProjectsFetch } from '@/request-hooks';
 
 import ProjectPanelCreate from './ProjectPanelCreate';
 import ProjectPanelDelete from './ProjectPanelDelete';

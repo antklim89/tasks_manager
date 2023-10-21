@@ -1,7 +1,7 @@
 'use client';
 import Link from 'next/link';
 
-import { useProjectsFetch } from '@/requests';
+import { useProjectsFetch } from '@/request-hooks';
 
 
 const DashboardHome = () => {

@@ -2,7 +2,7 @@ import { FaX } from 'react-icons/fa6';
 
 import { Button, Confirm } from '@/components';
 import { useDisclosure, useMember } from '@/hooks';
-import { useMemberDelete } from '@/requests';
+import { useMemberDelete } from '@/request-hooks';
 import { MemberType } from '@/schemas';
 
 

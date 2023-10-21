@@ -1,6 +1,6 @@
 import { toast } from 'react-hot-toast';
-import useSWR, { SWRConfiguration } from 'swr';
 
+import useSWR, { SWRConfiguration } from 'swr';
 import { ProjectType, projectSchema } from '@/schemas';
 import { getSupabaseClient } from '@/supabase/client';
 

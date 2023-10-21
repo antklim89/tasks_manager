@@ -2,7 +2,7 @@ import { useRouter } from 'next/navigation';
 
 import { Button, Confirm } from '@/components';
 import { useDisclosure } from '@/hooks';
-import { useProjectDelete } from '@/requests';
+import { useProjectDelete } from '@/request-hooks';
 
 
 const ProjectPanelDelete = () => {

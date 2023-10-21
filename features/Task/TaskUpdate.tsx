@@ -1,6 +1,6 @@
 import { Button, Modal, TaskEditForm } from '@/components';
-import { useTaskUpdate } from '@/requests';
 import { TaskType } from '@/schemas';
+import { useTaskUpdate } from '@/request-hooks';
 
 import TaskDelete from './TaskDelete';
 

@@ -1,6 +1,6 @@
 'use client';
 import { useMember } from '@/hooks';
-import { useMembersFetch } from '@/requests';
+import { useMembersFetch } from '@/request-hooks';
 
 import MemberDelete from './MemberDelete';
 import MemberRole from './MemberRole';

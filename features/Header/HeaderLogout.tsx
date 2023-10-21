@@ -2,7 +2,7 @@
 
 import { Button, Confirm } from '@/components';
 import { useDisclosure } from '@/hooks';
-import { useLogout } from '@/requests';
+import { useLogout } from '@/request-hooks';
 
 
 const HeaderLogout = () => {

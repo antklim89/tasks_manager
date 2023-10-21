@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 
 import { Input } from '@/components';
 import { useMember } from '@/hooks';
-import { useColumnUpdate } from '@/requests';
+import { useColumnUpdate } from '@/request-hooks';
 import { columnUpdateSchema } from '@/schemas';
 
 

@@ -1,5 +1,5 @@
 'use client';
-import { useProfileFetch } from '@/requests';
+import { useProfileFetch } from '@/request-hooks';
 
 import ProfileForm from './ProfileForm';
 

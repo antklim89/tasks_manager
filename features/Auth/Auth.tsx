@@ -5,8 +5,8 @@ import { useForm } from 'react-hook-form';
 
 import { Button, Input } from '@/components';
 import Alert from '@/components/Alert/Alert';
-import { useAuth } from '@/requests/useAuth';
 import { AuthFotmInput, authSchema } from '@/schemas';
+import { useAuth } from '@/request-hooks/useAuth';
 
 
 const Auth = () => {
