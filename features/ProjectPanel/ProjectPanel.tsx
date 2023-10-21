@@ -18,9 +18,18 @@ const ProjectPanel = () => {
     const { isAdmin, member } = useMember();
     const project = projects?.find((p) => p.id === projectId);
 
-    if (isLoading) return <div className="flex h-12 my-2 px-2 skeleton" />;
+    if (isLoading) return (
+        <div className="flex gap-2 h-12 my-2 px-2 items-center">
+            <div className="skeleton btn w-40" />
+            <div className="skeleton btn w-24 hidden sm:inline-flex" />
+            <div className="skeleton btn w-24 hidden sm:inline-flex" />
+            <div className="flex-grow" />
+            <div className="skeleton btn w-2" />
+        </div>
+    );
     return (
         <div className="flex gap-2 h-12 my-2 px-2 items-center">
+
             <div className="join">
                 <ProjectPanelCreate />
                 <ProjectPanelSelect project={project} projects={projects} />
