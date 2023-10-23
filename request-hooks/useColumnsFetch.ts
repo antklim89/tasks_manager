@@ -14,15 +14,15 @@ type Options = SWRConfiguration<ColumnType[], Error> & { defaultValue?: ColumnTy
 export function useColumnsFetch({ defaultValue, ...options }: Options = {}) {
     const { projectId } = useProject();
 
-    const firstFetch = useRef(true);
+    const isFirstFetch = useRef(true);
 
 
     return useSWR<ColumnType[], Error, FetchColumnsKey>(
         ['COLUMNS', { projectId }],
 
         async () => {
-            if (firstFetch.current && defaultValue) {
-                firstFetch.current = false;
+            if (isFirstFetch.current && defaultValue) {
+                isFirstFetch.current = false;
                 return defaultValue;
             }
 

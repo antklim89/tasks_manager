@@ -1,34 +1,28 @@
+import { useRef } from 'react';
 import toast from 'react-hot-toast';
 import useSWR from 'swr';
 
 import { useProject } from '@/hooks';
-import { MemberType, memberSchema } from '@/schemas';
-import { getSupabaseClient, getSupabaseUser } from '@/supabase/client';
+import { fetchMember } from '@/requests';
+import { MemberType } from '@/schemas';
 
 import { MemberKey } from './keys';
 
 
-export async function getMember(projectId: number) {
-    const supabase = await getSupabaseClient();
-    const user = await getSupabaseUser();
-
-    const { error, data } = await supabase.from('members')
-        .select('*, profile:userId(*)')
-        .eq('projectId', projectId)
-        .eq('userId', user.id)
-        .single();
-
-    if (!data) throw new Error('You are not member of this project');
-    if (error) throw new Error('Failed to fetch member. Try again later.');
-
-    return memberSchema.parseAsync(data);
-}
-
-export function useFetchMember() {
+export function useMemberFetch({ defaultValue }: { defaultValue?: MemberType; } = {}) {
     const { projectId } = useProject(false);
-    return useSWR<MemberType, Error, MemberKey|undefined>(
+    const isFirstFetch = useRef(true);
+
+    return useSWR<MemberType, Error, MemberKey | undefined>(
         projectId ? ['MEMBER', { projectId }] : undefined,
-        () => getMember(projectId || 0),
+        () => {
+            if (isFirstFetch.current && defaultValue) {
+                isFirstFetch.current = false;
+                return defaultValue;
+            }
+
+            return fetchMember(projectId || 0);
+        },
         {
             onError(err) {
                 toast.error(err.message, { id: 'MEMBER_FETCH' });
@@ -36,4 +30,3 @@ export function useFetchMember() {
         },
     );
 }
-

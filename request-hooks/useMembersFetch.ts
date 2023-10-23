@@ -1,31 +1,30 @@
+import { useRef } from 'react';
 import { toast } from 'react-hot-toast';
 import useSWR, { SWRConfiguration } from 'swr';
 
 import { useProject } from '@/hooks';
-import { MemberType, memberSchema } from '@/schemas';
-import { getSupabaseClient } from '@/supabase/client';
+import { fetchMembers } from '@/requests';
+import { MemberType } from '@/schemas';
 
 import { FetchMembersKey } from './keys';
 
 
-type Options = SWRConfiguration<MemberType[], Error>;
+type Options = SWRConfiguration<MemberType[], Error> & { defaultValue?: MemberType[] };
 
-export function useMembersFetch(options: Options = {}) {
+export function useMembersFetch({ defaultValue, ...options }: Options = {}) {
     const { projectId } = useProject();
+    const isFirstFetch = useRef(true);
+
     return useSWR<MemberType[], Error, FetchMembersKey>(
         ['MEMBERS', { projectId }],
 
-        async () => {
-            const supabase = await getSupabaseClient();
+        () => {
+            if (isFirstFetch.current && defaultValue) {
+                isFirstFetch.current = false;
+                return defaultValue;
+            }
 
-            const supabaseQuery = supabase.from('members')
-                .select('*, profile:userId(*)')
-                .eq('projectId', projectId);
-
-            const { error, data } = await supabaseQuery;
-            if (error) throw error;
-
-            return memberSchema.array().parseAsync(data);
+            return fetchMembers(projectId);
         },
         {
             ...options,
@@ -36,3 +35,5 @@ export function useMembersFetch(options: Options = {}) {
         },
     );
 }
+
+

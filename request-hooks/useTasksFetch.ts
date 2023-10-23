@@ -1,13 +1,14 @@
+import { useRef } from 'react';
 import { toast } from 'react-hot-toast';
 import useSWR, { SWRConfiguration } from 'swr';
 
-import { TaskType, taskSchema } from '@/schemas';
-import { getSupabaseClient } from '@/supabase/client';
+import { tasksFetch } from '@/requests';
+import { TaskType } from '@/schemas';
 
 import { FetchTasksKey } from './keys';
 
 
-type Options = SWRConfiguration<TaskType[], Error>;
+type Options = SWRConfiguration<TaskType[], Error> & { defaultValue?: TaskType[] };
 
 export function useTasksFetch({
     columnId,
@@ -15,22 +16,19 @@ export function useTasksFetch({
 }: {
     columnId: number,
     taskOrder: number[]|null
-}, options?: Options) {
+}, { defaultValue, ...options }: Options = {}) {
+    const isFirstFetch = useRef(true);
+
     return useSWR<TaskType[], Error, FetchTasksKey>(
         ['TASKS', { columnId }],
 
-        async ([, key]) => {
-            const supabase = await getSupabaseClient();
+        () => {
+            if (isFirstFetch.current && defaultValue) {
+                isFirstFetch.current = false;
+                return defaultValue;
+            }
 
-            const { error, data } = await supabase
-                .from('tasks')
-                .select('*')
-                .eq('columnId', key.columnId);
-
-            if (error) throw error;
-
-            if (taskOrder) data.sort((a, b) => taskOrder.indexOf(a.id) - taskOrder.indexOf(b.id));
-            return taskSchema.array().parseAsync(data);
+            return tasksFetch(columnId, taskOrder);
         },
         {
             ...options,
@@ -41,3 +39,5 @@ export function useTasksFetch({
         },
     );
 }
+
+
