@@ -11,13 +11,13 @@ import { FetchMembersKey, MemberKey } from './keys';
 
 const TOAST_ID = 'MEMBER_UPDATE';
 
-type Options = SWRMutationConfiguration<MemberUpdateType, Error, FetchMembersKey, MemberUpdateType>;
+type Options = SWRMutationConfiguration<MemberUpdateType, Error, FetchMembersKey, MemberUpdateType, MemberType[]>;
 
 export function useMemberUpdate({ memberId }: { memberId: number }, options?: Options) {
     const { projectId } = useProject();
     const { mutate } = useSWRConfig();
 
-    return useSWRMutation<MemberUpdateType, Error, FetchMembersKey, MemberUpdateType>(
+    return useSWRMutation<MemberUpdateType, Error, FetchMembersKey, MemberUpdateType, MemberType[]>(
         ['MEMBERS', { projectId }],
 
         async (key, { arg }) => {
@@ -34,13 +34,13 @@ export function useMemberUpdate({ memberId }: { memberId: number }, options?: Op
         {
             ...options,
             revalidate: false,
-            populateCache(updatedMember, currentData: MemberType[]) {
+            populateCache(updatedMember, currentMembers = []) {
                 mutate<MemberType>(
                     ['MEMBER', { projectId }] satisfies MemberKey,
                     (currentMember) => (currentMember ? ({ ...currentMember, ...updatedMember }) : undefined),
                 );
 
-                return currentData.map((p) => (p.id === memberId ? { ...p, ...updatedMember } : p));
+                return currentMembers.map((p) => (p.id === memberId ? { ...p, ...updatedMember } : p));
             },
             onSuccess(...args) {
                 toast.success('Member updated succesfully.', { id: TOAST_ID });

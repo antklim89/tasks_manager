@@ -10,11 +10,11 @@ import { FetchMembersKey } from './keys';
 
 const TOAST_ID = 'MEMBER_DELETE';
 
-type Options = SWRMutationConfiguration<void, Error, FetchMembersKey, void>;
+type Options = SWRMutationConfiguration<void, Error, FetchMembersKey, void, MemberType[]>;
 
 export function useMemberDelete({ memberId }: { memberId: number }, options?: Options) {
     const { projectId } = useProject();
-    return useSWRMutation<void, Error, FetchMembersKey, void>(
+    return useSWRMutation<void, Error, FetchMembersKey, void, MemberType[]>(
         ['MEMBERS', { projectId }],
 
         async () => {
@@ -29,8 +29,8 @@ export function useMemberDelete({ memberId }: { memberId: number }, options?: Op
         {
             ...options,
             revalidate: false,
-            populateCache(_, currentData: MemberType[]) {
-                return currentData.filter((member) => member.id !== memberId);
+            populateCache(_, currentMembers = []) {
+                return currentMembers.filter((member) => member.id !== memberId);
             },
             onSuccess(...args) {
                 toast.success('Member deleted succesfully.', { id: TOAST_ID });

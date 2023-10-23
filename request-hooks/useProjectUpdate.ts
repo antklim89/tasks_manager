@@ -9,10 +9,10 @@ import { FetchProjectsKey } from './keys';
 
 const TOAST_ID = 'PROJECT_UPDATE';
 
-type Options = SWRMutationConfiguration<ProjectUpdateType, Error, FetchProjectsKey, ProjectUpdateType>;
+type Options = SWRMutationConfiguration<ProjectUpdateType, Error, FetchProjectsKey, ProjectUpdateType, ProjectType[]>;
 
 export function useProjectUpdate({ id }: { id?: number }, options?: Options) {
-    return useSWRMutation<ProjectUpdateType, Error, FetchProjectsKey, ProjectUpdateType>(
+    return useSWRMutation<ProjectUpdateType, Error, FetchProjectsKey, ProjectUpdateType, ProjectType[]>(
         ['PROJECTS'],
 
         async (key, { arg }) => {
@@ -31,7 +31,7 @@ export function useProjectUpdate({ id }: { id?: number }, options?: Options) {
         {
             ...options,
             revalidate: false,
-            populateCache(updatedProject, currentProjects: ProjectType[]) {
+            populateCache(updatedProject, currentProjects = []) {
                 return currentProjects.map((p) => (p.id === id ? { ...p, ...updatedProject } : p));
             },
             onSuccess(...args) {

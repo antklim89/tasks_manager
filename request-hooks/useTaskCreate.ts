@@ -10,12 +10,12 @@ import { FetchTasksKey } from './keys';
 
 const TOAST_ID = 'TASK_CREATE';
 
-type Options = SWRMutationConfiguration<TaskType, Error, FetchTasksKey, TaskCreateType>;
+type Options = SWRMutationConfiguration<TaskType, Error, FetchTasksKey, TaskCreateType, TaskType[]>;
 
 export function useTaskCreate({ columnId }: { columnId: number }, options?: Options) {
     const { projectId } = useProject();
 
-    return useSWRMutation<TaskType, Error, FetchTasksKey, TaskCreateType>(
+    return useSWRMutation<TaskType, Error, FetchTasksKey, TaskCreateType, TaskType[]>(
         ['TASKS', { columnId }],
 
         async (key, { arg: { title, completeAt, description } }) => {
@@ -42,8 +42,8 @@ export function useTaskCreate({ columnId }: { columnId: number }, options?: Opti
                 options?.onError?.(...args);
             },
             revalidate: false,
-            populateCache(newTask, currentData?: TaskType[]) {
-                return [newTask, ...currentData || []];
+            populateCache(newTask, currentData = []) {
+                return [newTask, ...currentData];
             },
         },
     );

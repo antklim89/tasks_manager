@@ -10,12 +10,12 @@ import { FetchColumnsKey } from './keys';
 
 const TOAST_ID = 'COLUMN_CREATE';
 
-type Options = SWRMutationConfiguration<ColumnType, Error, FetchColumnsKey, void>;
+type Options = SWRMutationConfiguration<ColumnType, Error, FetchColumnsKey, void, ColumnType[]>;
 
 export function useColumnCreate(options?: Options) {
     const { projectId } = useProject();
 
-    return useSWRMutation<ColumnType, Error, FetchColumnsKey, void>(
+    return useSWRMutation<ColumnType, Error, FetchColumnsKey, void, ColumnType[]>(
         ['COLUMNS', { projectId }],
 
         async () => {
@@ -33,7 +33,7 @@ export function useColumnCreate(options?: Options) {
         {
             ...options,
             revalidate: false,
-            populateCache(newColumn, currentData: ColumnType[]) {
+            populateCache(newColumn, currentData = []) {
                 return [...currentData, newColumn];
             },
             onSuccess(...args) {

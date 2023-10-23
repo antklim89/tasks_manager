@@ -9,10 +9,10 @@ import { FetchTasksKey } from './keys';
 
 const TOAST_ID = 'TASK_DELETE';
 
-type Options = SWRMutationConfiguration<unknown, Error, FetchTasksKey, unknown>;
+type Options = SWRMutationConfiguration<unknown, Error, FetchTasksKey, unknown, TaskType[]>;
 
 export function useTaskDelete({ taskId, columnId }: { columnId: number, taskId: number }, options?: Options) {
-    return useSWRMutation<unknown, Error, FetchTasksKey, unknown>(
+    return useSWRMutation<unknown, Error, FetchTasksKey, unknown, TaskType[]>(
         ['TASKS', { columnId }],
 
         async () => {
@@ -30,8 +30,8 @@ export function useTaskDelete({ taskId, columnId }: { columnId: number, taskId: 
         {
             ...options,
             revalidate: false,
-            populateCache(_, currentTasks?: TaskType[]) {
-                return currentTasks?.filter(({ id }) => id !== taskId);
+            populateCache(_, currentTasks = []) {
+                return currentTasks.filter(({ id }) => id !== taskId);
             },
             onSuccess(...args) {
                 toast.success('Task deleted.', { id: TOAST_ID });

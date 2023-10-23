@@ -10,11 +10,11 @@ import { FetchColumnsKey } from './keys';
 
 const TOAST_ID = 'COLUMN_DELETE';
 
-type Options = SWRMutationConfiguration<void, Error, FetchColumnsKey, void>;
+type Options = SWRMutationConfiguration<void, Error, FetchColumnsKey, void, ColumnType[]>;
 
 export function useColumnDelete({ columnId }: { columnId: number }, options?: Options) {
     const { projectId } = useProject();
-    return useSWRMutation<void, Error, FetchColumnsKey, void>(
+    return useSWRMutation<void, Error, FetchColumnsKey, void, ColumnType[]>(
         ['COLUMNS', { projectId }],
 
         async () => {
@@ -31,8 +31,8 @@ export function useColumnDelete({ columnId }: { columnId: number }, options?: Op
             ...options,
             throwOnError: false,
             revalidate: false,
-            populateCache(result, columns: ColumnType[]) {
-                return columns.filter((c) => c.id !== columnId);
+            populateCache(_, currentColumns = []) {
+                return currentColumns.filter((c) => c.id !== columnId);
             },
             onSuccess(...args) {
                 toast.success('Column deleted succesfully.', { id: TOAST_ID });

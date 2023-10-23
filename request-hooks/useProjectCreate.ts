@@ -9,10 +9,10 @@ import { FetchProjectsKey } from './keys';
 
 const TOAST_ID = 'PROJECT_CREATE';
 
-type Options = SWRMutationConfiguration<ProjectType, Error, FetchProjectsKey, ProjectUpdateType>;
+type Options = SWRMutationConfiguration<ProjectType, Error, FetchProjectsKey, ProjectUpdateType, ProjectType[]>;
 
 export function useProjectCreate(options?: Options) {
-    return useSWRMutation<ProjectType, Error, FetchProjectsKey, ProjectUpdateType>(
+    return useSWRMutation<ProjectType, Error, FetchProjectsKey, ProjectUpdateType, ProjectType[]>(
         ['PROJECTS'],
 
         async (key, { arg }) => {
@@ -28,7 +28,7 @@ export function useProjectCreate(options?: Options) {
         {
             ...options,
             revalidate: false,
-            populateCache(newProject, currentProjects: ProjectType[]) {
+            populateCache(newProject, currentProjects = []) {
                 return [...currentProjects, newProject];
             },
             onSuccess(...args) {

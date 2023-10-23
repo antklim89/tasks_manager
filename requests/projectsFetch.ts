@@ -6,7 +6,7 @@ export async function projectsFetch(id?: number) {
     const supabase = await getSupabaseClient();
     const supabaseQuery = supabase.from('projects').select('*');
 
-    if (id) supabaseQuery.eq('id', null);
+    if (id) supabaseQuery.eq('id', id);
 
     const { error, data } = await supabaseQuery;
     if (error) throw error;

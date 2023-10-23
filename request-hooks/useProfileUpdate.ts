@@ -9,10 +9,10 @@ import { ProfileKey } from './keys';
 
 const TOAST_ID = 'PROFILE_UPDATE';
 
-type Options = SWRMutationConfiguration<ProfileUpdateType, Error, ProfileKey, ProfileUpdateType>;
+type Options = SWRMutationConfiguration<ProfileUpdateType, Error, ProfileKey, ProfileUpdateType, Partial<ProfileType>>;
 
 export function useProfileUpdate({ userId }: { userId: string }, options?: Options) {
-    return useSWRMutation<ProfileUpdateType, Error, ProfileKey, ProfileUpdateType>(
+    return useSWRMutation<ProfileUpdateType, Error, ProfileKey, ProfileUpdateType, Partial<ProfileType>>(
         ['PROFILE'],
 
         async (key, { arg }) => {
@@ -28,7 +28,7 @@ export function useProfileUpdate({ userId }: { userId: string }, options?: Optio
         {
             ...options,
             revalidate: false,
-            populateCache(updatedProfile, currentProfile: ProfileType) {
+            populateCache(updatedProfile, currentProfile = {}) {
                 return { ...currentProfile, ...updatedProfile };
             },
             onSuccess(...args) {

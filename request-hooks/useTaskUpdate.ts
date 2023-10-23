@@ -7,9 +7,11 @@ import { getSupabaseClient } from '@/supabase/client';
 import { FetchTasksKey } from './keys';
 
 
-type Options = SWRMutationConfiguration<Partial<TaskCreateType>, Error, FetchTasksKey, Partial<TaskCreateType>>;
+type TaskUpdateType = Partial<TaskCreateType>;
 
-export async function taskUpdate(taskId: number, data: Partial<TaskCreateType>): Promise<Partial<TaskCreateType>> {
+type Options = SWRMutationConfiguration<TaskUpdateType, Error, FetchTasksKey, TaskUpdateType, TaskType[]>;
+
+export async function taskUpdate(taskId: number, data: TaskUpdateType): Promise<TaskUpdateType> {
     const supabase = await getSupabaseClient();
 
     const { error } = await supabase
@@ -23,7 +25,7 @@ export async function taskUpdate(taskId: number, data: Partial<TaskCreateType>):
 
 
 export function useTaskUpdate({ columnId, taskId }: { columnId: number, taskId: number }, options?: Options) {
-    return useSWRMutation<Partial<TaskCreateType>, Error, FetchTasksKey, Partial<TaskCreateType>>(
+    return useSWRMutation<TaskUpdateType, Error, FetchTasksKey, TaskUpdateType, TaskType[]>(
         ['TASKS', { columnId }],
         (key, { arg }) => taskUpdate(taskId, arg),
         {
@@ -33,7 +35,7 @@ export function useTaskUpdate({ columnId, taskId }: { columnId: number, taskId: 
                 options?.onError?.(...args);
             },
             revalidate: false,
-            populateCache(updatedTask, currentData?: TaskType[]) {
+            populateCache(updatedTask, currentData = []) {
                 return currentData
                     ?.map((i) => (i.id === taskId ? { ...i, ...updatedTask } : i))
                     .filter((i) => i.columnId === columnId);

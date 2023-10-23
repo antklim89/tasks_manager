@@ -8,7 +8,7 @@ import { getSupabaseClient } from '@/supabase/client';
 import { FetchColumnsKey } from './keys';
 
 
-type Options = SWRMutationConfiguration<ColumnUpdateType, Error, FetchColumnsKey, ColumnUpdateType>;
+type Options = SWRMutationConfiguration<ColumnUpdateType, Error, FetchColumnsKey, ColumnUpdateType, ColumnType[]>;
 
 
 export async function columnUpdate(columnId: number, data: ColumnUpdateType): Promise<ColumnUpdateType> {
@@ -25,14 +25,14 @@ export async function columnUpdate(columnId: number, data: ColumnUpdateType): Pr
 
 export function useColumnUpdate({ columnId }: { columnId: number }, options?: Options) {
     const { projectId } = useProject();
-    return useSWRMutation<ColumnUpdateType, Error, FetchColumnsKey, ColumnUpdateType>(
+    return useSWRMutation<ColumnUpdateType, Error, FetchColumnsKey, ColumnUpdateType, ColumnType[]>(
         ['COLUMNS', { projectId }],
         (key, { arg }) => columnUpdate(columnId, arg),
         {
             ...options,
             revalidate: false,
-            populateCache(result, columns: ColumnType[]) {
-                return columns.map(((column) => (column.id === columnId ? { ...column, ...result } : column)));
+            populateCache(result, currentColumns = []) {
+                return currentColumns.map(((column) => (column.id === columnId ? { ...column, ...result } : column)));
             },
             onError(...args) {
                 toast.error('Failed to update column. Try again later.', { id: 'COLUMNS_UPDATE' });

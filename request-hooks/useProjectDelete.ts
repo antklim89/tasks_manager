@@ -10,12 +10,12 @@ import { FetchProjectsKey } from './keys';
 
 const TOAST_ID = 'PROJECT_DELETE';
 
-type Options = SWRMutationConfiguration<void, Error, FetchProjectsKey, void>;
+type Options = SWRMutationConfiguration<void, Error, FetchProjectsKey, void, ProjectType[]>;
 
 export function useProjectDelete(options?: Options) {
     const { projectId } = useProject();
 
-    return useSWRMutation<void, Error, FetchProjectsKey, void>(
+    return useSWRMutation<void, Error, FetchProjectsKey, void, ProjectType[]>(
         ['PROJECTS'],
 
         async () => {
@@ -31,7 +31,7 @@ export function useProjectDelete(options?: Options) {
         {
             ...options,
             revalidate: false,
-            populateCache(_, currentProjects: ProjectType[]): ProjectType[] {
+            populateCache(_, currentProjects = []) {
                 return currentProjects.filter((project) => project.id !== projectId);
             },
             onSuccess(...args) {
