@@ -1,14 +1,15 @@
 'use client';
 import { useMember } from '@/hooks';
 import { useMembersFetch } from '@/request-hooks';
+import { MemberType } from '@/schemas';
 
 import MemberDelete from './MemberDelete';
 import MemberRole from './MemberRole';
 import MembersInvite from './MembersInvite';
 
 
-const Members = () => {
-    const { data: members = [], isLoading } = useMembersFetch();
+const Members = ({ defaultMembers }: { defaultMembers?: MemberType[] }) => {
+    const { data: members = [], isLoading } = useMembersFetch({ defaultValue: defaultMembers });
     const { isAdmin } = useMember();
 
 
