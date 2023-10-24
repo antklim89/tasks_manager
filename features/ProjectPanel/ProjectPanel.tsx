@@ -5,6 +5,7 @@ import { FaEllipsisVertical } from 'react-icons/fa6';
 import { Button, Menu } from '@/components';
 import { useMember, useProject } from '@/hooks';
 import { useProjectsFetch } from '@/request-hooks';
+import { ProjectType } from '@/schemas';
 
 import ProjectPanelCreate from './ProjectPanelCreate';
 import ProjectPanelDelete from './ProjectPanelDelete';
@@ -12,9 +13,9 @@ import ProjectPanelSelect from './ProjectPanelSelect';
 import ProjectPanelUpdate from './ProjectPanelUpdate';
 
 
-const ProjectPanel = () => {
+const ProjectPanel = ({ defaultProjects }: { defaultProjects?: ProjectType[] }) => {
     const { projectId } = useProject(false);
-    const { data: projects, isLoading } = useProjectsFetch();
+    const { data: projects, isLoading } = useProjectsFetch({}, { defaultValue: defaultProjects });
     const { isAdmin, member } = useMember();
     const project = projects?.find((p) => p.id === projectId);
 
