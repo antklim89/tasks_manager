@@ -3,6 +3,7 @@ import { Footer, Header } from '@/features';
 
 import '@/styles/main.scss';
 import 'core-js/actual/array/to-spliced';
+import 'core-js/actual/object/group-by';
 
 
 export const metadata = {

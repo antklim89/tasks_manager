@@ -5,15 +5,18 @@ import { Menu } from '@/components';
 import Task from '@/features/Task';
 import { useMember, useTaskDrop } from '@/hooks';
 import { useTasksFetch } from '@/request-hooks';
-import { ColumnType } from '@/schemas';
+import { ColumnType, TaskType } from '@/schemas';
 
 import ColumnDelete from './ColumnDelete';
 import ColumnName from './ColumnName';
 import ColumnTaskCreate from './ColumnTaskCreate';
 
 
-const Column = ({ column }: { column: ColumnType }) => {
-    const { data: tasks = [], isLoading } = useTasksFetch({ columnId: column.id, taskOrder: column.taskOrder });
+const Column = ({ column, defaultTasks }: { column: ColumnType, defaultTasks?: TaskType[] }) => {
+    const { data: tasks = [], isLoading } = useTasksFetch({
+        columnId: column.id,
+        taskOrder: column.taskOrder,
+    }, { defaultValue: defaultTasks });
     const { isAdmin, isAdminOrUser: isAdminOrMember } = useMember();
 
     const {

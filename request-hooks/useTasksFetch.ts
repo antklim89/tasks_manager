@@ -28,7 +28,7 @@ export function useTasksFetch({
                 return defaultValue;
             }
 
-            return tasksFetch(columnId, taskOrder);
+            return tasksFetch({ columnId, taskOrder });
         },
         {
             ...options,
