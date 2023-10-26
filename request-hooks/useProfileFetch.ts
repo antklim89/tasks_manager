@@ -2,7 +2,7 @@ import { useRef } from 'react';
 import { toast } from 'react-hot-toast';
 import useSWR, { SWRConfiguration } from 'swr';
 
-import { fetchProfile } from '@/requests';
+import { profileFetch } from '@/requests';
 import { ProfileType } from '@/schemas';
 
 import { ProfileKey } from './keys';
@@ -22,7 +22,7 @@ export function useProfileFetch({ defaultValue, ...options }: Options = {}) {
                 return defaultValue;
             }
 
-            return fetchProfile();
+            return profileFetch();
         },
         {
             ...options,

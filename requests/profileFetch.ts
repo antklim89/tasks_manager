@@ -2,7 +2,7 @@ import { profileSchema } from '@/schemas';
 import { getSupabaseClient, getSupabaseUser } from '@/supabase/client';
 
 
-export async function fetchProfile() {
+export async function profileFetch() {
     const supabase = await getSupabaseClient();
     const user = await getSupabaseUser();
 

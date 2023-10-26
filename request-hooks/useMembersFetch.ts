@@ -3,7 +3,7 @@ import { toast } from 'react-hot-toast';
 import useSWR, { SWRConfiguration } from 'swr';
 
 import { useProject } from '@/hooks';
-import { fetchMembers } from '@/requests';
+import { membersFetch } from '@/requests';
 import { MemberType } from '@/schemas';
 
 import { FetchMembersKey } from './keys';
@@ -24,7 +24,7 @@ export function useMembersFetch({ defaultValue, ...options }: Options = {}) {
                 return defaultValue;
             }
 
-            return fetchMembers(projectId);
+            return membersFetch(projectId);
         },
         {
             ...options,
