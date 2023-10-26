@@ -1,5 +1,5 @@
 import { toast } from 'react-hot-toast';
-import useSWR, { SWRConfiguration } from 'swr';
+import useSWRInfinite, { SWRInfiniteConfiguration, SWRInfiniteKeyLoader } from 'swr/infinite';
 
 import { useProject } from '@/hooks';
 import { HistoryType, historySchema } from '@/schemas';
@@ -8,27 +8,43 @@ import { getSupabaseClient } from '@/supabase/client';
 import type { HistoryKey } from './keys';
 
 
-type Options = SWRConfiguration<HistoryType[], Error>;
+type Options = SWRInfiniteConfiguration<HistoryType[], Error>;
 
-export function useHistoryFetch(options?: Options) {
+export const HISTORY_LIMIT = 50;
+
+export function useHistoryFetch(options: Options = {}) {
     const { projectId } = useProject();
 
-    return useSWR<HistoryType[], Error, HistoryKey>(
-        ['HISTORY', { projectId }],
+    return useSWRInfinite<HistoryType[], Error, SWRInfiniteKeyLoader<HistoryType[], HistoryKey|undefined>>(
+        (_, previousData) => {
+            if (!previousData) return ['HISTORY', { projectId }];
+            if (previousData.length < HISTORY_LIMIT) return undefined;
+            const lastId = previousData.at(-1)?.id;
 
-        async () => {
+            return ['HISTORY', { projectId, lastId }];
+        },
+
+        async ([_, { lastId }]) => {
             const supabase = await getSupabaseClient();
 
-            const { error, data } = await supabase
+            const supabaseQuery = supabase
                 .from('history')
                 .select('*')
+                .order('id', { ascending: false })
+                .limit(HISTORY_LIMIT)
                 .eq('projectId', projectId);
+            if (lastId) supabaseQuery.lt('id', lastId);
+
+            const { error, data } = await supabaseQuery;
+
 
             if (error) throw new Error('Failed to fetch history. Try again later.');
 
             return historySchema.array().parseAsync(data);
         },
         {
+            revalidateAll: false,
+            revalidateFirstPage: false,
             ...options,
             onError(err, ...args) {
                 toast.error(err.message, { id: 'HISTORY_FETCH' });
