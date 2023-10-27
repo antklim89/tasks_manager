@@ -15,5 +15,6 @@ export const historySchema = z.object({
     oldData: z.record(z.unknown()).nullable(),
 });
 
-
+export type HistoryTables = typeof tables[number]
+export type HistoryOperations = typeof operations[number]
 export type HistoryType = z.infer<typeof historySchema>
