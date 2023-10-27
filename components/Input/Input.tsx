@@ -1,4 +1,4 @@
-import { ForwardedRef, createElement, forwardRef } from 'react';
+import { ForwardedRef, createElement, forwardRef, useCallback } from 'react';
 import { FaEraser } from 'react-icons/fa6';
 
 import { cn } from '@/utils';
@@ -9,6 +9,7 @@ import { InputProps } from './Input.types';
 
 
 const Input = ({ errorMessage, label, as = 'input', reset, ...props }: InputProps, ref: ForwardedRef<HTMLElement>) => {
+    const handleReset = useCallback(() => reset?.(), []);
     return (
         <div className="form-control w-full relative">
             {label
@@ -25,7 +26,7 @@ const Input = ({ errorMessage, label, as = 'input', reset, ...props }: InputProp
             })}
             {reset
                 ? (
-                    <Button className="absolute p-0 rounded-full w-6 h-6 top-[3.3rem] right-1" size="xs" onClick={reset}><FaEraser /></Button>
+                    <Button className="absolute p-0 rounded-full w-6 h-6 top-[3.3rem] right-1" size="xs" onClick={handleReset}><FaEraser /></Button>
                 )
                 : null}
             <span className="text-sm text-right text-error">{errorMessage ? errorMessage : ''}&nbsp;</span>
