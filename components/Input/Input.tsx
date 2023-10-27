@@ -14,7 +14,7 @@ const Input = ({
     const handleReset = useCallback(() => reset?.(), []);
 
     return (
-        <div className="flex items-center relative">
+        <div className="flex flex-col">
             {label
                 ? (
                     <label className="label">
@@ -22,22 +22,25 @@ const Input = ({
                     </label>
                 )
                 : null}
-            {createElement(as, {
-                ref,
-                ...props,
-                className: cn('input p-4 pr-7 h-auto resize-none placeholder:opacity-30 input-bordered w-full', className, { 'input-error': errorMessage }),
-            })}
-            {reset
-                ? (
-                    <Button
-                        className="rounded-full -ml-10"
-                        color="ghost"
-                        size="xs"
-                        onClick={handleReset}
-                    ><FaX />
-                    </Button>
-                )
-                : null}
+            <div className="flex items-center">
+                {createElement(as, {
+                    ref,
+                    ...props,
+                    className: cn('input p-4 pr-7 h-auto resize-none placeholder:opacity-30 input-bordered w-full', className, { 'input-error': errorMessage }),
+                })}
+                {reset
+                    ? (
+                        <Button
+                            className="rounded-full -ml-8"
+                            color="ghost"
+                            size="xs"
+                            onClick={handleReset}
+                        >
+                            <FaX />
+                        </Button>
+                    )
+                    : null}
+            </div>
             <span className="text-sm text-right text-error">{errorMessage ? errorMessage : ''}</span>
         </div>
     );
