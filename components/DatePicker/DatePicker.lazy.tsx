@@ -1,11 +1,10 @@
 import { lazy, Suspense } from 'react';
-
-import { DatePickerProps } from './DatePicker.types';
+import type { ReactDatePickerProps } from 'react-datepicker';
 
 
 const ReactDatePicker = lazy(() => import('./DatePicker'));
 
-const DatePicker = (props: DatePickerProps) => {
+const DatePicker = (props: ReactDatePickerProps) => {
     return (
         <Suspense fallback={props.customInput}>
             <ReactDatePicker {...props} />

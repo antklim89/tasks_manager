@@ -54,7 +54,7 @@ const TaskEditForm = ({ onSubmit, children, defaultValues }: TaskEditFormProps) 
                                 reset={() => resetField('startAt', { defaultValue: null })}
                             />
                         )}
-                        value={field.value}
+                        selected={field.value ? new Date(field.value) : null}
                         onChange={(date) => field.onChange(date?.toISOString())}
                     />
                 )}
@@ -72,7 +72,7 @@ const TaskEditForm = ({ onSubmit, children, defaultValues }: TaskEditFormProps) 
                                 reset={() => resetField('completeAt', { defaultValue: null })}
                             />
                         )}
-                        value={field.value}
+                        selected={field.value ? new Date(field.value) : null}
                         onChange={(date) => field.onChange(date?.toISOString())}
                     />
                 )}
