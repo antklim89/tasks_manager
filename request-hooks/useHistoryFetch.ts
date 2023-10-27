@@ -2,7 +2,7 @@ import { toast } from 'react-hot-toast';
 import useSWRInfinite, { SWRInfiniteConfiguration, SWRInfiniteKeyLoader } from 'swr/infinite';
 
 import { useProject } from '@/hooks';
-import { HistoryType, historySchema } from '@/schemas';
+import { HistoryTables, HistoryType, historySchema } from '@/schemas';
 import { getSupabaseClient } from '@/supabase/client';
 
 import type { HistoryKey } from './keys';
@@ -12,16 +12,22 @@ type Options = SWRInfiniteConfiguration<HistoryType[], Error>;
 
 export const HISTORY_LIMIT = 50;
 
-export function useHistoryFetch(options: Options = {}) {
+export function useHistoryFetch({
+    startDate,
+    table,
+}: {
+    startDate?: Date|null,
+    table?: HistoryTables
+} = {}, options: Options = {}) {
     const { projectId } = useProject();
 
     return useSWRInfinite<HistoryType[], Error, SWRInfiniteKeyLoader<HistoryType[], HistoryKey|undefined>>(
         (_, previousData) => {
-            if (!previousData) return ['HISTORY', { projectId }];
+            if (!previousData) return ['HISTORY', { projectId, startDate }];
             if (previousData.length < HISTORY_LIMIT) return undefined;
             const lastId = previousData.at(-1)?.id;
 
-            return ['HISTORY', { projectId, lastId }];
+            return ['HISTORY', { projectId, startDate, lastId }];
         },
 
         async ([_, { lastId }]) => {
@@ -33,7 +39,10 @@ export function useHistoryFetch(options: Options = {}) {
                 .order('id', { ascending: false })
                 .limit(HISTORY_LIMIT)
                 .eq('projectId', projectId);
+
             if (lastId) supabaseQuery.lt('id', lastId);
+            if (startDate) supabaseQuery.lte('createdAt', startDate.toISOString());
+            if (table) supabaseQuery.eq('table', table);
 
             const { error, data } = await supabaseQuery;
 
