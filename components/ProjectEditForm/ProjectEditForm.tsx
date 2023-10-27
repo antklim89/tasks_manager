@@ -24,21 +24,24 @@ const ProjectEditForm = ({ onSubmit, children, defaultValues }: ProjectEditFormP
         await onSubmit?.(data);
         if (!defaultValues) reset({}, { keepValues: false });
     });
+
     return (
         <form onSubmit={handleCreateTask}>
-            <Input
-                {...register('name')}
-                errorMessage={errors.name?.message}
-                label="Title"
-            />
-            <Input
-                as="textarea"
-                {...register('description')}
-                errorMessage={errors.description?.message}
-                label="Description"
-                reset={() => resetField('description', { defaultValue: '' })}
-                rows={7}
-            />
+            <div className="mb-4">
+                <Input
+                    {...register('name')}
+                    errorMessage={errors.name?.message}
+                    label="Title"
+                />
+                <Input
+                    as="textarea"
+                    {...register('description')}
+                    errorMessage={errors.description?.message}
+                    label="Description"
+                    reset={() => resetField('description', { defaultValue: '' })}
+                    rows={7}
+                />
+            </div>
             {children}
         </form>
     );
