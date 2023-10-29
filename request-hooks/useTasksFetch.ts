@@ -22,13 +22,16 @@ export function useTasksFetch({
     return useSWR<TaskType[], Error, FetchTasksKey>(
         ['TASKS', { columnId }],
 
-        () => {
+        async () => {
             if (isFirstFetch.current && defaultValue) {
                 isFirstFetch.current = false;
+                sortTasks(defaultValue, taskOrder);
                 return defaultValue;
             }
 
-            return tasksFetch({ columnId, taskOrder });
+            const tasks = await tasksFetch({ columnId });
+            sortTasks(tasks, taskOrder);
+            return tasks;
         },
         {
             ...options,
@@ -40,4 +43,8 @@ export function useTasksFetch({
     );
 }
 
+
+function sortTasks(tasks: TaskType[], taskOrder?: number[] | null) {
+    if (taskOrder) tasks.sort((a, b) => taskOrder.indexOf(a.id) - taskOrder.indexOf(b.id));
+}
 

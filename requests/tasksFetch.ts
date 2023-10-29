@@ -4,12 +4,10 @@ import { getSupabaseClient } from '@/supabase/client';
 
 export async function tasksFetch({
     columnId,
-    taskOrder,
     projectId,
 }:{
     columnId?: number;
     projectId?:number;
-    taskOrder?: number[] | null;
 }) {
     const supabase = await getSupabaseClient();
 
@@ -23,6 +21,5 @@ export async function tasksFetch({
     const { error, data } = await supabaseQuery;
     if (error) throw error;
 
-    if (taskOrder) data.sort((a, b) => taskOrder.indexOf(a.id) - taskOrder.indexOf(b.id));
     return taskSchema.array().parseAsync(data);
 }
