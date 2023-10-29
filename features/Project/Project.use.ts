@@ -9,7 +9,7 @@ import { useSWRConfig } from 'swr';
 
 import { columnUpdate, taskUpdate } from '@/request-hooks';
 import { TaskType } from '@/schemas';
-import { TasgDragData, TaskDropData } from '@/types';
+import { TaskDragData, TaskDropData } from '@/types';
 
 
 export function useProject() {
@@ -21,7 +21,7 @@ export function useProject() {
     const sensors = useSensors(mouseSensor, touchSensor, keyboardSensor);
 
     const handleDrop = ({ active, over }: DragEndEvent) => {
-        const activeData = active.data.current as TasgDragData | undefined;
+        const activeData = active.data.current as TaskDragData | undefined;
         const overData = over?.data.current as TaskDropData | undefined;
         if (!overData || !activeData) return;
         if (overData.task?.id === activeData.task.id) return;

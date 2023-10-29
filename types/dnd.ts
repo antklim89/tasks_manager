@@ -1,7 +1,7 @@
 import { TaskType } from '@/schemas';
 
 
-export interface TasgDragData {
+export interface TaskDragData {
     task: TaskType;
     columnId: number;
     index: number;
