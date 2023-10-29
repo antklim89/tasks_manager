@@ -1,2 +1,2 @@
-export { default } from './TaskDndContext';
+export { default } from './TaskDndContext.lazy';
 

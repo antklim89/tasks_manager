@@ -1,2 +1,2 @@
-export { default } from './TaskDrag';
+export { default } from './TaskDrag.lazy';
 
