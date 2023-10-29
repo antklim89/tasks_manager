@@ -21,7 +21,7 @@ const Task = ({ task, index }: TaskProps) => {
         <>
             <TaskUpdate close={closeUpdateModal} isOpen={updateModalisOpen} task={task} />
             <TaskDrag
-                className="w-full pb-2 text-left select-none"
+                className="w-full py-1 text-left select-none"
                 index={index}
                 role="button"
                 tabIndex={0}
