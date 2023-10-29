@@ -1,9 +1,5 @@
 'use client';
-
-import {
-    DndContext,
-    pointerWithin,
-} from '@dnd-kit/core';
+import { DndContext, pointerWithin } from '@dnd-kit/core';
 
 import { Button } from '@/components';
 import Column from '@/features/Column';
@@ -20,7 +16,6 @@ const Project = ({ defaultColumns, defaultTasks }: ProjectProps) => {
     const { isAdmin } = useMember();
     const { sensors, handleDrop } = useProject();
 
-
     if (isLoading) return <span className="loading loading-bars loading-lg" />;
     return (
         <DndContext
@@ -32,7 +27,7 @@ const Project = ({ defaultColumns, defaultTasks }: ProjectProps) => {
                 {columns.map((column) => (
                     <Column
                         column={column}
-                        defaultTasks={defaultTasks[column.id]}
+                        defaultTasks={defaultTasks?.[column.id]}
                         key={column.id}
                     />
                 ))}
