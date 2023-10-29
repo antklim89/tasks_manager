@@ -1,9 +1,9 @@
 'use client';
 import { FaEllipsisVertical } from 'react-icons/fa6';
 
-import { Button, Menu } from '@/components';
+import { Button, Menu, TaskDrag } from '@/components';
 import TaskDrop from '@/components/TaskDrop';
-import { useDisclosure, useMember, useTaskDnd } from '@/hooks';
+import { useDisclosure, useMember } from '@/hooks';
 
 import { TaskProps } from './Task.types';
 import TaskCompleteDate from './TaskCompleteDate';
@@ -15,25 +15,17 @@ import TaskUpdate from './TaskUpdate';
 const Task = ({ task, index }: TaskProps) => {
     const { isOpen: updateModalisOpen, close: closeUpdateModal, open: openUpdateModal } = useDisclosure();
     const { isAdminOrUser: isAdminOrMember } = useMember();
-    const {
-        attributes,
-        listeners,
-        setDragRef,
-        isDragging,
-        style,
-        node,
-    } = useTaskDnd({ task, index });
+
 
     return (
         <>
             <TaskUpdate close={closeUpdateModal} isOpen={updateModalisOpen} task={task} />
-            <div
+            <TaskDrag
                 className="w-full pb-2 text-left select-none"
-                ref={setDragRef}
-                {...listeners} {...attributes}
+                index={index}
                 role="button"
-                style={style}
                 tabIndex={0}
+                task={task}
                 onDoubleClick={isAdminOrMember ? openUpdateModal : undefined}
             >
                 <div className="card w-full p-2 bg-primary shadow-lg">
@@ -63,9 +55,7 @@ const Task = ({ task, index }: TaskProps) => {
                         <TaskCompleteDate completeAt={task.completeAt} />
                     </div>
                 </div>
-            </div>
-
-            {isDragging ? <div className="border border-primary" style={{ height: node.current?.offsetHeight }} /> : null}
+            </TaskDrag>
 
             <TaskDrop
                 columnId={task.columnId}
