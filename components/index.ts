@@ -11,5 +11,7 @@ export { default as Modal } from './Modal';
 export { default as ProjectEditForm } from './ProjectEditForm';
 export { default as ProjectProvider } from './ProjectProvider';
 export { default as Providers } from './Providers';
+export { default as TaskDrag } from './TaskDrag';
+export { default as TaskDrop } from './TaskDrop';
 export { default as TaskEditForm } from './TaskEditForm';
 export { default as Toast } from './Toast';
