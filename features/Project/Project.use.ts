@@ -30,7 +30,7 @@ export function useProject() {
 
             mutate<TaskType[]>(['TASKS', { columnId: activeData.columnId }], (currentTasks) => {
                 if (!currentTasks) return currentTasks;
-                const newTasks = currentTasks.toSpliced((overData.index ?? -1) + 1, 0, activeData.task);
+                const newTasks = currentTasks.toSpliced(overData.index + 1, 0, activeData.task);
 
                 if ((overData.index || -1) < activeData.index) newTasks.splice(activeData.index + 1, 1);
                 else newTasks.splice(activeData.index, 1);
@@ -47,7 +47,7 @@ export function useProject() {
         mutate<TaskType[]>(['TASKS', { columnId: overData.columnId }], (currentTasks) => {
             if (!currentTasks) return currentTasks;
             const newTask = { ...activeData.task, columnId: overData.columnId };
-            const newTasks = currentTasks.toSpliced((overData.index ?? -1) + 1, 0, newTask);
+            const newTasks = currentTasks.toSpliced(overData.index + 1, 0, newTask);
 
             columnUpdate(overData.columnId, { taskOrder: newTasks.map((i) => i.id) });
             return newTasks;

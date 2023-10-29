@@ -11,6 +11,6 @@ export interface TaskDragData {
 export interface TaskDropData {
     task?: TaskType;
     columnId: number;
-    index?: number;
+    index: number;
     type: 'TASK'
 }
