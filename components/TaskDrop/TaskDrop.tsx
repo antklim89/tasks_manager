@@ -7,26 +7,32 @@ import { cn } from '@/utils';
 import { TaskDropProps } from './TaskDrop.types';
 
 
+export const DROP_ZONE_HEIGHT = 40;
+export const TASKS_GAP = 8;
+
 const TaskDrop = ({ columnId, index, task }: TaskDropProps) => {
     const {
         setNodeRef,
         isOver,
-        over,
     } = useDroppable({
         id: task?.id || `column ${columnId}`,
         data: { task, columnId, index, type: 'TASK' } satisfies TaskDropData,
     });
 
     const { active } = useDndContext();
-    const isDragging = Boolean(active);
+    const isDragging = (active?.data.current as TaskDropData)?.type === 'TASK';
 
+    const isActiveTask = (columnId === active?.data.current?.columnId)
+        && (active?.data.current?.index === index || active?.data.current?.index === (index + 1));
 
-    if ((over?.data.current && active?.data.current) && (over.data.current?.columnId === active.data.current?.columnId) && ((over.data.current.index === active.data.current.index) || (over.data.current.index === active.data.current.index - 1))) return <div className="h-2" />;
+    const taskHeight = active?.rect.current.translated?.height || 0;
+
+    if (isActiveTask) return <div />;
     return (
         <div
-            className={cn('-my-4', { 'm-0X': isOver, 'z-50 transition-all': isDragging })}
+            className={cn('-my-5 h-10', { 'z-50 transition-all': isDragging })}
             ref={setNodeRef}
-            style={{ height: isOver ? (active?.rect.current.translated?.height || 40) + 32 : 40 }}
+            style={{ height: isOver ? taskHeight + (20 * 2) : undefined }}
         />
     );
 };
