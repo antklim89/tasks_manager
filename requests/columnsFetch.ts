@@ -2,7 +2,7 @@ import { columnSchema } from '@/schemas';
 import { getSupabaseClient } from '@/supabase/client';
 
 
-export async function columnsFetch(projectId: number) {
+export async function columnsFetch({ projectId }: { projectId: number; }) {
     const supabase = await getSupabaseClient();
     const { error, data } = await supabase
         .from('columns')

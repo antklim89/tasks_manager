@@ -21,7 +21,7 @@ export function useMemberFetch({ defaultValue }: { defaultValue?: MemberType; } 
                 return defaultValue;
             }
 
-            return memberFetch(projectId || 0);
+            return memberFetch({ projectId: projectId || 0 });
         },
         {
             onError(err) {

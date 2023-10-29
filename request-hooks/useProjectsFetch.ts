@@ -21,7 +21,7 @@ export function useProjectsFetch({ id }: { id?: number } = {}, { defaultValue, .
                 isFirstFetch.current = false;
                 return defaultValue;
             }
-            return projectsFetch(id);
+            return projectsFetch({ id });
         },
         {
             ...options,

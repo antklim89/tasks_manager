@@ -26,7 +26,7 @@ export function useColumnsFetch({ defaultValue, ...options }: Options = {}) {
                 return defaultValue;
             }
 
-            return columnsFetch(projectId);
+            return columnsFetch({ projectId });
         },
         {
             ...options,

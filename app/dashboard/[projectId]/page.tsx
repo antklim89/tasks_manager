@@ -18,7 +18,7 @@ const DashboardPage = async ({ params }: {params: { projectId: string }}) => {
         tasks,
         projects,
     ] = await Promise.all([
-        columnsFetch(projectId),
+        columnsFetch({ projectId }),
         tasksFetch({ projectId }),
         projectsFetch(),
     ]);

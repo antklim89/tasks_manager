@@ -24,7 +24,7 @@ export function useMembersFetch({ defaultValue, ...options }: Options = {}) {
                 return defaultValue;
             }
 
-            return membersFetch(projectId);
+            return membersFetch({ projectId });
         },
         {
             ...options,

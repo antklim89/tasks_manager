@@ -3,7 +3,7 @@ import { memberSchema } from '@/schemas';
 import { getSupabaseClient, getSupabaseUser } from '@/supabase/client';
 
 
-export async function memberFetch(projectId: number) {
+export async function memberFetch({ projectId }: { projectId: number; }) {
     const supabase = await getSupabaseClient();
     const user = await getSupabaseUser();
 
