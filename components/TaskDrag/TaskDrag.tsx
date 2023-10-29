@@ -22,6 +22,7 @@ const TaskDrag = ({ index, task, children, ...props }: TaskDragProps) => {
             task,
             columnId: task.columnId,
             index,
+            type: 'TASK',
         } satisfies TaskDragData,
     });
 

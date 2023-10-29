@@ -1,5 +1,7 @@
+'use client';
 import { useDroppable, useDndContext } from '@dnd-kit/core';
 
+import { TaskDropData } from '@/types';
 import { cn } from '@/utils';
 
 import { TaskDropProps } from './TaskDrop.types';
@@ -12,7 +14,7 @@ const TaskDrop = ({ columnId, index, task }: TaskDropProps) => {
         over,
     } = useDroppable({
         id: task?.id || `column ${columnId}`,
-        data: { task, columnId, index },
+        data: { task, columnId, index, type: 'TASK' } satisfies TaskDropData,
     });
 
     const { active } = useDndContext();
