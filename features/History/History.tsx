@@ -1,9 +1,9 @@
 'use client';
-import format from 'date-fns/esm/format';
 import { useState } from 'react';
 
 import { Button } from '@/components';
 import { HISTORY_LIMIT, useHistoryFetch } from '@/request-hooks';
+import { formatDate } from '@/utils';
 
 import HistoryPanel from './HistoryPanel';
 
@@ -21,7 +21,7 @@ const History = () => {
                     i.map((historyItem) => (
                         <p className="p-2 even:bg-primary" key={historyItem.id}>
                             <span className="inline-block pr-4 min-w-[250px]">
-                                {format(new Date(historyItem.createdAt), 'dd-MMM-yyy HH:mm:ss')}
+                                {formatDate(historyItem.createdAt)}
                             </span>
                             <span>{historyItem.table}</span>
                         </p>
