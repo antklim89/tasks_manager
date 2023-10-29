@@ -1,7 +1,11 @@
+'use client';
 import {
+    pointerWithin,
+    DndContext,
     DragEndEvent,
     KeyboardSensor,
-    MouseSensor, TouchSensor,
+    MouseSensor,
+    TouchSensor,
     useSensor,
     useSensors,
 } from '@dnd-kit/core';
@@ -11,12 +15,18 @@ import { columnUpdate, taskUpdate } from '@/request-hooks';
 import { TaskType } from '@/schemas';
 import { TaskDragData, TaskDropData } from '@/types';
 
+import { TaskDndContextProps } from './TaskDndContext.types';
 
-export function useProject() {
+
+const TaskDndContext = ({ children }: TaskDndContextProps) => {
     const { mutate } = useSWRConfig();
 
-    const mouseSensor = useSensor(MouseSensor);
-    const touchSensor = useSensor(TouchSensor);
+    const mouseSensor = useSensor(MouseSensor, {
+        activationConstraint: { distance: 20 },
+    });
+    const touchSensor = useSensor(TouchSensor, {
+        activationConstraint: { distance: 20 },
+    });
     const keyboardSensor = useSensor(KeyboardSensor);
     const sensors = useSensors(mouseSensor, touchSensor, keyboardSensor);
 
@@ -46,7 +56,7 @@ export function useProject() {
 
         mutate<TaskType[]>(['TASKS', { columnId: overData.columnId }], (currentTasks) => {
             if (!currentTasks) return currentTasks;
-            const newTask = { ...activeData.task, columnId: overData.columnId };
+            const newTask: TaskType = { ...activeData.task, columnId: overData.columnId };
             const newTasks = currentTasks.toSpliced(overData.index + 1, 0, newTask);
 
             columnUpdate(overData.columnId, { taskOrder: newTasks.map((i) => i.id) });
@@ -54,12 +64,23 @@ export function useProject() {
         }, { revalidate: false });
 
         mutate<TaskType[]>(['TASKS', { columnId: activeData.columnId }], (currentTasks) => {
-            const newTasks = currentTasks?.filter((task) => task.id !== activeData.task.id);
+            if (!currentTasks) return currentTasks;
+            const newTasks = currentTasks.filter((task) => task.id !== activeData.task.id);
 
-            if (newTasks) columnUpdate(activeData.columnId, { taskOrder: newTasks.map((i) => i.id) });
+            columnUpdate(activeData.columnId, { taskOrder: newTasks.map((i) => i.id) });
             return newTasks;
         }, { revalidate: false });
     };
 
-    return { handleDrop, sensors };
-}
+    return (
+        <DndContext
+            collisionDetection={pointerWithin}
+            sensors={sensors}
+            onDragEnd={handleDrop}
+        >
+            {children}
+        </DndContext>
+    );
+};
+
+export default TaskDndContext;
