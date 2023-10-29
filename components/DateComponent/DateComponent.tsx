@@ -8,7 +8,7 @@ const DateComponent = ({ date, format: dateFormat = formatDateString, ...props }
     if (!date) return null;
     return (
         <span {...props}>
-            {formatDate(new Date(date), dateFormat)}&nbsp;
+            {formatDate(date, dateFormat)}&nbsp;
         </span>
     );
 };

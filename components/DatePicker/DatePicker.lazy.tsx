@@ -10,7 +10,7 @@ const ReactDatePicker = lazy(() => import('./DatePicker'));
 const DatePicker = (props: DatePickerProps) => {
     const fallbackInput = cloneElement(props.customInput, {
         disabled: true,
-        value: (props.selected ? formatDate(props.selected) : undefined),
+        value: formatDate(props.selected),
     });
 
     return (
