@@ -1,17 +1,19 @@
 'use client';
-import ReactDatePicker, { type ReactDatePickerProps } from 'react-datepicker';
+import ReactDatePicker from 'react-datepicker';
 
 import 'react-datepicker/dist/react-datepicker.css';
+import { formatDateString } from '@/utils';
+
+import { DatePickerProps } from './DatePicker.types';
 
 
-const DatePicker = ({ onChange, value, customInput, ...props }: ReactDatePickerProps) => {
+const DatePicker = ({ onChange, customInput, ...props }: DatePickerProps) => {
     return (
         <ReactDatePicker
             showTimeSelect
             className="w-full"
             customInput={customInput}
-            dateFormat="dd-MMM-yyyy HH:mm"
-            selected={value ? new Date(value) : null}
+            dateFormat={formatDateString}
             timeFormat="HH:mm"
             timeIntervals={10}
             wrapperClassName="w-full"
