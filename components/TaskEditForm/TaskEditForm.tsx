@@ -28,7 +28,7 @@ const TaskEditForm = ({ onSubmit, children, defaultValues }: TaskEditFormProps) 
     });
     return (
         <form onSubmit={handleCreateTask}>
-            <div className="mb-4">
+            <div className="flex flex-col gap-2 mb-4">
                 <Input
                     {...register('title')}
                     errorMessage={errors.title?.message}
@@ -49,7 +49,6 @@ const TaskEditForm = ({ onSubmit, children, defaultValues }: TaskEditFormProps) 
                         <DatePicker
                             customInput={(
                                 <Input
-                                    className="w-full"
                                     errorMessage={errors.completeAt?.message}
                                     label="Start at"
                                     reset={() => resetField('startAt', { defaultValue: null })}
@@ -67,7 +66,6 @@ const TaskEditForm = ({ onSubmit, children, defaultValues }: TaskEditFormProps) 
                         <DatePicker
                             customInput={(
                                 <Input
-                                    className="w-full"
                                     errorMessage={errors.completeAt?.message}
                                     label="Complete at"
                                     reset={() => resetField('completeAt', { defaultValue: null })}
