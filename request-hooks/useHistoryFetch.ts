@@ -16,18 +16,18 @@ export function useHistoryFetch({
     startDate,
     table,
 }: {
-    startDate?: Date|null,
+    startDate?: Date,
     table?: HistoryTables
 } = {}, options: Options = {}) {
     const { projectId } = useProject();
 
     return useSWRInfinite<HistoryType[], Error, SWRInfiniteKeyLoader<HistoryType[], HistoryKey|undefined>>(
         (_, previousData) => {
-            if (!previousData) return ['HISTORY', { projectId, startDate }];
+            if (!previousData) return ['HISTORY', { projectId, startDate, table }];
             if (previousData.length < HISTORY_LIMIT) return undefined;
             const lastId = previousData.at(-1)?.id;
 
-            return ['HISTORY', { projectId, startDate, lastId }];
+            return ['HISTORY', { projectId, startDate, table, lastId }];
         },
 
         async ([_, { lastId }]) => {
