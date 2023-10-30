@@ -16,9 +16,9 @@ const HistoryPanel = ({ onStartDateChange, onTableChange }: HistoryPanelProps) =
     };
 
     const handleTableChange: MouseEventHandler<HTMLButtonElement> = (e) => {
-        const tableName = e.currentTarget.name as HistoryTables | undefined;
-        setTable(tableName || undefined);
-        onTableChange(tableName || undefined);
+        const tableName = e.currentTarget.name as HistoryTables;
+        setTable(tableName.length === 0 ? undefined : tableName);
+        onTableChange(tableName.length === 0 ? undefined : tableName);
     };
 
     return (
