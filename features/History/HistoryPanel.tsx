@@ -33,11 +33,14 @@ const HistoryPanel = ({ onStartDateChange, onTableChange }: HistoryPanelProps) =
             />
             <Menu button={<Button>{table || 'Filter by table'}</Button>}>
                 <Button color="ghost" onClick={handleTableChange}>ALL</Button>
-                {tables.map((t) => (
+                {tables.map((tableName) => (
                     <Button
-                        color="ghost" key={t} name={t}
+                        color="ghost"
+                        key={tableName}
+                        name={tableName}
                         onClick={handleTableChange}
-                    >{t}
+                    >
+                        {tableName}
                     </Button>
                 ))}
             </Menu>
