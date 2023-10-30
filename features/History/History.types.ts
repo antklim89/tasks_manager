@@ -1,5 +1,7 @@
+import { HistoryTables } from '@/schemas';
 
 
 export interface HistoryPanelProps {
-    onStartDateChange: (arg: Date|null) => void
+    onStartDateChange: (arg?: Date) => void
+    onTableChange: (arg?: HistoryTables) => void
 }

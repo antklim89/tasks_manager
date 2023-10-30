@@ -3,19 +3,21 @@ import { useState } from 'react';
 
 import { Button } from '@/components';
 import { HISTORY_LIMIT, useHistoryFetch } from '@/request-hooks';
+import { type HistoryTables } from '@/schemas';
 import { formatDate } from '@/utils';
 
 import HistoryPanel from './HistoryPanel';
 
 
 const History = () => {
-    const [startDate, setStartDate] = useState<Date|null>(null);
-    const { data = [], setSize, size, isValidating } = useHistoryFetch({ startDate });
+    const [startDate, setStartDate] = useState<Date|undefined>(undefined);
+    const [table, setTable] = useState<HistoryTables|undefined>(undefined);
+    const { data = [], setSize, size, isValidating } = useHistoryFetch({ startDate, table });
     const hasNext = (data.at(-1)?.length || 0) === HISTORY_LIMIT;
 
     return (
         <div className="p-4">
-            <HistoryPanel onStartDateChange={setStartDate} />
+            <HistoryPanel onStartDateChange={setStartDate} onTableChange={setTable} />
             <div className="flex flex-col">
                 {data.map((i) => (
                     i.map((historyItem) => (
