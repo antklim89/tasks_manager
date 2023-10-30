@@ -26,7 +26,7 @@ const Input = ({
                 {createElement(as, {
                     ref,
                     ...props,
-                    className: cn('input p-4 pr-7 h-auto resize-none placeholder:opacity-30 input-bordered w-full', className, { 'input-error': errorMessage }),
+                    className: cn('input p-3 pr-7 h-auto resize-none placeholder:opacity-30 input-bordered w-full', className, { 'input-error': errorMessage }),
                 })}
                 {reset
                     ? (
