@@ -9,6 +9,9 @@ export const historySchema = z.object({
     createdAt: z.string(),
     projectId: z.number(),
     userId: z.string().nullable(),
+    user: z.object({
+        email: z.string(),
+    }),
     table: z.enum(tables),
     operation: z.enum(operations),
     newData: z.record(z.unknown()).nullable(),

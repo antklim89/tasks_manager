@@ -35,7 +35,7 @@ export function useHistoryFetch({
 
             const supabaseQuery = supabase
                 .from('history')
-                .select('*')
+                .select('*, user:userId(email)')
                 .order('id', { ascending: false })
                 .limit(HISTORY_LIMIT)
                 .eq('projectId', projectId);
