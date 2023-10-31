@@ -1,4 +1,4 @@
-import { HistoryType } from '@/schemas';
+import { HistoryTables, HistoryType } from '@/schemas';
 import { formatDate } from '@/utils';
 
 
@@ -15,31 +15,95 @@ const HistoryItem = ({ historyItem }: { historyItem: HistoryType }) => {
 export default HistoryItem;
 
 
-function formatHistoryItem(historyItem: HistoryType): string {
-    switch (historyItem.table) {
-    case 'projects':
-        return formatHistoryProjects(historyItem);
-    default:
-        return `Table ${historyItem.table} changed`;
+function formatHistoryItem({ operation, newData, oldData, table }: HistoryType): string {
+    if (table === 'projects') {
+        if (operation === 'UPDATE') {
+            return formatUpdatedValues({ newData, oldData, table, name: String(oldData?.name) });
+        }
+
+    } else if (table === 'tasks') {
+        if (operation === 'UPDATE') {
+            return formatUpdatedValues({ newData, oldData, table, name: String(oldData?.title) });
+        } else if (operation === 'INSERT') {
+            return formatInsertedValues({ table, newData });
+        } else if (operation === 'DELETE') {
+            return formatDeletedValues({ table, name: oldData?.title });
+        }
     }
+
+    return `${table} changed.`;
 }
 
-function formatHistoryProjects({ operation, newData, oldData }: HistoryType): string {
-    switch (operation) {
-    case 'INSERT':
-        return `Project ${newData?.name} created.`;
-    case 'UPDATE':
-        return `Updated ${getChangedField(newData, oldData)} in project ${oldData?.name}`;
-    case 'DELETE':
-        return `Project ${oldData?.name} deleted.`;
 
-    default: return 'Projects updated.';
-    }
+const formatArrayStrings = new Intl.ListFormat('en');
+
+function formatDeletedValues({
+    table,
+    name,
+}: {
+    table: string;
+    name?: unknown;
+ }): string {
+    return `Deleted ${table} ${name || ''}.`;
 }
 
-function getChangedField(newData: Record<string, unknown> | null, oldData: Record<string, unknown> | null): string {
-    console.log('==  oldData\n', oldData);
-    console.log('==  newData\n', newData);
-    return 'X';
+function formatInsertedValues({
+    table,
+    newData,
+}: {
+    table: string;
+    newData: Record<string, unknown> | null;
+ }): string {
+    return `New ${table} added with ${formatInsetedData(newData)}.`;
 }
 
+function formatUpdatedValues({
+    name,
+    newData,
+    oldData,
+    table,
+}: {
+    name?: string,
+    newData: Record<string, unknown> | null;
+    oldData: Record<string, unknown> | null;
+    table: HistoryTables;
+}): string {
+    return `Updated ${formatUpdatedData(newData, oldData)} in ${table} "${name || ''}".`;
+}
+
+function omitUnchangedValues(
+    newData: Record<string, unknown> | null,
+    oldData?: Record<string, unknown> | null,
+): Record<string, unknown> {
+    if (!newData) return {};
+    if (!oldData) return newData;
+
+    return Object.entries(newData).reduce((acc, [key, val]) => {
+        if (val === oldData[key]) return acc;
+        acc[key] = val;
+        return acc;
+    }, {} as Record<string, unknown>);
+}
+
+function formatUpdatedData(
+    newData: Record<string, unknown> | null,
+    oldData?: Record<string, unknown> | null,
+): string {
+    const changedValues = omitUnchangedValues(newData, oldData);
+
+    return formatArrayStrings.format(Object.entries(changedValues).map(([key, val]) => (`${key} to "${val}"`)));
+}
+
+function formatInsetedData(
+    newData: Record<string, unknown> | null,
+    oldData?: Record<string, unknown> | null,
+): string {
+    const changedValues = omitUnchangedValues(newData, oldData);
+    const notNullishValues = omitNullishFields(changedValues);
+
+    return formatArrayStrings.format(Object.entries(notNullishValues).map(([key, val]) => (`${key}: "${val}"`)));
+}
+
+function omitNullishFields(obj: Record<string, unknown>): Record<string, unknown> {
+    return Object.fromEntries(Object.entries(obj).filter(([, val]) => val));
+}
