@@ -12,4 +12,10 @@ export const historySchema = z.object({
     body: z.string(),
 });
 
+
+export const historyUpdateSchema = z.object({
+    body: z.string(),
+});
+
 export type HistoryType = z.infer<typeof historySchema>
+export type HistoryUpdateType = z.infer<typeof historyUpdateSchema>
