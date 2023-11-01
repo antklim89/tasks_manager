@@ -26,7 +26,7 @@ const Column = ({ column, defaultTasks }: { column: ColumnType, defaultTasks?: T
         >
             <div className="flex items-start">
                 <ColumnName id={column.id} name={column.name} />
-                {isAdminOrMember ? <ColumnTaskCreate columnId={column.id} /> : null}
+                {isAdminOrMember ? <ColumnTaskCreate column={column} /> : null}
                 {isAdmin
                     ? (
                         <Menu button={<button className="btn" type="button"><FaEllipsisVertical /></button>}>
