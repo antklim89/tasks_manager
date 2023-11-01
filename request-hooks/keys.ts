@@ -1,4 +1,3 @@
-import { HistoryTables } from '@/schemas';
 
 
 export type AuthKey = ['AUTH']
@@ -9,4 +8,4 @@ export type FetchTasksKey = ['TASKS', { columnId: number }]
 export type FetchMembersKey = ['MEMBERS', { projectId: number }]
 export type MemberKey = ['MEMBER', { projectId: number }]
 export type ProfileKey = ['PROFILE']
-export type HistoryKey = ['HISTORY', { projectId: number, lastId?: number, startDate?: Date|null, table?: HistoryTables }]
+export type HistoryKey = ['HISTORY', { projectId: number, lastId?: number, startDate?: Date|null }]

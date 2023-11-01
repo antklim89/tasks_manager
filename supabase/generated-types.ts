@@ -39,33 +39,24 @@ export interface Database {
       }
       history: {
         Row: {
+          body: string
           createdAt: string
           id: number
-          newData: Json | null
-          oldData: Json | null
-          operation: Database["public"]["Enums"]["operations"]
           projectId: number
-          table: Database["public"]["Enums"]["tables"]
           userId: string | null
         }
         Insert: {
+          body?: string
           createdAt?: string
           id?: number
-          newData?: Json | null
-          oldData?: Json | null
-          operation: Database["public"]["Enums"]["operations"]
           projectId: number
-          table: Database["public"]["Enums"]["tables"]
           userId?: string | null
         }
         Update: {
+          body?: string
           createdAt?: string
           id?: number
-          newData?: Json | null
-          oldData?: Json | null
-          operation?: Database["public"]["Enums"]["operations"]
           projectId?: number
-          table?: Database["public"]["Enums"]["tables"]
           userId?: string | null
         }
         Relationships: [
@@ -237,9 +228,9 @@ export interface Database {
     Functions: {
       can_change_role: {
         Args: {
-          role: Database["public"]["Enums"]["roles"]
           project_id: number
           member_id: number
+          role?: Database["public"]["Enums"]["roles"]
         }
         Returns: boolean
       }
