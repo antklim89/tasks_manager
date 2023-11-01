@@ -3,13 +3,21 @@ import { FaPlus } from 'react-icons/fa6';
 import { Button, Modal, TaskEditForm } from '@/components';
 import { useDisclosure } from '@/hooks';
 import { useTaskCreate } from '@/request-hooks';
+import { useHistoryCreate } from '@/request-hooks/useHistoryCreate';
+import { ColumnType } from '@/schemas';
+import { formatHistoryData } from '@/utils';
 
 
-const ColumnTaskCreate = ({ columnId }: { columnId: number }) => {
+const ColumnTaskCreate = ({ column }: { column: ColumnType }) => {
     const { isOpen, close, open } = useDisclosure();
+    const { trigger: historyCreate } = useHistoryCreate();
 
-    const { trigger: createTask, isMutating } = useTaskCreate({ columnId }, {
-        onSuccess: () => close(),
+    const { trigger: createTask, isMutating } = useTaskCreate({ columnId: column.id }, {
+        onSuccess: (data) => {
+            close();
+            historyCreate({ body: `Task "${data.title}" added to column "${column.name}" ${formatHistoryData({ data, fields: ['description', 'completeAt', 'startAt'], startText: 'with ' })}` });
+        },
+
     });
 
     return (
