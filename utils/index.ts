@@ -2,4 +2,5 @@
 
 export * from './cn';
 export * from './formatDate';
+export * from './formatHistoryData';
 export * from './groupBy';
