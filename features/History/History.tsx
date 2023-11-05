@@ -1,7 +1,8 @@
 'use client';
-import { useState } from 'react';
+import { z } from 'zod';
 
 import { Button } from '@/components';
+import { useSearchParamsState } from '@/hooks';
 import { HISTORY_LIMIT, useHistoryFetch } from '@/request-hooks';
 
 import HistoryItem from './HistoryItem';
@@ -9,13 +10,13 @@ import HistoryPanel from './HistoryPanel';
 
 
 const History = () => {
-    const [startDate, setStartDate] = useState<Date|undefined>(undefined);
+    const [startDate, setStartDate] = useSearchParamsState('start-at', z.string().datetime());
     const { data: historyPages = [], setSize, size, isValidating } = useHistoryFetch({ startDate });
     const hasNext = (historyPages.at(-1)?.length || 0) === HISTORY_LIMIT;
 
     return (
         <div className="p-4">
-            <HistoryPanel onStartDateChange={setStartDate} />
+            <HistoryPanel defaultStartDate={startDate} onStartDateChange={setStartDate} />
             <div className="flex flex-col">
                 {historyPages.map((historyPage) => historyPage.map((historyItem) => (
                     <HistoryItem historyItem={historyItem} key={historyItem.id} />
