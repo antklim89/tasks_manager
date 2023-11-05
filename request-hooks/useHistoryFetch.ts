@@ -15,7 +15,7 @@ export const HISTORY_LIMIT = 50;
 export function useHistoryFetch({
     startDate,
 }: {
-    startDate?: Date,
+    startDate?: string,
 } = {}, options: Options = {}) {
     const { projectId } = useProject();
 
@@ -39,7 +39,7 @@ export function useHistoryFetch({
                 .eq('projectId', projectId);
 
             if (lastId) supabaseQuery.lt('id', lastId);
-            if (startDate) supabaseQuery.lte('createdAt', startDate.toISOString());
+            if (startDate) supabaseQuery.lte('createdAt', startDate);
 
             const { error, data } = await supabaseQuery;
 

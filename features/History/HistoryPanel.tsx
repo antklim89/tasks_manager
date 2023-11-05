@@ -5,12 +5,12 @@ import { DatePicker, Input } from '@/components';
 import { HistoryPanelProps } from './History.types';
 
 
-const HistoryPanel = ({ onStartDateChange }: HistoryPanelProps) => {
-    const [startDate, setStartDate] = useState<Date|undefined>(undefined);
+const HistoryPanel = ({ onStartDateChange, defaultStartDate }: HistoryPanelProps) => {
+    const [startDate, setStartDate] = useState<string|undefined>(defaultStartDate);
 
     const handleStartDateChange = (date?: Date | null): void => {
-        setStartDate(date || undefined);
-        onStartDateChange(date || undefined);
+        setStartDate(date?.toISOString());
+        onStartDateChange(date?.toISOString());
     };
 
     return (
@@ -20,7 +20,7 @@ const HistoryPanel = ({ onStartDateChange }: HistoryPanelProps) => {
                     <Input reset={handleStartDateChange} />
                 )}
                 placeholderText="Filter by date"
-                selected={startDate}
+                selected={startDate ? new Date(startDate) : null}
                 onChange={handleStartDateChange}
             />
         </div>

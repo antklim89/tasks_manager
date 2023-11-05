@@ -1,5 +1,6 @@
 
 
 export interface HistoryPanelProps {
-    onStartDateChange: (arg?: Date) => void
+    onStartDateChange: (arg?: string) => void
+    defaultStartDate?: string
 }
