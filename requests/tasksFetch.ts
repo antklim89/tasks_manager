@@ -16,7 +16,8 @@ export async function tasksFetch({
         .select('*');
 
     if (projectId) supabaseQuery.eq('projectId', projectId);
-    else supabaseQuery.eq('columnId', columnId);
+    else if (columnId) supabaseQuery.eq('columnId', columnId);
+    else throw new Error('"columnId" or "projectId" is required.');
 
     const { error, data } = await supabaseQuery;
     if (error) throw error;
