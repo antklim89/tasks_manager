@@ -49,6 +49,7 @@ module.exports = {
         /**
         * React
         */
+        'react/prefer-read-only-props': 0,
         'react/jsx-no-constructed-context-values': 0,
         'react/jsx-no-useless-fragment': 0,
         'react/forbid-component-props': 0,
