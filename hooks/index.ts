@@ -6,3 +6,4 @@ export * from './useDisclosure';
 export * from './useMember';
 export * from './useProject';
 export * from './useSearchParamsState';
+export * from './useTask';
