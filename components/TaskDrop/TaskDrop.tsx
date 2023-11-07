@@ -1,25 +1,28 @@
 'use client';
 import { useDroppable, useDndContext } from '@dnd-kit/core';
 
+import { useColumn } from '@/hooks';
 import { TaskDropData } from '@/types';
 import { cn } from '@/utils';
 
 import { TaskDropProps } from './TaskDrop.types';
 
 
-const TaskDrop = ({ columnId, index, task }: TaskDropProps) => {
+const TaskDrop = ({ index, task }: TaskDropProps) => {
+    const column = useColumn();
+    
     const {
         setNodeRef,
         isOver,
     } = useDroppable({
-        id: task?.id || `column ${columnId}`,
-        data: { task, columnId, index, type: 'TASK' } satisfies TaskDropData,
+        id: task?.id || `column ${column.id}`,
+        data: { task, index, type: 'TASK', column } satisfies TaskDropData,
     });
 
     const { active } = useDndContext();
     const isDragging = (active?.data.current as TaskDropData)?.type === 'TASK';
 
-    const isActiveTask = (columnId === active?.data.current?.columnId)
+    const isActiveTask = (column.id === active?.data.current?.column.id)
         && (active?.data.current?.index === index || active?.data.current?.index === (index + 1));
 
     const taskHeight = active?.rect.current.translated?.height || 0;

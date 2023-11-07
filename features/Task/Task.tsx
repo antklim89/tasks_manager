@@ -58,7 +58,6 @@ const Task = ({ task, index }: TaskProps) => {
             </TaskDrag>
 
             <TaskDrop
-                columnId={task.columnId}
                 index={index}
                 task={task}
             />

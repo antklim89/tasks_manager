@@ -1,16 +1,16 @@
-import { TaskType } from '@/schemas';
+import type { ColumnType, TaskType } from '@/schemas';
 
 
 export interface TaskDragData {
     task: TaskType;
-    columnId: number;
+    column: ColumnType
     index: number;
     type: 'TASK'
 }
 
 export interface TaskDropData {
     task?: TaskType;
-    columnId: number;
+    column: ColumnType
     index: number;
     type: 'TASK'
 }
