@@ -7,9 +7,6 @@ import { cn } from '@/utils';
 import { TaskDropProps } from './TaskDrop.types';
 
 
-export const DROP_ZONE_HEIGHT = 40;
-export const TASKS_GAP = 8;
-
 const TaskDrop = ({ columnId, index, task }: TaskDropProps) => {
     const {
         setNodeRef,
