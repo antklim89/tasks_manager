@@ -1,6 +1,6 @@
 import { Button, Confirm } from '@/components';
 import { useDisclosure } from '@/hooks';
-import { useTaskDelete } from '@/request-hooks';
+import { useHistoryCreate, useTaskDelete } from '@/request-hooks';
 import { cn } from '@/utils';
 
 import { TaskDeleteProps } from './Task.types';
@@ -8,10 +8,14 @@ import { TaskDeleteProps } from './Task.types';
 
 const TaskDelete = ({ task, className }: TaskDeleteProps) => {
     const { isOpen, close, open } = useDisclosure();
+    const { trigger: historyCreate } = useHistoryCreate();
 
     const { trigger: deleteTask, isMutating } = useTaskDelete(
         { taskId: task.id, columnId: task.columnId },
-        { onSuccess: close },
+        { onSuccess() {
+            close();
+            historyCreate({ body: `Task "${task.title}" deleted.` });
+        } },
     );
 
     return (

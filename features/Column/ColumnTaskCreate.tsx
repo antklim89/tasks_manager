@@ -15,7 +15,8 @@ const ColumnTaskCreate = ({ column }: { column: ColumnType }) => {
     const { trigger: createTask, isMutating } = useTaskCreate({ columnId: column.id }, {
         onSuccess: (data) => {
             close();
-            historyCreate({ body: `Task "${data.title}" added to column "${column.name}" ${formatHistoryData({ data, fields: ['description', 'completeAt', 'startAt'], startText: 'with ' })}` });
+            const historyData = formatHistoryData({ data, fields: ['description', 'completeAt', 'startAt'], startText: 'with ' });
+            historyCreate({ body: `Task "${data.title}" added to column "${column.name}" ${historyData}` });
         },
 
     });

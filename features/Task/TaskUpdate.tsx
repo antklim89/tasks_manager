@@ -1,13 +1,20 @@
 import { Button, Modal, TaskEditForm } from '@/components';
+import { useHistoryCreate, useTaskUpdate } from '@/request-hooks';
 import { TaskType } from '@/schemas';
-import { useTaskUpdate } from '@/request-hooks';
+import { formatHistoryData } from '@/utils';
 
 import TaskDelete from './TaskDelete';
 
 
 const TaskUpdate = ({ task, close, isOpen }: { task: TaskType, isOpen: boolean, close: () => void }) => {
+    const { trigger: historyCreate } = useHistoryCreate();
+    
     const { trigger: updateTask, isMutating } = useTaskUpdate({ columnId: task.columnId, taskId: task.id }, {
-        onSuccess: () => close(),
+        onSuccess(data) {
+            close();
+            const historyData = formatHistoryData({ data, oldData: task, fields: ['title', 'description', 'completeAt', 'startAt'], startText: 'with ' });
+            historyCreate({ body: `Task "${task.title}" updated ${historyData}` });
+        },
     });
 
     return (
