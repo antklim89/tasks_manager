@@ -1,5 +1,6 @@
 // generate export all files
 
+export * from './useColumn';
 export * from './useCurrentDate';
 export * from './useDisclosure';
 export * from './useMember';
