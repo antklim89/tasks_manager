@@ -23,7 +23,7 @@ const TaskUpdate = ({ close, isOpen }: { isOpen: boolean, close: () => void }) =
             <Modal.Title className="text-2xl">
                 {task.title}
             </Modal.Title>
-            <TaskEditForm defaultValues={task} onSubmit={updateTask}>
+            <TaskEditForm onSubmit={updateTask}>
                 <Modal.Footer>
                     <TaskDelete className="w-auto btn-error" />
                     <Button isLoading={isMutating} type="submit">Update</Button>

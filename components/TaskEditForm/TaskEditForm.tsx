@@ -4,12 +4,15 @@ import { Controller, useForm } from 'react-hook-form';
 
 import { DatePicker } from '@/components';
 import Input from '@/components/Input';
+import { useTask } from '@/hooks';
 import { TaskCreateType, taskCreateSchema } from '@/schemas';
 
 import { TaskEditFormProps } from './TaskEditForm.types';
 
 
-const TaskEditForm = ({ onSubmit, children, defaultValues }: TaskEditFormProps) => {
+const TaskEditForm = ({ onSubmit, children }: TaskEditFormProps) => {
+    const task = useTask(false);
+
     const {
         register,
         handleSubmit,
@@ -19,12 +22,12 @@ const TaskEditForm = ({ onSubmit, children, defaultValues }: TaskEditFormProps) 
         control,
     } = useForm<TaskCreateType>({
         resolver: zodResolver(taskCreateSchema),
-        defaultValues,
+        defaultValues: task || undefined,
     });
 
     const handleCreateTask = handleSubmit(async (data) => {
         await onSubmit?.(data);
-        if (!defaultValues) reset({}, { keepValues: false });
+        if (!task) reset({}, { keepValues: false });
     });
     return (
         <form onSubmit={handleCreateTask}>
