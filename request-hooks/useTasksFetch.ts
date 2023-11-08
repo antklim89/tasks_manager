@@ -2,6 +2,7 @@ import { useRef } from 'react';
 import { toast } from 'react-hot-toast';
 import useSWR, { SWRConfiguration } from 'swr';
 
+import { useColumnSelector } from '@/hooks';
 import { tasksFetch } from '@/requests';
 import { TaskType } from '@/schemas';
 
@@ -10,14 +11,10 @@ import { FetchTasksKey } from './keys';
 
 type Options = SWRConfiguration<TaskType[], Error> & { defaultValue?: TaskType[] };
 
-export function useTasksFetch({
-    columnId,
-    taskOrder,
-}: {
-    columnId: number,
-    taskOrder: number[]|null
-}, { defaultValue, ...options }: Options = {}) {
+export function useTasksFetch({ defaultValue, ...options }: Options = {}) {
     const isFirstFetch = useRef(true);
+    const columnId = useColumnSelector(column => column.id);
+    const taskOrder = useColumnSelector(column => column.taskOrder);
 
     return useSWR<TaskType[], Error, FetchTasksKey>(
         ['TASKS', { columnId }],

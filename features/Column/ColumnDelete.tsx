@@ -3,9 +3,9 @@ import { useDisclosure } from '@/hooks';
 import { useColumnDelete } from '@/request-hooks';
 
 
-const ColumnDelete = ({ id }: { id: number }) => {
+const ColumnDelete = () => {
     const { isOpen, close, open } = useDisclosure();
-    const { trigger: deleteColumn, isMutating } = useColumnDelete({ columnId: id }, { onSuccess: close });
+    const { trigger: deleteColumn, isMutating } = useColumnDelete({ onSuccess: close });
 
     return (
         <>

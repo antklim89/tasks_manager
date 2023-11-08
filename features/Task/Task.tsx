@@ -22,7 +22,7 @@ const Task = ({ task, index }: TaskProps) => {
 
     return (
         <TaskContext.Provider value={task}>
-            <TaskUpdate close={closeUpdateModal} isOpen={updateModalisOpen} task={task} />
+            <TaskUpdate close={closeUpdateModal} isOpen={updateModalisOpen} />
             <TaskDrag
                 className="w-full py-1 text-left select-none"
                 index={index}
@@ -38,7 +38,7 @@ const Task = ({ task, index }: TaskProps) => {
                             ? (
                                 <Menu button={<Button aria-label="user menu" color="ghost" size="sm"><FaEllipsisVertical /></Button>}>
                                     <Button className="w-full btn-ghost" onClick={openUpdateModal}>Update</Button>
-                                    <TaskDelete className="w-full btn-ghost" task={task} />
+                                    <TaskDelete className="w-full btn-ghost" />
                                 </Menu>
                             )
                             : null}

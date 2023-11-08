@@ -1,7 +1,7 @@
 import { toast } from 'react-hot-toast';
 import useSWRMutation, { SWRMutationConfiguration } from 'swr/mutation';
 
-import { useProject } from '@/hooks';
+import { useColumnSelector, useProject } from '@/hooks';
 import { TaskCreateType, TaskType, taskSchema } from '@/schemas';
 import { getSupabaseClient } from '@/supabase/client';
 
@@ -12,8 +12,9 @@ const TOAST_ID = 'TASK_CREATE';
 
 type Options = SWRMutationConfiguration<TaskType, Error, FetchTasksKey, TaskCreateType, TaskType[]>;
 
-export function useTaskCreate({ columnId }: { columnId: number }, options?: Options) {
+export function useTaskCreate(options?: Options) {
     const { projectId } = useProject();
+    const columnId = useColumnSelector(column => column.id);
 
     return useSWRMutation<TaskType, Error, FetchTasksKey, TaskCreateType, TaskType[]>(
         ['TASKS', { columnId }],

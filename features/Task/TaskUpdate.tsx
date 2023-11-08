@@ -1,15 +1,16 @@
 import { Button, Modal, TaskEditForm } from '@/components';
+import { useTask } from '@/hooks';
 import { useHistoryCreate, useTaskUpdate } from '@/request-hooks';
-import { TaskType } from '@/schemas';
 import { formatHistoryData } from '@/utils';
 
 import TaskDelete from './TaskDelete';
 
 
-const TaskUpdate = ({ task, close, isOpen }: { task: TaskType, isOpen: boolean, close: () => void }) => {
+const TaskUpdate = ({ close, isOpen }: { isOpen: boolean, close: () => void }) => {
     const { trigger: historyCreate } = useHistoryCreate();
+    const task = useTask();
     
-    const { trigger: updateTask, isMutating } = useTaskUpdate({ columnId: task.columnId, taskId: task.id }, {
+    const { trigger: updateTask, isMutating } = useTaskUpdate({
         onSuccess(data) {
             close();
             const historyData = formatHistoryData({ data, oldData: task, fields: ['title', 'description', 'completeAt', 'startAt'], startText: 'with ' });
@@ -24,7 +25,7 @@ const TaskUpdate = ({ task, close, isOpen }: { task: TaskType, isOpen: boolean, 
             </Modal.Title>
             <TaskEditForm defaultValues={task} onSubmit={updateTask}>
                 <Modal.Footer>
-                    <TaskDelete className="w-auto btn-error" task={task} />
+                    <TaskDelete className="w-auto btn-error" />
                     <Button isLoading={isMutating} type="submit">Update</Button>
                     <Button outline isLoading={isMutating} onClick={close}>Cancel</Button>
                 </Modal.Footer>

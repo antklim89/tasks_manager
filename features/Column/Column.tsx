@@ -17,10 +17,7 @@ import ColumnTaskCreate from './ColumnTaskCreate';
 export const ColumnContext = createContext<ColumnType|null>(null);
 
 const Column = ({ column, defaultTasks }: { column: ColumnType, defaultTasks?: TaskType[] }) => {
-    const { data: tasks = [], isLoading } = useTasksFetch({
-        columnId: column.id,
-        taskOrder: column.taskOrder,
-    }, { defaultValue: defaultTasks });
+    const { data: tasks = [], isLoading } = useTasksFetch({ defaultValue: defaultTasks });
     const { isAdmin, isAdminOrUser: isAdminOrMember } = useMember();
 
     return (
@@ -29,12 +26,12 @@ const Column = ({ column, defaultTasks }: { column: ColumnType, defaultTasks?: T
                 className="card w-96 bg-base-200 shadow-xl"
             >
                 <div className="flex items-start">
-                    <ColumnName id={column.id} name={column.name} />
+                    <ColumnName />
                     {isAdminOrMember ? <ColumnTaskCreate column={column} /> : null}
                     {isAdmin
                         ? (
                             <Menu button={<button className="btn" type="button"><FaEllipsisVertical /></button>}>
-                                <ColumnDelete id={column.id} />
+                                <ColumnDelete />
                             </Menu>
                         )
                         : null}

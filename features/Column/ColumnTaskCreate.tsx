@@ -12,7 +12,7 @@ const ColumnTaskCreate = ({ column }: { column: ColumnType }) => {
     const { isOpen, close, open } = useDisclosure();
     const { trigger: historyCreate } = useHistoryCreate();
 
-    const { trigger: createTask, isMutating } = useTaskCreate({ columnId: column.id }, {
+    const { trigger: createTask, isMutating } = useTaskCreate({
         onSuccess: (data) => {
             close();
             const historyData = formatHistoryData({ data, fields: ['description', 'completeAt', 'startAt'], startText: 'with ' });

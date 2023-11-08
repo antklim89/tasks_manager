@@ -1,7 +1,7 @@
 import { toast } from 'react-hot-toast';
 import useSWRMutation, { SWRMutationConfiguration } from 'swr/mutation';
 
-import { useProject } from '@/hooks';
+import { useColumnSelector, useProject } from '@/hooks';
 import { ColumnType, ColumnUpdateType } from '@/schemas';
 import { getSupabaseClient } from '@/supabase/client';
 
@@ -23,8 +23,10 @@ export async function columnUpdate(columnId: number, data: ColumnUpdateType): Pr
     return data;
 }
 
-export function useColumnUpdate({ columnId }: { columnId: number }, options?: Options) {
+export function useColumnUpdate(options?: Options) {
     const { projectId } = useProject();
+    const columnId = useColumnSelector(column => column.id);
+    
     return useSWRMutation<ColumnUpdateType, Error, FetchColumnsKey, ColumnUpdateType, ColumnType[]>(
         ['COLUMNS', { projectId }],
         (key, { arg }) => columnUpdate(columnId, arg),

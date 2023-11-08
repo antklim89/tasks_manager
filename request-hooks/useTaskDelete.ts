@@ -1,6 +1,7 @@
 import { toast } from 'react-hot-toast';
 import useSWRMutation, { SWRMutationConfiguration } from 'swr/mutation';
 
+import { useColumnSelector, useTaskSelector } from '@/hooks';
 import { TaskType } from '@/schemas';
 import { getSupabaseClient } from '@/supabase/client';
 
@@ -11,7 +12,10 @@ const TOAST_ID = 'TASK_DELETE';
 
 type Options = SWRMutationConfiguration<unknown, Error, FetchTasksKey, unknown, TaskType[]>;
 
-export function useTaskDelete({ taskId, columnId }: { columnId: number, taskId: number }, options?: Options) {
+export function useTaskDelete(options?: Options) {
+    const columnId = useColumnSelector(column => column.id);
+    const taskId = useTaskSelector(task => task.id);
+
     return useSWRMutation<unknown, Error, FetchTasksKey, unknown, TaskType[]>(
         ['TASKS', { columnId }],
 

@@ -3,21 +3,22 @@ import { KeyboardEventHandler, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { Input } from '@/components';
-import { useMember } from '@/hooks';
+import { useColumnSelector, useMember } from '@/hooks';
 import { useColumnUpdate } from '@/request-hooks';
 import { columnUpdateSchema } from '@/schemas';
 
 
-const ColumnName = ({ name, id }: { name: string, id: number }) => {
-    const { trigger: updateColumn } = useColumnUpdate({ columnId: id });
+const ColumnName = () => {
+    const columnName = useColumnSelector(column => column.name);
+    const { trigger: updateColumn } = useColumnUpdate();
     const { isAdminOrUser: isAdminOrMember } = useMember();
-    const prevName = useRef(name);
+    const prevName = useRef(columnName);
     const {
         register,
         handleSubmit,
         formState: { errors },
     } = useForm<{ name: string }>({
-        values: { name },
+        values: { name: columnName },
         resolver: zodResolver(columnUpdateSchema),
     });
 
