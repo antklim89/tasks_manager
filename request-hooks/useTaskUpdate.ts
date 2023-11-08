@@ -25,6 +25,8 @@ export async function taskUpdate(taskId: number, data: TaskUpdateType): Promise<
 
 
 export function useTaskUpdate({ columnId, taskId }: { columnId: number, taskId: number }, options?: Options) {
+    
+
     return useSWRMutation<TaskUpdateType, Error, FetchTasksKey, TaskUpdateType, TaskType[]>(
         ['TASKS', { columnId }],
         (key, { arg }) => taskUpdate(taskId, arg),

@@ -1,6 +1,6 @@
 'use client';
-import { createContext } from 'react';
 import { FaEllipsisVertical } from 'react-icons/fa6';
+import { createContext } from 'use-context-selector';
 
 import { Menu } from '@/components';
 import TaskDrop from '@/components/TaskDrop';

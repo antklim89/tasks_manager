@@ -1,6 +1,6 @@
 'use client';
-import { createContext } from 'react';
 import { FaEllipsisVertical } from 'react-icons/fa6';
+import { createContext } from 'use-context-selector';
 
 import { Button, Menu, TaskDrag } from '@/components';
 import TaskDrop from '@/components/TaskDrop';
@@ -54,7 +54,7 @@ const Task = ({ task, index }: TaskProps) => {
                         : null}
 
                     <div className="flex flex-col items-start">
-                        <TaskStartDate startAt={task.startAt} />
+                        <TaskStartDate />
                         <TaskCompleteDate completeAt={task.completeAt} />
                     </div>
                 </div>
