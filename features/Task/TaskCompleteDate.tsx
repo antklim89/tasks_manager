@@ -2,7 +2,7 @@ import { formatDistance } from 'date-fns';
 import React from 'react';
 import { FaCalendarXmark, FaFlagCheckered } from 'react-icons/fa6';
 
-import { useCurrentDate } from '@/hooks';
+import { useCurrentDate, useTaskSelector } from '@/hooks';
 import { cn } from '@/utils';
 
 
@@ -11,7 +11,9 @@ const TWO_HOURS = 3600000 * 2;
 const TWO_DAYS = DAY * 2;
 
 
-const TaskCompleteDate = ({ completeAt }: { completeAt?: string | null }) => {
+const TaskCompleteDate = () => {
+    const completeAt = useTaskSelector(task => task.completeAt);
+
     const currentDate = useCurrentDate({ isDisabled: !completeAt });
     if (!completeAt) return null;
     const providedDate = new Date(completeAt).getTime();

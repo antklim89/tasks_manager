@@ -55,7 +55,7 @@ const Task = ({ task, index }: TaskProps) => {
 
                     <div className="flex flex-col items-start">
                         <TaskStartDate />
-                        <TaskCompleteDate completeAt={task.completeAt} />
+                        <TaskCompleteDate />
                     </div>
                 </div>
             </TaskDrag>

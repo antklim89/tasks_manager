@@ -1,10 +1,11 @@
 import { formatDistance } from 'date-fns';
 import { FaPause, FaPlay } from 'react-icons/fa6';
 
-import { useCurrentDate } from '@/hooks';
+import { useCurrentDate, useTaskSelector } from '@/hooks';
 
 
-const TaskStartDate = ({ startAt }: { startAt?: string | null }) => {
+const TaskStartDate = () => {
+    const startAt = useTaskSelector(task => task.startAt);
     const currentDate = useCurrentDate({ isDisabled: !startAt });
 
     if (!startAt) return null;
