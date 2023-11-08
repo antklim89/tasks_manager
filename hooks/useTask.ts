@@ -4,10 +4,14 @@ import { TaskContext } from '@/features/Task/Task';
 import type { TaskType } from '@/schemas';
 
 
-export function useTask(): TaskType {
+export function useTask(isRequired?: true): TaskType
+export function useTask(isRequired: false): TaskType | null
+
+export function useTask(isRequired?: boolean): TaskType | null {
     const taskContext = useContext(TaskContext);
     if (!taskContext) {
-        throw new Error('The useTask is not in the Task provider.');
+        if (isRequired) throw new Error('The useTask is not in the Task provider.');
+        return null;
     }
     return taskContext;
 }

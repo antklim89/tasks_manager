@@ -4,13 +4,18 @@ import { ColumnContext } from '@/features/Column/Column';
 import type { ColumnType } from '@/schemas';
 
 
-export function useColumn(): ColumnType {
+export function useColumn(isRequired?: true): ColumnType
+export function useColumn(isRequired: false): ColumnType | null
+
+export function useColumn(isRequired?: boolean): ColumnType | null {
     const columnContext = useContext(ColumnContext);
     if (!columnContext) {
-        throw new Error('The useColumn is not in the Column provider.');
+        if (isRequired) throw new Error('The useColumn is not in the Column provider.');
+        return null;
     }
     return columnContext;
 }
+
 
 export function useColumnSelector<Selected>(selector: (value: ColumnType) => Selected): Selected  {
     const columnContext = useContextSelector<ColumnType|null, Selected>(ColumnContext, (value) => {
