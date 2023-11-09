@@ -7,7 +7,7 @@ import TaskDrop from '@/components/TaskDrop';
 import Task from '@/features/Task';
 import { useMember } from '@/hooks';
 import { useTasksFetch } from '@/request-hooks';
-import { ColumnType, TaskType } from '@/schemas';
+import { TaskType } from '@/schemas';
 
 import ColumnDelete from './ColumnDelete';
 import ColumnName from './ColumnName';
@@ -17,7 +17,7 @@ import ColumnTaskCreate from './ColumnTaskCreate';
 export const TaskContext = createContext<TaskType|null>(null);
 
 
-const Column = ({ column, defaultTasks }: { column: ColumnType, defaultTasks?: TaskType[] }) => {
+const Column = ({ defaultTasks }: { defaultTasks?: TaskType[] }) => {
     const { data: tasks = [], isLoading } = useTasksFetch({ defaultValue: defaultTasks });
     const { isAdmin, isAdminOrUser: isAdminOrMember } = useMember();
 
@@ -28,7 +28,7 @@ const Column = ({ column, defaultTasks }: { column: ColumnType, defaultTasks?: T
         >
             <div className="flex items-start">
                 <ColumnName />
-                {isAdminOrMember ? <ColumnTaskCreate column={column} /> : null}
+                {isAdminOrMember ? <ColumnTaskCreate /> : null}
                 {isAdmin
                     ? (
                         <Menu button={<button className="btn" type="button"><FaEllipsisVertical /></button>}>
