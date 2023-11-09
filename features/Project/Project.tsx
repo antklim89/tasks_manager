@@ -1,11 +1,16 @@
 'use client';
+import { createContext } from 'use-context-selector';
+
 import { Button, TaskDndContext } from '@/components';
 import Column from '@/features/Column';
 import { useMember } from '@/hooks';
 import { useColumnCreate, useColumnsFetch } from '@/request-hooks';
+import { ColumnType } from '@/schemas';
 
 import { ProjectProps } from './Project.type';
 
+
+export const ColumnContext = createContext<ColumnType|null>(null);
 
 const Project = ({ defaultColumns, defaultTasks }: ProjectProps) => {
     const { trigger: createColumn, isMutating } = useColumnCreate();
@@ -17,11 +22,13 @@ const Project = ({ defaultColumns, defaultTasks }: ProjectProps) => {
         <TaskDndContext>
             <div className="h-0 flex flex-grow items-start gap-2 overflow-x-scroll overflow-y-scroll">
                 {columns.map((column) => (
-                    <Column
-                        column={column}
-                        defaultTasks={defaultTasks?.[column.id]}
-                        key={column.id}
-                    />
+                    <ColumnContext.Provider key={column.id} value={column}>
+                        <Column
+                            column={column}
+                            defaultTasks={defaultTasks?.[column.id]}
+                            
+                        />
+                    </ColumnContext.Provider>
                 ))}
                 {isAdmin
                     ? <Button isLoading={isMutating} onClick={() => createColumn()}>Create new column</Button>

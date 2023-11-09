@@ -1,6 +1,6 @@
 import { useContext, useContextSelector } from 'use-context-selector';
 
-import { ColumnContext } from '@/features/Column/Column';
+import { ColumnContext } from '@/features/Project/Project';
 import type { ColumnType } from '@/schemas';
 
 
