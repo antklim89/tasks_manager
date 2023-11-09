@@ -3,14 +3,15 @@ import { useDraggable } from '@dnd-kit/core';
 import { CSS } from '@dnd-kit/utilities';
 import { CSSProperties } from 'react';
 
-import { useColumn } from '@/hooks';
+import { useColumn, useTask } from '@/hooks';
 import { TaskDragData } from '@/types';
 
 import { TaskDragProps } from './TaskDrag.types';
 
 
-const TaskDrag = ({ index, task, children, ...props }: TaskDragProps) => {
+const TaskDrag = ({ index, children, ...props }: TaskDragProps) => {
     const column = useColumn();
+    const task = useTask();
 
     const {
         attributes,

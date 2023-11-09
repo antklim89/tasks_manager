@@ -24,7 +24,6 @@ const Task = ({ task, index }: TaskProps) => {
                 index={index}
                 role="button"
                 tabIndex={0}
-                task={task}
                 onDoubleClick={isAdminOrMember ? openUpdateModal : undefined}
             >
                 <div className="card w-full p-2 bg-primary shadow-lg">
@@ -56,10 +55,7 @@ const Task = ({ task, index }: TaskProps) => {
                 </div>
             </TaskDrag>
 
-            <TaskDrop
-                index={index}
-                task={task}
-            />
+            <TaskDrop index={index} />
         </>
     );
 };

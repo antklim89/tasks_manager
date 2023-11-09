@@ -1,22 +1,23 @@
 'use client';
 import { useDroppable, useDndContext } from '@dnd-kit/core';
 
-import { useColumn } from '@/hooks';
+import { useColumn, useTask } from '@/hooks';
 import { TaskDropData } from '@/types';
 import { cn } from '@/utils';
 
 import { TaskDropProps } from './TaskDrop.types';
 
 
-const TaskDrop = ({ index, task }: TaskDropProps) => {
+const TaskDrop = ({ index }: TaskDropProps) => {
     const column = useColumn();
+    const task = useTask(false);
     
     const {
         setNodeRef,
         isOver,
     } = useDroppable({
         id: task?.id || `column ${column.id}`,
-        data: { task, index, type: 'TASK', column } satisfies TaskDropData,
+        data: { task: task|| undefined, index, type: 'TASK', column } satisfies TaskDropData,
     });
 
     const { active } = useDndContext();
