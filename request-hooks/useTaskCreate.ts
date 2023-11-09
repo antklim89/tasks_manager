@@ -19,13 +19,13 @@ export function useTaskCreate(options?: Options) {
     return useSWRMutation<TaskType, Error, FetchTasksKey, TaskCreateType, TaskType[]>(
         ['TASKS', { columnId }],
 
-        async (key, { arg: { title, completeAt, description } }) => {
+        async (key, { arg }) => {
             toast.loading('Task is creating...', { id: TOAST_ID });
             const supabase = await getSupabaseClient();
 
             const { error, data } = await supabase
                 .from('tasks')
-                .insert({ title, description, completeAt, columnId, projectId })
+                .insert({ projectId, columnId, ...arg })
                 .select('*')
                 .single();
 

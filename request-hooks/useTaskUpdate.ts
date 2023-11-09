@@ -12,7 +12,7 @@ type TaskUpdateType = Partial<TaskCreateType>;
 
 type Options = SWRMutationConfiguration<TaskUpdateType, Error, FetchTasksKey, TaskUpdateType, TaskType[]>;
 
-export async function taskUpdate(taskId: number, data: TaskUpdateType): Promise<TaskUpdateType> {
+export async function taskUpdate(taskId: number, data: TaskUpdateType & { columnId: number }): Promise<TaskUpdateType> {
     const supabase = await getSupabaseClient();
 
     const { error } = await supabase
@@ -31,7 +31,7 @@ export function useTaskUpdate(options?: Options) {
     
     return useSWRMutation<TaskUpdateType, Error, FetchTasksKey, TaskUpdateType, TaskType[]>(
         ['TASKS', { columnId }],
-        (key, { arg }) => taskUpdate(taskId, arg),
+        (key, { arg }) => taskUpdate(taskId, { columnId, ...arg }),
         {
             ...options,
             onError(...args) {
