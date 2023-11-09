@@ -3,15 +3,20 @@
 import { Button, Modal } from '@/components';
 import ProjectEditForm from '@/components/ProjectEditForm';
 import { useDisclosure } from '@/hooks';
-import { useProjectUpdate } from '@/request-hooks';
+import { useHistoryCreate, useProjectUpdate } from '@/request-hooks';
 import { ProjectType } from '@/schemas';
+import { formatHistoryData } from '@/utils';
 
 
 const ProjectPanelUpdate = ({ project }: { project: ProjectType }) => {
     const { isOpen, close, open } = useDisclosure();
+    const { trigger: historyCreate } = useHistoryCreate();
 
     const { trigger: updateProject, isMutating: isUpdating } = useProjectUpdate({ id: project.id }, {
-        onSuccess: () => close(),
+        onSuccess(data) {
+            close();
+            historyCreate({ body: `Project "${project.name}" updated ${formatHistoryData({ data, startText: 'with' })}` });
+        },
     });
 
     return (

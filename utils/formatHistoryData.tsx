@@ -3,12 +3,12 @@ export function formatHistoryData<T extends Record<string, unknown>>({
 }: {
     data: T;
     oldData?: T,
-    fields: (keyof T)[];
+    fields?: (keyof T)[];
     startText?: string;
     endText?: string;
 }): string {
     const text = Object.entries(obj)
-        .filter(([key]) => fields.includes(key))
+        .filter(([key]) => fields ? fields.includes(key) : true)
         .filter(([key, val]) => oldData ? oldData[key] !== val : true)
         .map(([k, v]) => `${k}: "${v}"`)
         .join(', ');

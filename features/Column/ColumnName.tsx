@@ -4,13 +4,17 @@ import { useForm } from 'react-hook-form';
 
 import { Input } from '@/components';
 import { useColumnSelector, useMember } from '@/hooks';
-import { useColumnUpdate } from '@/request-hooks';
+import { useColumnUpdate, useHistoryCreate } from '@/request-hooks';
 import { columnUpdateSchema } from '@/schemas';
 
 
 const ColumnName = () => {
     const columnName = useColumnSelector(column => column.name);
-    const { trigger: updateColumn } = useColumnUpdate();
+    const { trigger: historyCreate } = useHistoryCreate();
+    const { trigger: updateColumn } = useColumnUpdate({ onSuccess(data) {
+        historyCreate({ body: `Rename column "${columnName}" to "${data.name}"` });
+    } });
+    
     const { isAdminOrUser: isAdminOrMember } = useMember();
     const prevName = useRef(columnName);
     const {

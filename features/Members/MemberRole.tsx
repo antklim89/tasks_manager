@@ -2,13 +2,21 @@ import { Fragment, MouseEventHandler } from 'react';
 
 import { Button, Confirm, Menu } from '@/components';
 import { useDisclosure, useMember } from '@/hooks';
-import { useMemberUpdate } from '@/request-hooks';
+import { useHistoryCreate, useMemberUpdate } from '@/request-hooks';
 import { MemberType, MemberUpdateType, updateRoles } from '@/schemas';
 
 
 const MemberRole = ({ member, members }: { member: MemberType, members: MemberType[] }) => {
     const { isOpen, close, open } = useDisclosure();
-    const { trigger: updateMember, isMutating } = useMemberUpdate({ memberId: member.id });
+    const { trigger: historyCreate } = useHistoryCreate();
+
+    const { trigger: updateMember, isMutating } = useMemberUpdate({ memberId: member.id }, {
+        onSuccess(data) {
+            historyCreate({
+                body: `Member "${member.profile.email}" change role from "${member.role}" to "${data.role}"`,
+            });
+        },
+    });
     const { isAdmin, member: userMember } = useMember();
     const isYou = userMember?.id === member.id;
     const canUpdate = member.role !== 'admin' || members.filter((m) => m.role === 'admin').length > 1;

@@ -1,11 +1,16 @@
 import { Button, Confirm } from '@/components';
-import { useDisclosure } from '@/hooks';
-import { useColumnDelete } from '@/request-hooks';
+import { useColumnSelector, useDisclosure } from '@/hooks';
+import { useColumnDelete, useHistoryCreate } from '@/request-hooks';
 
 
 const ColumnDelete = () => {
+    const columnName = useColumnSelector(column => column.name);
     const { isOpen, close, open } = useDisclosure();
-    const { trigger: deleteColumn, isMutating } = useColumnDelete({ onSuccess: close });
+    const { trigger: historyCreate } = useHistoryCreate();
+    const { trigger: deleteColumn, isMutating } = useColumnDelete({ onSuccess() {
+        close();
+        historyCreate({ body: `Delete column "${columnName}"` });
+    } });
 
     return (
         <>

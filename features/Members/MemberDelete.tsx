@@ -2,12 +2,17 @@ import { FaX } from 'react-icons/fa6';
 
 import { Button, Confirm } from '@/components';
 import { useDisclosure, useMember } from '@/hooks';
-import { useMemberDelete } from '@/request-hooks';
+import { useHistoryCreate, useMemberDelete } from '@/request-hooks';
 import { MemberType } from '@/schemas';
 
 
 const MemberDelete = ({ member, members }: { member: MemberType, members: MemberType[] }) => {
-    const { trigger: deleteMember, isMutating } = useMemberDelete({ memberId: member.id });
+    const { trigger: historyCreate } = useHistoryCreate();
+    const { trigger: deleteMember, isMutating } = useMemberDelete({ memberId: member.id }, {
+        onSuccess() {
+            historyCreate({ body: `Member "${member.profile.email}" removed` });
+        },
+    });
     const { isOpen, close, open } = useDisclosure();
     const { isAdmin, member: userMember } = useMember();
     const isYou = userMember?.id === member.id;
