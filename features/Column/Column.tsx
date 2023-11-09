@@ -43,10 +43,7 @@ const Column = ({ defaultTasks }: { defaultTasks?: TaskType[] }) => {
                 {isLoading ? <span className="loading loading-bars loading-lg" /> : null}
                 {tasks.map((task, index) => (
                     <TaskContext.Provider key={task.id} value={task}>
-                        <Task
-                            index={index}
-                            task={task}
-                        />
+                        <Task index={index} />
                     </TaskContext.Provider>
                 ))}
             </div>

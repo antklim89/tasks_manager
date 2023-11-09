@@ -23,11 +23,7 @@ const Project = ({ defaultColumns, defaultTasks }: ProjectProps) => {
             <div className="h-0 flex flex-grow items-start gap-2 overflow-x-scroll overflow-y-scroll">
                 {columns.map((column) => (
                     <ColumnContext.Provider key={column.id} value={column}>
-                        <Column
-                            column={column}
-                            defaultTasks={defaultTasks?.[column.id]}
-                            
-                        />
+                        <Column defaultTasks={defaultTasks?.[column.id]} />
                     </ColumnContext.Provider>
                 ))}
                 {isAdmin
