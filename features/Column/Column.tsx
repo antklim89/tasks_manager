@@ -1,5 +1,6 @@
 'use client';
 import { FaEllipsisVertical } from 'react-icons/fa6';
+import { createContext } from 'use-context-selector';
 
 import { Menu } from '@/components';
 import TaskDrop from '@/components/TaskDrop';
@@ -13,11 +14,15 @@ import ColumnName from './ColumnName';
 import ColumnTaskCreate from './ColumnTaskCreate';
 
 
+export const TaskContext = createContext<TaskType|null>(null);
+
+
 const Column = ({ column, defaultTasks }: { column: ColumnType, defaultTasks?: TaskType[] }) => {
     const { data: tasks = [], isLoading } = useTasksFetch({ defaultValue: defaultTasks });
     const { isAdmin, isAdminOrUser: isAdminOrMember } = useMember();
 
     return (
+        
         <div
             className="card w-96 bg-base-200 shadow-xl"
         >
@@ -37,11 +42,12 @@ const Column = ({ column, defaultTasks }: { column: ColumnType, defaultTasks?: T
                 <TaskDrop index={-1} />
                 {isLoading ? <span className="loading loading-bars loading-lg" /> : null}
                 {tasks.map((task, index) => (
-                    <Task
-                        index={index}
-                        key={task.id}
-                        task={task}
-                    />
+                    <TaskContext.Provider key={task.id} value={task}>
+                        <Task
+                            index={index}
+                            task={task}
+                        />
+                    </TaskContext.Provider>
                 ))}
             </div>
         </div>

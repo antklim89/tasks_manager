@@ -1,6 +1,6 @@
 import { useContext, useContextSelector } from 'use-context-selector';
 
-import { TaskContext } from '@/features/Task/Task';
+import { TaskContext } from '@/features/Column/Column';
 import type { TaskType } from '@/schemas';
 
 

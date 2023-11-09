@@ -1,11 +1,9 @@
 'use client';
 import { FaEllipsisVertical } from 'react-icons/fa6';
-import { createContext } from 'use-context-selector';
 
 import { Button, Menu, TaskDrag } from '@/components';
 import TaskDrop from '@/components/TaskDrop';
 import { useDisclosure, useMember } from '@/hooks';
-import { type TaskType } from '@/schemas';
 
 import { TaskProps } from './Task.types';
 import TaskCompleteDate from './TaskCompleteDate';
@@ -14,14 +12,12 @@ import TaskStartDate from './TaskStartDate';
 import TaskUpdate from './TaskUpdate';
 
 
-export const TaskContext = createContext<TaskType|null>(null);
-
 const Task = ({ task, index }: TaskProps) => {
     const { isOpen: updateModalisOpen, close: closeUpdateModal, open: openUpdateModal } = useDisclosure();
     const { isAdminOrUser: isAdminOrMember } = useMember();
 
     return (
-        <TaskContext.Provider value={task}>
+        <>
             <TaskUpdate close={closeUpdateModal} isOpen={updateModalisOpen} />
             <TaskDrag
                 className="w-full py-1 text-left select-none"
@@ -64,7 +60,7 @@ const Task = ({ task, index }: TaskProps) => {
                 index={index}
                 task={task}
             />
-        </TaskContext.Provider>
+        </>
     );
 };
 
