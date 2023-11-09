@@ -3,7 +3,7 @@ import { FaEllipsisVertical } from 'react-icons/fa6';
 
 import { Button, Menu, TaskDrag } from '@/components';
 import TaskDrop from '@/components/TaskDrop';
-import { useDisclosure, useMember } from '@/hooks';
+import { useDisclosure, useMember, useTaskSelector } from '@/hooks';
 
 import { TaskProps } from './Task.types';
 import TaskCompleteDate from './TaskCompleteDate';
@@ -12,7 +12,9 @@ import TaskStartDate from './TaskStartDate';
 import TaskUpdate from './TaskUpdate';
 
 
-const Task = ({ task, index }: TaskProps) => {
+const Task = ({ index }: TaskProps) => {
+    const taskTitle = useTaskSelector(task => task.title);
+    const taskDescription = useTaskSelector(task => task.description);
     const { isOpen: updateModalisOpen, close: closeUpdateModal, open: openUpdateModal } = useDisclosure();
     const { isAdminOrUser: isAdminOrMember } = useMember();
 
@@ -28,7 +30,7 @@ const Task = ({ task, index }: TaskProps) => {
             >
                 <div className="card w-full p-2 bg-primary shadow-lg">
                     <div className="card-title flex justify-between">
-                        {task.title}
+                        {taskTitle}
                         {isAdminOrMember
                             ? (
                                 <Menu button={<Button aria-label="user menu" color="ghost" size="sm"><FaEllipsisVertical /></Button>}>
@@ -39,11 +41,11 @@ const Task = ({ task, index }: TaskProps) => {
                             : null}
                     </div>
 
-                    {task.description
+                    {taskDescription
                         ? (
                             <div className="p-1">
-                                {task.description.slice(0, 50)}
-                                {task.description.length > 50 ? '...' : ''}
+                                {taskDescription.slice(0, 50)}
+                                {taskDescription.length > 50 ? '...' : ''}
                             </div>
                         )
                         : null}
