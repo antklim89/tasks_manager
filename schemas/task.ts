@@ -19,9 +19,6 @@ export const taskCreateSchema = z.object({
     description: z.string()
         .max(1000)
         .optional(),
-    columnId: z.number()
-        .positive()
-        .optional(),
     completeAt: z.string()
         // TODO: add datetime validation
         // .datetime()
