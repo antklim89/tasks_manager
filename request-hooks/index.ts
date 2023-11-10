@@ -17,6 +17,7 @@ export * from './useProfileFetch';
 export * from './useProfileUpdate';
 export * from './useProjectCreate';
 export * from './useProjectDelete';
+export * from './useProjectFetch';
 export * from './useProjectsFetch';
 export * from './useProjectUpdate';
 export * from './useTaskCreate';

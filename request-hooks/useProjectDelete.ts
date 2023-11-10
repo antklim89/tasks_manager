@@ -1,7 +1,7 @@
 import { toast } from 'react-hot-toast';
 import useSWRMutation, { SWRMutationConfiguration } from 'swr/mutation';
 
-import { useProject } from '@/hooks';
+import { useProjectSelector }from '@/hooks';
 import { ProjectType } from '@/schemas';
 import { getSupabaseClient } from '@/supabase/client';
 
@@ -13,7 +13,7 @@ const TOAST_ID = 'PROJECT_DELETE';
 type Options = SWRMutationConfiguration<void, Error, FetchProjectsKey, void, ProjectType[]>;
 
 export function useProjectDelete(options?: Options) {
-    const { projectId } = useProject();
+    const projectId = useProjectSelector((project) => project.id);
 
     return useSWRMutation<void, Error, FetchProjectsKey, void, ProjectType[]>(
         ['PROJECTS'],

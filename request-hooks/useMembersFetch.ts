@@ -2,7 +2,7 @@ import { useRef } from 'react';
 import { toast } from 'react-hot-toast';
 import useSWR, { SWRConfiguration } from 'swr';
 
-import { useProject } from '@/hooks';
+import { useProjectSelector }from '@/hooks';
 import { membersFetch } from '@/requests';
 import { MemberType } from '@/schemas';
 
@@ -12,7 +12,7 @@ import { FetchMembersKey } from './keys';
 type Options = SWRConfiguration<MemberType[], Error> & { defaultValue?: MemberType[] };
 
 export function useMembersFetch({ defaultValue, ...options }: Options = {}) {
-    const { projectId } = useProject();
+    const projectId = useProjectSelector((project) => project.id);
     const isFirstFetch = useRef(true);
 
     return useSWR<MemberType[], Error, FetchMembersKey>(

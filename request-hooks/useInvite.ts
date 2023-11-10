@@ -1,7 +1,7 @@
 import toast from 'react-hot-toast';
 import useSWRMutation, { SWRMutationConfiguration } from 'swr/mutation';
 
-import { useProject } from '@/hooks';
+import { useProjectSelector }from '@/hooks';
 import { getSupabaseClient } from '@/supabase/client';
 
 
@@ -10,7 +10,7 @@ const TOAST_ID = 'INVITE';
 type Options = SWRMutationConfiguration<void, Error, 'INVITE', { email: string }>;
 
 export function useInvite(options?: Options) {
-    const { projectId } = useProject();
+    const projectId = useProjectSelector((project) => project.id);
     return useSWRMutation<void, Error, 'INVITE', { email: string }>(
         'INVITE',
 

@@ -5,5 +5,6 @@ export * from './historyCreate';
 export * from './memberFetch';
 export * from './membersFetch';
 export * from './profileFetch';
+export * from './projectFetch';
 export * from './projectsFetch';
 export * from './tasksFetch';

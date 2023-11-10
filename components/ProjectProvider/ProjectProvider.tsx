@@ -1,22 +1,24 @@
 'use client';
-import { ReactNode, createContext } from 'react';
+import { ReactNode } from 'react';
 
-import type { MemberType } from '@/schemas';
+import { ProjectContext } from '@/hooks';
+import { useProjectFetch } from '@/request-hooks';
+import { ProjectType } from '@/schemas';
 
-
-export const ProjectContext = createContext<{projectId: number, member: MemberType} | null>(null);
 
 const ProjectProvider = ({
     children,
+    defaultProject,
     projectId,
-    member,
 }: {
     children: ReactNode,
+    defaultProject?: ProjectType,
     projectId: number,
-    member: MemberType
 }) => {
+    // const { data: project } = useProjectFetch({ projectId }, { defaultValue: defaultProject });
+    
     return (
-        <ProjectContext.Provider value={{ projectId, member }}>{children}</ProjectContext.Provider>
+        <ProjectContext.Provider value={defaultProject}>{children}</ProjectContext.Provider>
     );
 };
 

@@ -10,7 +10,7 @@ import { FetchProjectsKey } from './keys';
 
 type Options = SWRConfiguration<ProjectType[], Error> & { defaultValue?: ProjectType[] };
 
-export function useProjectsFetch({ id }: { id?: number } = {}, { defaultValue, ...options }: Options = {}) {
+export function useProjectsFetch({ defaultValue, ...options }: Options = {}) {
     const isFirstFetch = useRef(true);
 
     return useSWR<ProjectType[], Error, FetchProjectsKey>(
@@ -21,7 +21,7 @@ export function useProjectsFetch({ id }: { id?: number } = {}, { defaultValue, .
                 isFirstFetch.current = false;
                 return defaultValue;
             }
-            return projectsFetch({ id });
+            return projectsFetch();
         },
         {
             ...options,

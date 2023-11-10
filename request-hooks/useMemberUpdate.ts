@@ -2,7 +2,7 @@ import { toast } from 'react-hot-toast';
 import { useSWRConfig } from 'swr';
 import useSWRMutation, { SWRMutationConfiguration } from 'swr/mutation';
 
-import { useProject } from '@/hooks';
+import { useProjectSelector }from '@/hooks';
 import { MemberType, MemberUpdateType } from '@/schemas';
 import { getSupabaseClient } from '@/supabase/client';
 
@@ -14,7 +14,7 @@ const TOAST_ID = 'MEMBER_UPDATE';
 type Options = SWRMutationConfiguration<MemberUpdateType, Error, FetchMembersKey, MemberUpdateType, MemberType[]>;
 
 export function useMemberUpdate({ memberId }: { memberId: number }, options?: Options) {
-    const { projectId } = useProject();
+    const projectId = useProjectSelector((project) => project.id);
     const { mutate } = useSWRConfig();
 
     return useSWRMutation<MemberUpdateType, Error, FetchMembersKey, MemberUpdateType, MemberType[]>(

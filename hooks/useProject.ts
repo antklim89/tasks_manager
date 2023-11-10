@@ -1,22 +1,33 @@
-import { useContext } from 'react';
+import { createContext, useContext, useContextSelector } from 'use-context-selector';
 
-import { ProjectContext } from '@/components/ProjectProvider/ProjectProvider';
-import type { MemberType } from '@/schemas';
+import type { ProjectType } from '@/schemas';
 
 
-interface ProjectContext {
-    projectId: number;
-    member: MemberType;
-}
+export const ProjectContext = createContext<ProjectType | undefined>(undefined);
 
-export function useProject(isRequired?: true): ProjectContext
-export function useProject(isRequired: false): ProjectContext | {projectId: null, member: null}
 
-export function useProject(isRequired = true): ProjectContext | {projectId: null, member: null} {
+export function useProject(isRequired?: true): ProjectType
+export function useProject(isRequired: false): ProjectType | undefined
+
+export function useProject(isRequired = true): ProjectType | undefined {
     const projectContext = useContext(ProjectContext);
     if (!projectContext) {
-        if (isRequired) throw new Error('You are not on the project page');
-        else return { member: null, projectId: null };
+        if (isRequired) throw new Error('The useProject is not in the Project provider.');
+        else return undefined;
     }
     return projectContext;
+}
+
+export function useProjectSelector<S>(selector: (value: ProjectType) => S, isRequired?: true): S
+export function useProjectSelector<S>(selector: (value: ProjectType) => S, isRequired: false): S | undefined
+
+export function useProjectSelector<S>(selector: (value: ProjectType) => S, isRequired = true): S | undefined {
+    const taskContext = useContextSelector<ProjectType|undefined, S|undefined>(ProjectContext, (value) => {
+        if (!value) {
+            if (isRequired) throw new Error('The useProject is not in the Project provider.');
+            else return undefined;
+        }
+        return selector(value);
+    });
+    return taskContext;
 }

@@ -1,7 +1,7 @@
 import { toast } from 'react-hot-toast';
 import useSWRInfinite, { SWRInfiniteConfiguration, SWRInfiniteKeyLoader } from 'swr/infinite';
 
-import { useProject } from '@/hooks';
+import { useProjectSelector }from '@/hooks';
 import { HistoryType, historySchema } from '@/schemas';
 import { getSupabaseClient } from '@/supabase/client';
 
@@ -17,7 +17,7 @@ export function useHistoryFetch({
 }: {
     startDate?: string,
 } = {}, options: Options = {}) {
-    const { projectId } = useProject();
+    const projectId = useProjectSelector((project) => project.id);
 
     return useSWRInfinite<HistoryType[], Error, SWRInfiniteKeyLoader<HistoryType[], HistoryKey|undefined>>(
         (_, previousData) => {

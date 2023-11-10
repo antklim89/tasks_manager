@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { FaEllipsisVertical } from 'react-icons/fa6';
 
 import { Button, Menu } from '@/components';
-import { useMember, useProject } from '@/hooks';
+import { useMember, useProjectSelector }from '@/hooks';
 import { useProjectsFetch } from '@/request-hooks';
 import { ProjectType } from '@/schemas';
 
@@ -14,9 +14,9 @@ import ProjectPanelUpdate from './ProjectPanelUpdate';
 
 
 const ProjectPanel = ({ defaultProjects }: { defaultProjects?: ProjectType[] }) => {
-    const { projectId } = useProject(false);
-    const { data: projects, isLoading } = useProjectsFetch({}, { defaultValue: defaultProjects });
-    const { isAdmin, member } = useMember();
+    const projectId = useProjectSelector((project) => project.id, false);
+    const { data: projects, isLoading } = useProjectsFetch({ defaultValue: defaultProjects });
+    const { isAdmin, member } = useMember(false);
     const project = projects?.find((p) => p.id === projectId);
 
     if (isLoading) return (

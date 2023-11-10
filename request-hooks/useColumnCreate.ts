@@ -1,7 +1,7 @@
 import { toast } from 'react-hot-toast';
 import useSWRMutation, { SWRMutationConfiguration } from 'swr/mutation';
 
-import { useProject } from '@/hooks';
+import { useProjectSelector }from '@/hooks';
 import { ColumnType, columnSchema } from '@/schemas';
 import { getSupabaseClient } from '@/supabase/client';
 
@@ -13,7 +13,7 @@ const TOAST_ID = 'COLUMN_CREATE';
 type Options = SWRMutationConfiguration<ColumnType, Error, FetchColumnsKey, void, ColumnType[]>;
 
 export function useColumnCreate(options?: Options) {
-    const { projectId } = useProject();
+    const projectId = useProjectSelector((project) => project.id);
 
     return useSWRMutation<ColumnType, Error, FetchColumnsKey, void, ColumnType[]>(
         ['COLUMNS', { projectId }],
