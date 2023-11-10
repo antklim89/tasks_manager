@@ -3,23 +3,14 @@ import { ReactNode } from 'react';
 import { z } from 'zod';
 
 import { ProjectProvider } from '@/components';
-import { memberSchema } from '@/schemas';
-import { getSupabaseClient, getSupabaseUser } from '@/supabase/client';
+import { memberFetch } from '@/requests';
 
 
 const ProjectLayout = async ({ children, params }: { children: ReactNode, params: { projectId?: string[] } }) => {
     const projectId = await z.coerce.number().parseAsync(params?.projectId);
-    const supabase = await getSupabaseClient();
-    const user = await getSupabaseUser();
+    const member = await memberFetch({ projectId });
 
-    const { data } = await supabase.from('members')
-        .select('*, profile:userId(*)')
-        .eq('projectId', projectId)
-        .eq('userId', user.id)
-        .single();
-
-    if (!data) return notFound();
-    const member = await memberSchema.parseAsync(data);
+    if (!member) return notFound();
     return <ProjectProvider member={member} projectId={projectId}>{children}</ProjectProvider>;
 };
 
