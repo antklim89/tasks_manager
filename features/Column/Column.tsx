@@ -1,20 +1,16 @@
 'use client';
 import { FaEllipsisVertical } from 'react-icons/fa6';
-import { createContext } from 'use-context-selector';
 
 import { Menu } from '@/components';
 import TaskDrop from '@/components/TaskDrop';
 import Task from '@/features/Task';
-import { useMember } from '@/hooks';
+import { TaskContext, useMember } from '@/hooks';
 import { useTasksFetch } from '@/request-hooks';
 import { TaskType } from '@/schemas';
 
 import ColumnDelete from './ColumnDelete';
 import ColumnName from './ColumnName';
 import ColumnTaskCreate from './ColumnTaskCreate';
-
-
-export const TaskContext = createContext<TaskType|null>(null);
 
 
 const Column = ({ defaultTasks }: { defaultTasks?: TaskType[] }) => {

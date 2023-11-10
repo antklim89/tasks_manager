@@ -1,7 +1,9 @@
-import { useContext, useContextSelector } from 'use-context-selector';
+import { createContext, useContext, useContextSelector } from 'use-context-selector';
 
-import { TaskContext } from '@/features/Column/Column';
 import type { TaskType } from '@/schemas';
+
+
+export const TaskContext = createContext<TaskType|null>(null);
 
 
 export function useTask(isRequired?: true): TaskType

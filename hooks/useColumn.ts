@@ -1,8 +1,9 @@
-import { useContext, useContextSelector } from 'use-context-selector';
+import { createContext, useContext, useContextSelector } from 'use-context-selector';
 
-import { ColumnContext } from '@/features/Project/Project';
 import type { ColumnType } from '@/schemas';
 
+
+export const ColumnContext = createContext<ColumnType|null>(null);
 
 export function useColumn(isRequired?: true): ColumnType
 export function useColumn(isRequired: false): ColumnType | null

@@ -1,16 +1,12 @@
 'use client';
-import { createContext } from 'use-context-selector';
-
 import { TaskDndContext } from '@/components';
 import Column from '@/features/Column';
+import { ColumnContext } from '@/hooks';
 import { useColumnsFetch } from '@/request-hooks';
-import { ColumnType } from '@/schemas';
 
 import { ProjectProps } from './Project.type';
 import ProjectCreateColumn from './ProjectCreateColumn';
 
-
-export const ColumnContext = createContext<ColumnType|null>(null);
 
 const Project = ({ defaultColumns, defaultTasks }: ProjectProps) => {
     const { data: columns = [], isLoading } = useColumnsFetch({ defaultValue: defaultColumns });
