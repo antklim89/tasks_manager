@@ -9,7 +9,7 @@ const Profile = () => {
 
     if (!profile) return null;
     return (
-        <div className="card border my-6 border-base-200 container max-w-3xl">
+        <div className="card border my-6 border-base-200 container">
             <div className="card-title justify-center mt-6">
                 {profile.email}&apos;s profile
             </div>
