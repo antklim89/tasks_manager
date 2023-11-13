@@ -23,9 +23,9 @@ export function useMember(isRequired = true): MemberRoles & { member?: MemberTyp
         else return { isAdmin: false, isAdminOrUser: false, isGuest: false, isUser: false };
     }
 
-    const isAdmin = member?.role === 'admin';
-    const isUser = member?.role === 'user';
-    const isGuest = member?.role === 'guest';
+    const isAdmin = member.role === 'admin';
+    const isUser = member.role === 'user';
+    const isGuest = member.role === 'guest';
     const isAdminOrUser = isAdmin || isUser;
 
     return {
