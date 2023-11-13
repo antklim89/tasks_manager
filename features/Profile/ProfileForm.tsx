@@ -29,21 +29,24 @@ const ProfileForm = ({ profile }: { profile: ProfileType }) => {
 
     return (
         <form className="card-body" onSubmit={handleUpdateProfile}>
-            <Input
-                {...register('firstName')}
-                errorMessage={errors.firstName?.message}
-                label="First name"
-            />
-            <Input
-                {...register('lastName')}
-                errorMessage={errors.lastName?.message}
-                label="Last name"
-            />
+            <div className="grid gap-2 grid-cols-1 md:grid-cols-2">
+                <Input
+                    {...register('firstName')}
+                    errorMessage={errors.firstName?.message}
+                    label="First name"
+                />
+                <Input
+                    {...register('lastName')}
+                    errorMessage={errors.lastName?.message}
+                    label="Last name"
+                />
+            </div>
             <Input
                 {...register('description')}
                 as="textarea"
                 errorMessage={errors.description?.message}
                 label="Description"
+                rows={10}
             />
             <div className="flex justify-end mt-4">
                 <Button
