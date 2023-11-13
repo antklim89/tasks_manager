@@ -10,7 +10,7 @@ interface MemberRoles {
     isAdminOrUser: boolean
 }
 
-const MemberContext = createContext<MemberType | undefined>(undefined);
+export const MemberContext = createContext<MemberType | undefined>(undefined);
 
 
 export function useMember(isRequired?: true): MemberRoles & { member: MemberType }

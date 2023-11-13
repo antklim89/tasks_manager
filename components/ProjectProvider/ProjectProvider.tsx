@@ -9,16 +9,14 @@ import { ProjectType } from '@/schemas';
 const ProjectProvider = ({
     children,
     defaultProject,
-    projectId,
 }: {
     children: ReactNode,
-    defaultProject?: ProjectType,
-    projectId: number,
+    defaultProject: ProjectType,
 }) => {
-    // const { data: project } = useProjectFetch({ projectId }, { defaultValue: defaultProject });
+    const { data: project = defaultProject } = useProjectFetch({ project: defaultProject });
     
     return (
-        <ProjectContext.Provider value={defaultProject}>{children}</ProjectContext.Provider>
+        <ProjectContext.Provider value={project}>{children}</ProjectContext.Provider>
     );
 };
 
