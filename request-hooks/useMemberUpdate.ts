@@ -38,6 +38,7 @@ export function useMemberUpdate({ memberId }: { memberId: number }, options?: Op
                 mutate<MemberType>(
                     ['MEMBER', { projectId }] satisfies MemberKey,
                     (currentMember) => (currentMember ? ({ ...currentMember, ...updatedMember }) : undefined),
+                    { revalidate: false },
                 );
 
                 return currentMembers.map((p) => (p.id === memberId ? { ...p, ...updatedMember } : p));
