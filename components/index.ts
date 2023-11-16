@@ -8,6 +8,7 @@ export { default as DatePicker } from './DatePicker';
 export { default as Input } from './Input';
 export { default as Menu } from './Menu';
 export { default as Modal } from './Modal';
+export { default as ProjectDefaultsProvider } from './ProjectDefaultsProvider';
 export { default as ProjectEditForm } from './ProjectEditForm';
 export { default as ProjectValuesProvider } from './ProjectValuesProvider';
 export { default as Providers } from './Providers';

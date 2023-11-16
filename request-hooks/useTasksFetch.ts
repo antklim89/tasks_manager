@@ -2,28 +2,30 @@ import { useRef } from 'react';
 import { toast } from 'react-hot-toast';
 import useSWR, { SWRConfiguration } from 'swr';
 
-import { useColumnSelector } from '@/hooks';
+import { useColumnSelector, useProjectDefaults } from '@/hooks';
 import { tasksFetch } from '@/requests';
 import { TaskType } from '@/schemas';
 
 import { FetchTasksKey } from './keys';
 
 
-type Options = SWRConfiguration<TaskType[], Error> & { defaultValue?: TaskType[] };
+type Options = SWRConfiguration<TaskType[], Error>
 
-export function useTasksFetch({ defaultValue, ...options }: Options = {}) {
-    const isFirstFetch = useRef(true);
+export function useTasksFetch(options: Options = {}) {
     const columnId = useColumnSelector(column => column.id);
     const taskOrder = useColumnSelector(column => column.taskOrder);
+    const { defaultTasks } = useProjectDefaults();
+    const defaultColumnTasks = defaultTasks?.[columnId];
+    const isFirstFetch = useRef(true);
 
     return useSWR<TaskType[], Error, FetchTasksKey>(
         ['TASKS', { columnId }],
 
         async () => {
-            if (isFirstFetch.current && defaultValue) {
+            if (isFirstFetch.current && defaultColumnTasks) {
                 isFirstFetch.current = false;
-                sortTasks(defaultValue, taskOrder);
-                return defaultValue;
+                sortTasks(defaultColumnTasks, taskOrder);
+                return defaultColumnTasks;
             }
 
             const tasks = await tasksFetch({ columnId });

@@ -1,5 +1,6 @@
 import { z } from 'zod';
 
+import { ProjectDefaultsProvider } from '@/components';
 import { Project, ProjectPanel } from '@/features';
 import { columnsFetch, tasksFetch } from '@/requests';
 import { groupBy } from '@/utils';
@@ -23,10 +24,12 @@ const DashboardPage = async ({ params }: {params: { projectId: string }}) => {
     const tasksGroup = groupBy(tasks, (i) => i.columnId);
 
     return (
-        <div className="flex flex-col h-full">
-            <ProjectPanel />
-            <Project defaultColumns={columns} defaultTasks={tasksGroup} />
-        </div>
+        <ProjectDefaultsProvider defaultColumns={columns} defaultTasks={tasksGroup}>
+            <div className="flex flex-col h-full">
+                <ProjectPanel />
+                <Project />
+            </div>
+        </ProjectDefaultsProvider>
     );
 };
 
