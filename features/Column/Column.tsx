@@ -18,10 +18,7 @@ const Column = ({ defaultTasks }: { defaultTasks?: TaskType[] }) => {
     const { isAdmin, isAdminOrUser: isAdminOrMember } = useMember();
 
     return (
-        
-        <div
-            className="card w-96 bg-base-200 shadow-xl"
-        >
+        <div className="card w-96 bg-base-200 shadow-xl">
             <div className="flex items-start">
                 <ColumnName />
                 {isAdminOrMember ? <ColumnTaskCreate /> : null}
