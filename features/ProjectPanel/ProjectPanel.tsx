@@ -13,9 +13,9 @@ import ProjectPanelUpdate from './ProjectPanelUpdate';
 
 const ProjectPanel = () => {
     const projectId = useProjectSelector((project) => project.id, false);
-    const projects = useProjectList();
+    const projects = useProjectList(false);
     const { isAdmin, member } = useMember(false);
-    const project = projects.find((p) => p.id === projectId);
+    const project = projects?.find((p) => p.id === projectId);
 
     return (
         <div className="flex gap-2 h-12 my-2 px-2 items-center">
