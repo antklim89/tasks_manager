@@ -14,7 +14,7 @@ import ColumnTaskCreate from './ColumnTaskCreate';
 
 
 const Column = ({ defaultTasks }: { defaultTasks?: TaskType[] }) => {
-    const { data: tasks = [], isLoading } = useTasksFetch({ defaultValue: defaultTasks });
+    const { data: tasks = defaultTasks || [] } = useTasksFetch({ defaultValue: defaultTasks });
     const { isAdmin, isAdminOrUser: isAdminOrMember } = useMember();
 
     return (
@@ -36,7 +36,6 @@ const Column = ({ defaultTasks }: { defaultTasks?: TaskType[] }) => {
 
             <div className="flex flex-col p-1 relative">
                 <TaskDrop index={-1} />
-                {isLoading ? <span className="loading loading-bars loading-lg" /> : null}
                 {tasks.map((task, index) => (
                     <TaskContext.Provider key={task.id} value={task}>
                         <Task index={index} />

@@ -9,9 +9,8 @@ import ProjectCreateColumn from './ProjectCreateColumn';
 
 
 const Project = ({ defaultColumns, defaultTasks }: ProjectProps) => {
-    const { data: columns = [], isLoading } = useColumnsFetch({ defaultValue: defaultColumns });
+    const { data: columns = defaultColumns || [] } = useColumnsFetch({ defaultValue: defaultColumns });
 
-    if (isLoading) return <span className="loading loading-bars loading-lg" />;
     return (
         <TaskDndContext>
             <div className="h-0 flex flex-grow items-start gap-2 overflow-x-scroll overflow-y-scroll">
