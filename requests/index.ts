@@ -2,6 +2,7 @@
 
 export * from './columnsFetch';
 export * from './historyCreate';
+export * from './historyFetch';
 export * from './memberFetch';
 export * from './membersFetch';
 export * from './profileFetch';

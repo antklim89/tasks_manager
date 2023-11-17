@@ -3,7 +3,8 @@ import { z } from 'zod';
 
 import { Button } from '@/components';
 import { useSearchParamsState } from '@/hooks';
-import { HISTORY_LIMIT, useHistoryFetch } from '@/request-hooks';
+import { useHistoryFetch } from '@/request-hooks';
+import { HISTORY_LIMIT } from '@/requests/historyFetch';
 
 import HistoryItem from './HistoryItem';
 import HistoryPanel from './HistoryPanel';
