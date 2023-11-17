@@ -1,15 +1,14 @@
 'use client';
 import { useMember } from '@/hooks';
 import { useMembersFetch } from '@/request-hooks';
-import { MemberType } from '@/schemas';
 
 import MemberDelete from './MemberDelete';
 import MemberRole from './MemberRole';
 import MembersInvite from './MembersInvite';
 
 
-const Members = ({ defaultMembers }: { defaultMembers?: MemberType[] }) => {
-    const { data: members = [], isLoading } = useMembersFetch({ defaultValue: defaultMembers });
+const Members = () => {
+    const { data: members = [] } = useMembersFetch();
     const { isAdmin } = useMember();
 
 
@@ -28,25 +27,17 @@ const Members = ({ defaultMembers }: { defaultMembers?: MemberType[] }) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {isLoading
-                        ? [1, 2, 3].map((i) => (
-                            <tr key={i}>
-                                <td className="skeleton h-10 w-6 mb-1" />
-                                <td className="skeleton h-10 w-6 mb-1" />
-                                <td className="skeleton h-10 w-6 mb-1" />
-                            </tr>
-                        ))
-                        : members.map((member) => (
-                            <tr key={member.id}>
-                                <td className="break-all">
-                                    {member.profile?.firstName} {member.profile?.lastName}
-                                    <br />
-                                    {member.profile?.email}
-                                </td>
-                                <td><MemberRole member={member} members={members} /></td>
-                                <td className="text-center"><MemberDelete member={member} members={members} /></td>
-                            </tr>
-                        )) }
+                    {members.map((member) => (
+                        <tr key={member.id}>
+                            <td className="break-all">
+                                {member.profile?.firstName} {member.profile?.lastName}
+                                <br />
+                                {member.profile?.email}
+                            </td>
+                            <td><MemberRole member={member} members={members} /></td>
+                            <td className="text-center"><MemberDelete member={member} members={members} /></td>
+                        </tr>
+                    )) }
                 </tbody>
             </table>
         </div>

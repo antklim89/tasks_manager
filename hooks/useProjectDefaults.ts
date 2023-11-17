@@ -1,12 +1,13 @@
 import { createContext, useContext } from 'use-context-selector';
 
-import type { ColumnType, HistoryType, TaskType } from '@/schemas';
+import type { ColumnType, HistoryType, MemberType, TaskType } from '@/schemas';
 
 
 export type ProjectDefaultsContextType = {
     defaultColumns?: ColumnType[],
     defaultTasks?: Record<number, TaskType[]>
     defaultHistory?: HistoryType[]
+    defaultMembers?: MemberType[]
 }
 
 export const ProjectDefaultsContext = createContext<ProjectDefaultsContextType | undefined>(undefined);

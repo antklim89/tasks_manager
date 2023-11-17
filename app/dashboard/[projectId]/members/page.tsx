@@ -1,5 +1,6 @@
 import { z } from 'zod';
 
+import { ProjectDefaultsProvider } from '@/components';
 import { Members, ProjectPanel } from '@/features';
 import { membersFetch } from '@/requests';
 
@@ -13,10 +14,12 @@ const MembersPage = async ({ params }: {params: { projectId: string }}) => {
     const members = await membersFetch({ projectId });
 
     return (
-        <div className="flex flex-col h-full">
-            <ProjectPanel />
-            <Members defaultMembers={members} />
-        </div>
+        <ProjectDefaultsProvider defaultMembers={members}>
+            <div className="flex flex-col h-full">
+                <ProjectPanel />
+                <Members />
+            </div>
+        </ProjectDefaultsProvider>
     );
 };
 

@@ -1,29 +1,26 @@
-import { useRef } from 'react';
 import { toast } from 'react-hot-toast';
 import useSWR, { SWRConfiguration } from 'swr';
 
-import { useProjectSelector }from '@/hooks';
+import { useProjectDefaults, useProjectSelector } from '@/hooks';
 import { membersFetch } from '@/requests';
 import { MemberType } from '@/schemas';
 
 import { FetchMembersKey } from './keys';
 
 
-type Options = SWRConfiguration<MemberType[], Error> & { defaultValue?: MemberType[] };
+type Options = SWRConfiguration<MemberType[], Error>
 
-export function useMembersFetch({ defaultValue, ...options }: Options = {}) {
+export function useMembersFetch(options: Options = {}) {
+    const { defaultMembers } = useProjectDefaults();
     const projectId = useProjectSelector((project) => project.id);
-    const isFirstFetch = useRef(true);
 
     return useSWR<MemberType[], Error, FetchMembersKey>(
         ['MEMBERS', { projectId }],
 
         () => {
-            if (isFirstFetch.current && defaultValue) {
-                isFirstFetch.current = false;
-                return defaultValue;
+            if (defaultMembers) {
+                return defaultMembers;
             }
-
             return membersFetch({ projectId });
         },
         {
