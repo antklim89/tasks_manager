@@ -9,12 +9,13 @@ export const metadata = {
     title: 'History',
 };
 
-const MembersPage = async ({ params }: {params: { projectId: string }}) => {
+const HistoryPage = async ({ params, searchParams }: {params: { projectId: string }, searchParams: { 'start-at': string }}) => {
     const projectId = await z.coerce.number().parseAsync(params?.projectId);
-    const history = await historyFetch({ projectId });
+    const startDate = await z.string().optional().parseAsync(searchParams?.['start-at']);
+    const history = await historyFetch({ projectId, startDate });
     
     return (
-        <ProjectDefaultsProvider defaultHistory={history} >
+        <ProjectDefaultsProvider defaultHistory={history} historyStartDate={startDate} >
             <div>
                 <ProjectPanel />
                 <History />
@@ -23,4 +24,4 @@ const MembersPage = async ({ params }: {params: { projectId: string }}) => {
     );
 };
 
-export default MembersPage;
+export default HistoryPage;

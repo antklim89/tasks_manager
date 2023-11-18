@@ -12,7 +12,7 @@ import HistoryPanel from './HistoryPanel';
 
 const History = () => {
     const [startDate, setStartDate] = useSearchParamsState('start-at', z.string().datetime());
-    const { data: historyPages = [], setSize, size, isValidating } = useHistoryFetch({ startDate });
+    const { data: historyPages = [], setSize, size, isValidating } = useHistoryFetch();
     const hasNext = (historyPages.at(-1)?.length || 0) === HISTORY_LIMIT;
 
     return (

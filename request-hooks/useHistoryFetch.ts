@@ -1,23 +1,19 @@
 import { toast } from 'react-hot-toast';
 import useSWRInfinite, { SWRInfiniteConfiguration, SWRInfiniteKeyLoader } from 'swr/infinite';
 
-import { useProjectDefaults, useProjectSelector }from '@/hooks';
+import { useProjectDefaults, useProjectSelector } from '@/hooks';
 import { HISTORY_LIMIT, historyFetch } from '@/requests';
 import { HistoryType } from '@/schemas';
-
 
 import type { HistoryKey } from './keys';
 
 
 type Options = SWRInfiniteConfiguration<HistoryType[], Error>;
 
-export function useHistoryFetch({
-    startDate,
-}: {
-    startDate?: string,
-} = {}, options: Options = {}) {
+export function useHistoryFetch(options: Options = {}) {
     const projectId = useProjectSelector((project) => project.id);
-    const { defaultHistory } = useProjectDefaults();
+    const { defaultHistory, historyStartDate: startDate } = useProjectDefaults();
+
 
     return useSWRInfinite<HistoryType[], Error, SWRInfiniteKeyLoader<HistoryType[], HistoryKey|undefined>>(
         (_, previousData) => {

@@ -8,6 +8,7 @@ export type ProjectDefaultsContextType = {
     defaultTasks?: Record<number, TaskType[]>
     defaultHistory?: HistoryType[]
     defaultMembers?: MemberType[]
+    historyStartDate?: string
 }
 
 export const ProjectDefaultsContext = createContext<ProjectDefaultsContextType | undefined>(undefined);
