@@ -17,7 +17,7 @@ const Column = () => {
     const { isAdmin, isAdminOrUser: isAdminOrMember } = useMember();
 
     return (
-        <div className="card w-96 bg-base-200 shadow-xl">
+        <div className="flex flex-col flex-shrink-0 w-80 bg-base-200 shadow-xl">
             <div className="flex items-start">
                 <ColumnName />
                 {isAdminOrMember ? <ColumnTaskCreate /> : null}
