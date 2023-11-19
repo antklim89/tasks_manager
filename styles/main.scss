@@ -19,8 +19,7 @@ body {
 }
 
 .btn-outline.btn-primary {
-    color: white;
-    border-color: hsl(var(--p));
+    @apply text-white border-primary
 }
 
 .skeleton {
