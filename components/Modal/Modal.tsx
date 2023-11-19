@@ -1,8 +1,11 @@
 'use client';
 import { Dialog, Transition } from '@headlessui/react';
 import { Fragment } from 'react';
+import { FaX } from 'react-icons/fa6';
 
 import { cn } from '@/utils';
+
+import Button from '../Button';
 
 import { ModalProps } from './Modal.types';
 import ModalBody from './ModalBody';
@@ -59,6 +62,9 @@ const Modal = ({ isOpen, children, onClose, size = 'md', className }: ModalProps
                                     className,
                                 )}
                             >
+                                <div className="flex justify-end -m-4">{/* eslint-disable-next-line react/jsx-max-depth */}
+                                    <Button color='error' onClick={onClose}><FaX /></Button>
+                                </div>
                                 {children}
                             </Dialog.Panel>
                         </Transition.Child>
