@@ -1,11 +1,9 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { FaUser } from 'react-icons/fa6';
 
-import { Button, Menu } from '@/components';
 import { getSupabaseUser } from '@/supabase/client';
 
-import HeaderLogout from './HeaderLogout';
+import HeaderMenu from './HeaderMenu';
 
 
 const Header = async () => {
@@ -26,15 +24,7 @@ const Header = async () => {
             <div className="flex gap-4 items-center">
                 <Link href="/dashboard">{user ? 'Dashboard' : 'Sign In'}</Link>
                 <Link href="/about">About</Link>
-                {user
-                    ? (
-                        <Menu button={<Button aria-label="user menu" color="ghost" size="sm"><FaUser /></Button>}>
-                            <span className="text-center py-4">{user.email}</span>
-                            <Link className="btn btn-ghost" href="/dashboard/profile">PROFILE</Link>
-                            <HeaderLogout />
-                        </Menu>
-                    )
-                    : null}
+                <HeaderMenu user={user} />
             </div>
         </header>
     );
