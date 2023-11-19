@@ -18,6 +18,9 @@ body > main {
     flex-grow: 1;
 }
 
+.btn {
+    text-transform: uppercase;
+}
 .btn-outline.btn-primary {
     @apply text-white border-primary
 }
