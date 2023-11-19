@@ -1,7 +1,7 @@
 import { Providers, Toast } from '@/components';
 import { Footer, Header } from '@/features';
 
-import '@/styles/main.scss';
+import '@/styles/main.css';
 import 'core-js/actual/array/to-spliced';
 import 'core-js/actual/object/group-by';
 
