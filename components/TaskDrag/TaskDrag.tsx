@@ -5,11 +5,12 @@ import { CSSProperties } from 'react';
 
 import { useColumn, useTask } from '@/hooks';
 import { TaskDragData } from '@/types';
+import { cn } from '@/utils';
 
 import { TaskDragProps } from './TaskDrag.types';
 
 
-const TaskDrag = ({ index, children, ...props }: TaskDragProps) => {
+const TaskDrag = ({ index, children, className, ...props }: TaskDragProps) => {
     const column = useColumn();
     const task = useTask();
 
@@ -35,6 +36,7 @@ const TaskDrag = ({ index, children, ...props }: TaskDragProps) => {
         top: node.current?.offsetTop,
         zIndex: isDragging ? 10 : undefined,
         opacity: isDragging ? 0.8 : undefined,
+        scale: isDragging ? 1.05 : undefined,
         transform: CSS.Translate.toString(transform),
     };
 
@@ -46,6 +48,7 @@ const TaskDrag = ({ index, children, ...props }: TaskDragProps) => {
                 {...attributes}
                 style={style}
                 {...props}
+                className={cn('left-0 right-0', className)}
             >
                 {children}
             </div>
