@@ -23,10 +23,10 @@ const TaskDndContext = ({ children }: TaskDndContextProps) => {
     const { trigger: historyCreate } = useHistoryCreate();
 
     const mouseSensor = useSensor(MouseSensor, {
-        activationConstraint: { delay: 200, tolerance: 2 },
+        activationConstraint: { distance: 20 },
     });
     const touchSensor = useSensor(TouchSensor, {
-        activationConstraint: { delay: 200, tolerance: 2 },
+        activationConstraint: { delay: 100, tolerance: 2 },
     });
     const keyboardSensor = useSensor(KeyboardSensor);
     const sensors = useSensors(mouseSensor, touchSensor, keyboardSensor);
