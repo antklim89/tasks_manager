@@ -13,12 +13,12 @@ const TaskStartDate = () => {
 
 
     const isStart = providedDate > currentDate;
-    const date = formatDistance(providedDate, currentDate, { addSuffix: false });
+    const date = formatDistance(providedDate, currentDate, { addSuffix: true });
 
     return (
         <div className="flex items-center">
             {isStart ? <FaPause className="text-green-500 mr-2" /> : <FaPlay className="text-green-500 mr-2" />}
-            {isStart ? <p>Start in {date}</p> : <p>Started {date} ago</p>}
+            {isStart ? <p>Start {date}</p> : <p>Started {date}</p>}
         </div>
     );
 };
