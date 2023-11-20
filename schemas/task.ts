@@ -6,8 +6,14 @@ export const taskSchema = z.object({
     createdAt: z.string(),
     title: z.string(),
     description: z.string().optional(),
-    completeAt: z.string()/* .datetime()*/.nullish(),
-    startAt: z.string()/* .datetime()*/.nullish(),
+    completeAt: z.string()
+        .transform(v => new Date(v).toISOString())
+        .pipe(z.string().datetime())
+        .nullish(),
+    startAt: z.string()
+        .transform(v => new Date(v).toISOString())
+        .pipe(z.string().datetime())
+        .nullish(),
     columnId: z.number(),
     projectId: z.number(),
 });
@@ -20,12 +26,12 @@ export const taskCreateSchema = z.object({
         .max(1000)
         .optional(),
     completeAt: z.string()
-        // TODO: add datetime validation
-        // .datetime()
+        .transform(v => new Date(v).toISOString())
+        .pipe(z.string().datetime())
         .nullish(),
     startAt: z.string()
-        // TODO: add datetime validation
-        // .datetime()
+        .transform(v => new Date(v).toISOString())
+        .pipe(z.string().datetime())
         .nullish(),
 });
 
