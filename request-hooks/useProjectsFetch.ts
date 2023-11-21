@@ -1,4 +1,3 @@
-import { useRef } from 'react';
 import { toast } from 'react-hot-toast';
 import useSWR, { SWRConfiguration } from 'swr';
 
@@ -11,17 +10,12 @@ import { FetchProjectsKey } from './keys';
 type Options = SWRConfiguration<ProjectType[], Error> & { defaultValue?: ProjectType[] };
 
 export function useProjectsFetch({ defaultValue, ...options }: Options = {}) {
-    const isFirstFetch = useRef(true);
 
     return useSWR<ProjectType[], Error, FetchProjectsKey>(
         ['PROJECTS'],
 
         () => {
-            if (isFirstFetch.current && defaultValue) {
-                isFirstFetch.current = false;
-                return defaultValue;
-            }
-            return projectsFetch();
+            return defaultValue || projectsFetch();
         },
         {
             ...options,
