@@ -7,7 +7,6 @@ export const projectSchema = z.object({
     description: z.string().optional(),
 });
 
-export const projectListSchema = projectSchema.pick({ id: true, name: true }).array();
 
 export const projectUpdateSchema = z.object({
     name: z.string()
@@ -20,4 +19,3 @@ export const projectUpdateSchema = z.object({
 
 export type ProjectUpdateType = z.infer<typeof projectUpdateSchema>
 export type ProjectType = z.infer<typeof projectSchema>
-export type ProjectListType = z.infer<typeof projectListSchema>

@@ -1,4 +1,4 @@
-import { projectListSchema } from '@/schemas';
+import { projectSchema } from '@/schemas';
 import { getSupabaseClient } from '@/supabase/client';
 
 
@@ -8,5 +8,5 @@ export async function projectsFetch() {
 
     if (error) throw error;
 
-    return projectListSchema.parseAsync(data);
+    return projectSchema.array().parseAsync(data);
 }

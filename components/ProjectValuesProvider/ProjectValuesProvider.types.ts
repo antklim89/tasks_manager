@@ -1,11 +1,11 @@
 import type { ReactNode } from 'react';
 
-import type { MemberType, ProjectType, ProjectListType } from '@/schemas';
+import type { MemberType, ProjectType } from '@/schemas';
 
 
 export interface ProjectValuesProviderProps {
     defaultProject: ProjectType
-    defaultProjects: ProjectListType
+    defaultProjects: ProjectType[]
     defaultMember: MemberType
     children: ReactNode
 }
