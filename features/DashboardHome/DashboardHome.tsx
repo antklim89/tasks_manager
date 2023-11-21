@@ -2,16 +2,16 @@
 import Link from 'next/link';
 
 import { useProjectsFetch } from '@/request-hooks';
+import { ProjectType } from '@/schemas';
 
 
-const DashboardHome = () => {
-    const { data: projects, isLoading } = useProjectsFetch();
+const DashboardHome = ({ defaultProjects }: { defaultProjects: ProjectType[] }) => {
+    const { data: projects = defaultProjects } = useProjectsFetch({ defaultValue: defaultProjects });
 
     return (
         <div>
             <h2 className="text-4xl text-center">Dashboard</h2>
             <h3>Select your project</h3>
-            {isLoading ? <span className="loading loading-bars loading-lg" /> : null}
             <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
                 {projects?.map((project) => (
                     <Link
