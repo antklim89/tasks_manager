@@ -1,4 +1,4 @@
-import React from 'react';
+import { About } from '@/features';
 
 
 export const metadata = {
@@ -7,7 +7,7 @@ export const metadata = {
 
 const AboutPage = () => {
     return (
-        <div>AboutPage</div>
+        <About />
     );
 };
 

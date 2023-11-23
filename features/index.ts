@@ -1,5 +1,6 @@
 // generate export index files
 
+export { default as About } from './About';
 export { default as Auth } from './Auth';
 export { default as Column } from './Column';
 export { default as DashboardHome } from './DashboardHome';
