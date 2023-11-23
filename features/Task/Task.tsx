@@ -11,7 +11,7 @@ import TaskDelete from './TaskDelete';
 import TaskStartDate from './TaskStartDate';
 import TaskUpdate from './TaskUpdate';
 
-
+// TODO: add who created task, add priorities, add color-coded labels and tags 
 const Task = ({ index }: TaskProps) => {
     const taskTitle = useTaskSelector(task => task.title);
     const taskDescription = useTaskSelector(task => task.description);
