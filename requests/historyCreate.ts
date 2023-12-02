@@ -3,7 +3,6 @@ import { getSupabaseClient, getSupabaseUser } from '@/supabase/client';
 
 
 export async function historyCreate({ body, projectId }: { body: string, projectId: number }) {
-    console.log('==  body\n', body);
     const supabase = await getSupabaseClient();
     const user = await getSupabaseUser();
 
