@@ -29,6 +29,7 @@ export const taskCreateSchema = z.object({
         .transform(v => new Date(v).toISOString())
         .pipe(z.string().datetime())
         .nullish(),
+    columnId: z.coerce.number().optional(),
     startAt: z.string()
         .transform(v => new Date(v).toISOString())
         .pipe(z.string().datetime())
