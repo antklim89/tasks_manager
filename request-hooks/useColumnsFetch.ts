@@ -24,7 +24,7 @@ export function useColumnsFetch(options: Options = {}) {
         {
             ...options,
             onError(...args) {
-                toast.error('Failed to fetch columns. Try again later.', { id: 'COLUMNs_FETCH' });
+                toast.error('Failed to fetch columns. Try again later.', { id: 'COLUMNS_FETCH' });
                 options?.onError?.(...args);
             },
 
