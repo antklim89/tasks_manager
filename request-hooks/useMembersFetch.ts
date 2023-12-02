@@ -18,10 +18,7 @@ export function useMembersFetch(options: Options = {}) {
         ['MEMBERS', { projectId }],
 
         () => {
-            if (defaultMembers) {
-                return defaultMembers;
-            }
-            return membersFetch({ projectId });
+            return defaultMembers || membersFetch({ projectId });
         },
         {
             ...options,

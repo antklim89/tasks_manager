@@ -1,4 +1,3 @@
-import { useRef } from 'react';
 import { toast } from 'react-hot-toast';
 import useSWR, { SWRConfiguration } from 'swr';
 
@@ -16,14 +15,12 @@ export function useTasksFetch(options: Options = {}) {
     const taskOrder = useColumnSelector(column => column.taskOrder);
     const { defaultTasks } = useProjectDefaults();
     const defaultColumnTasks = defaultTasks?.[columnId];
-    const isFirstFetch = useRef(true);
 
     return useSWR<TaskType[], Error, FetchTasksKey>(
         ['TASKS', { columnId }],
 
         async () => {
-            if (isFirstFetch.current && defaultColumnTasks) {
-                isFirstFetch.current = false;
+            if (defaultColumnTasks) {
                 sortTasks(defaultColumnTasks, taskOrder);
                 return defaultColumnTasks;
             }
