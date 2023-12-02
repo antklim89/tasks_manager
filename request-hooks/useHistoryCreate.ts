@@ -1,8 +1,8 @@
 import useSWRMutation, { SWRMutationConfiguration } from 'swr/mutation';
 
 import { useProjectSelector }from '@/hooks';
-import { historyCreate } from '@/requests';
-import { HistoryType } from '@/schemas';
+import { HistoryType, historySchema } from '@/schemas';
+import { getSupabaseClient, getSupabaseUser } from '@/supabase/client';
 
 import { HistoryKey } from './keys';
 
@@ -15,8 +15,17 @@ export function useHistoryCreate(options?: Options) {
     return useSWRMutation<HistoryType, Error, HistoryKey, { body: string }, HistoryType[]>(
         ['HISTORY', { projectId }],
 
-        (_, { arg: { body } }) => {
-            return historyCreate({ body, projectId });
+        async (_, { arg: { body } }) => {
+            const supabase = await getSupabaseClient();
+            const user = await getSupabaseUser();
+        
+            const { error, data } = await supabase.from('history')
+                .insert({ body, projectId, userId: user.id })
+                .select('*')
+                .single();
+        
+            if (error) throw error;
+            return historySchema.parse(data);
         },
         {
             ...options,
