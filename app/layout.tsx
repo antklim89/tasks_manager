@@ -1,5 +1,4 @@
-import { Providers, Toast } from '@/components';
-import { Footer, Header } from '@/features';
+import { Providers, Toast , Footer, Header } from '@/components';
 
 import '@/styles/main.css';
 import 'core-js/actual/array/to-spliced';

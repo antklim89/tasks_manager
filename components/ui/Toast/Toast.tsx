@@ -2,7 +2,7 @@
 import { Toaster, resolveValue, toast } from 'react-hot-toast';
 import { FaX, FaRegCircleCheck, FaCircleExclamation } from 'react-icons/fa6';
 
-import Button from '@/components/Button';
+import Button from '@/components/ui/Button';
 import { cn } from '@/utils';
 
 

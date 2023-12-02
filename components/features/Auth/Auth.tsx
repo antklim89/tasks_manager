@@ -3,10 +3,9 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
-import { Button, Input } from '@/components';
-import Alert from '@/components/Alert/Alert';
-import { AuthFotmInput, authSchema } from '@/schemas';
+import { Alert, Button, Input } from '@/components';
 import { useAuth } from '@/request-hooks/useAuth';
+import { AuthFotmInput, authSchema } from '@/schemas';
 
 
 const Auth = () => {

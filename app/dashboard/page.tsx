@@ -1,4 +1,4 @@
-import { DashboardHome, ProjectPanel } from '@/features';
+import { DashboardHome, ProjectPanel } from '@/components';
 import { projectsFetch } from '@/requests';
 
 

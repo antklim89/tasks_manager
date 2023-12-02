@@ -2,7 +2,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 
-import Input from '@/components/Input';
+import Input from '@/components/ui/Input';
 import { ProjectUpdateType, projectUpdateSchema } from '@/schemas';
 
 import { ProjectEditFormProps } from './ProjectEditForm.types';

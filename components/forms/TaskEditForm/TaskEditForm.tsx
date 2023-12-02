@@ -3,7 +3,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Controller, useForm } from 'react-hook-form';
 
 import { DatePicker } from '@/components';
-import Input from '@/components/Input';
+import Input from '@/components/ui/Input';
 import { useTask } from '@/hooks';
 import { TaskCreateType, taskCreateSchema } from '@/schemas';
 

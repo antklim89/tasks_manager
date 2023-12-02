@@ -1,9 +1,7 @@
 'use client';
 import { FaEllipsisVertical } from 'react-icons/fa6';
 
-import { Menu } from '@/components';
-import TaskDrop from '@/components/TaskDrop';
-import Task from '@/features/Task';
+import { Menu, Task, TaskDrop } from '@/components';
 import { TaskContext, useMember } from '@/hooks';
 import { useTasksFetch } from '@/request-hooks';
 

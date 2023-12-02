@@ -1,7 +1,6 @@
 import { z } from 'zod';
 
-import { ProjectDefaultsProvider } from '@/components';
-import { Members, ProjectPanel } from '@/features';
+import { ProjectDefaultsProvider, Members, ProjectPanel } from '@/components';
 import { membersFetch } from '@/requests';
 
 

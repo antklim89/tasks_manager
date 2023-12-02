@@ -2,8 +2,7 @@
 import { useRouter } from 'next/navigation';
 import { FaPlus } from 'react-icons/fa6';
 
-import { Button, Modal } from '@/components';
-import ProjectEditForm from '@/components/ProjectEditForm';
+import { ProjectEditForm, Button, Modal } from '@/components';
 import { useDisclosure } from '@/hooks';
 import { useProjectCreate } from '@/request-hooks';
 

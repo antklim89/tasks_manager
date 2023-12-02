@@ -1,7 +1,6 @@
 import { z } from 'zod';
 
-import { ProjectDefaultsProvider } from '@/components';
-import { History, ProjectPanel } from '@/features';
+import { ProjectDefaultsProvider, History, ProjectPanel } from '@/components';
 import { historyFetch } from '@/requests';
 
 

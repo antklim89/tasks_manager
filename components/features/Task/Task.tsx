@@ -1,8 +1,7 @@
 'use client';
 import { FaEllipsisVertical } from 'react-icons/fa6';
 
-import { Button, Menu, TaskDrag } from '@/components';
-import TaskDrop from '@/components/TaskDrop';
+import { TaskDrop, Button, Menu, TaskDrag } from '@/components';
 import { useDisclosure, useMember, useTaskSelector } from '@/hooks';
 
 import { TaskProps } from './Task.types';

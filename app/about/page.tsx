@@ -1,4 +1,4 @@
-import { About } from '@/features';
+import { About } from '@/components';
 
 
 export const metadata = {

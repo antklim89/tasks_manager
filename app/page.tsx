@@ -1,5 +1,5 @@
 
-import { Hero } from '@/features';
+import { Hero } from '@/components';
 
 
 const HomePage = async () => {

@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 
-import { Auth } from '@/features';
+import { Auth } from '@/components';
 import { getSupabaseUser } from '@/supabase/client';
 
 

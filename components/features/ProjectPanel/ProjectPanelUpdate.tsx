@@ -1,7 +1,6 @@
 'use client';
 
-import { Button, Modal } from '@/components';
-import ProjectEditForm from '@/components/ProjectEditForm';
+import { ProjectEditForm, Button, Modal } from '@/components';
 import { useDisclosure } from '@/hooks';
 import { useHistoryCreate, useProjectUpdate } from '@/request-hooks';
 import { ProjectType } from '@/schemas';

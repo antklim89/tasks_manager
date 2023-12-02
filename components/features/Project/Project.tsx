@@ -1,6 +1,5 @@
 'use client';
-import { TaskDndContext } from '@/components';
-import Column from '@/features/Column';
+import { Column, TaskDndContext } from '@/components';
 import { ColumnContext } from '@/hooks';
 import { useColumnsFetch } from '@/request-hooks';
 

@@ -1,7 +1,6 @@
 import { z } from 'zod';
 
-import { ProjectDefaultsProvider } from '@/components';
-import { Project, ProjectPanel } from '@/features';
+import { ProjectDefaultsProvider, Project, ProjectPanel } from '@/components';
 import { columnsFetch, tasksFetch } from '@/requests';
 import { groupBy } from '@/utils';
 
