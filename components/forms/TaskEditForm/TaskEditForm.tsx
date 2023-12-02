@@ -5,6 +5,7 @@ import { Controller, useForm } from 'react-hook-form';
 import { DatePicker } from '@/components';
 import Input from '@/components/ui/Input';
 import { useTask } from '@/hooks';
+import { useColumnsFetch } from '@/request-hooks';
 import { TaskCreateType, taskCreateSchema } from '@/schemas';
 
 import { TaskEditFormProps } from './TaskEditForm.types';
@@ -12,6 +13,7 @@ import { TaskEditFormProps } from './TaskEditForm.types';
 
 const TaskEditForm = ({ onSubmit, children }: TaskEditFormProps) => {
     const task = useTask(false);
+    const { data: columns } = useColumnsFetch();
 
     const {
         register,
@@ -32,6 +34,16 @@ const TaskEditForm = ({ onSubmit, children }: TaskEditFormProps) => {
     return (
         <form onSubmit={handleCreateTask}>
             <div className="flex flex-col gap-2 mb-4">
+                <Input
+                    {...register('columnId')}
+                    as="select"
+                    errorMessage={errors.columnId?.message}
+                    label="Column"
+                >
+                    {columns?.map(column => (
+                        <option key={column.id} value={column.id}>{column.name}</option>
+                    ))}
+                </Input>
                 <Input
                     {...register('title')}
                     errorMessage={errors.title?.message}
