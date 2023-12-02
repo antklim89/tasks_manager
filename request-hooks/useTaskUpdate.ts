@@ -1,4 +1,5 @@
 import { toast } from 'react-hot-toast';
+import { mutate } from 'swr';
 import useSWRMutation, { SWRMutationConfiguration } from 'swr/mutation';
 
 import { useColumnSelector, useTaskSelector } from '@/hooks';
@@ -40,8 +41,18 @@ export function useTaskUpdate(options?: Options) {
             },
             revalidate: false,
             populateCache(updatedTask, currentData = []) {
+                if (updatedTask.columnId !== columnId) {
+                    mutate<TaskType[]>(
+                        ['TASKS', { columnId: updatedTask.columnId }],
+                        (columnData = []) => {
+                            const taskToAdd = currentData.find(i => i.id === taskId);
+                            return taskToAdd ? [ taskToAdd,  ...columnData] : columnData;
+                        },
+                        { revalidate: false },
+                    );
+                }
                 return currentData
-                    ?.map((i) => (i.id === taskId ? { ...i, ...updatedTask } : i))
+                    .map((i) => (i.id === taskId ? { ...i, ...updatedTask } : i))
                     .filter((i) => i.columnId === columnId);
             },
         },
