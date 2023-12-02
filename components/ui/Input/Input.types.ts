@@ -6,5 +6,6 @@ export type InputProps = {
     reset?: () => void
 } & (
     ({as?: 'input'} & JSX.IntrinsicElements['input']) |
-    ({as: 'textarea'} & JSX.IntrinsicElements['textarea'])
+    ({as: 'textarea'} & JSX.IntrinsicElements['textarea']) |
+    ({as: 'select'} & JSX.IntrinsicElements['select'])
 )
