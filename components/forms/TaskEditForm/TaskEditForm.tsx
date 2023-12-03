@@ -1,10 +1,11 @@
 'use client';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Controller, useForm } from 'react-hook-form';
+import { FaEraser, FaEyeDropper } from 'react-icons/fa6';
 
 import { Button, DatePicker } from '@/components';
 import Input from '@/components/ui/Input';
-import { priorities } from '@/constants';
+import { colors, priorities } from '@/constants';
 import { useTask } from '@/hooks';
 import { useColumnsFetch } from '@/request-hooks';
 import { TaskCreateType, taskCreateSchema } from '@/schemas';
@@ -65,15 +66,18 @@ const TaskEditForm = ({ onSubmit, children }: TaskEditFormProps) => {
                     name="color"
                     render={({ field }) => (
                         <div>
-                            <span className="label-text">Colors: </span>
-                            <div className='grid grid-cols-2 sm:grid-cols-4 gap-2'>
-                                {priorities.map(priority => (
+                            <span className="label-text">Color: </span>
+                            <div className='grid grid-cols-4 sm:grid-cols-8 gap-2'>
+                                <Button className='btn-sm sm:btn-md bg-primary' onClick={() => field.onChange(null)}><FaEraser /></Button>
+                                {colors.map(color => (
                                     <Button
-                                        className={cn('bg-transparent btn-sm sm:btn-md', { 'bg-primary': field.value === priority })} 
-                                        key={priority}
-                                        onClick={() => field.onChange(priority)}
+                                        aria-label='task color'
+                                        className='btn-sm sm:btn-md'
+                                        key={color} 
+                                        style={{ backgroundColor: `#${color}` }}
+                                        onClick={() => field.onChange(color)}
                                     >
-                                        {priority}
+                                        <FaEyeDropper className={cn('text-transparent', { 'text-white': field.value === color })} />
                                     </Button>
                                 ))}
                             </div>
