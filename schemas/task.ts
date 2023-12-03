@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
+import { priorities } from '@/constants';
 
-export const priorities = ['low', 'medium', 'high', 'very high'] as const;
 
 export const taskSchema = z.object({
     id: z.number(),

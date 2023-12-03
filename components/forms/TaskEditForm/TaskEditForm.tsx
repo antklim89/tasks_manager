@@ -4,9 +4,10 @@ import { Controller, useForm } from 'react-hook-form';
 
 import { Button, DatePicker } from '@/components';
 import Input from '@/components/ui/Input';
+import { priorities } from '@/constants';
 import { useTask } from '@/hooks';
 import { useColumnsFetch } from '@/request-hooks';
-import { TaskCreateType, priorities, taskCreateSchema } from '@/schemas';
+import { TaskCreateType, taskCreateSchema } from '@/schemas';
 import { cn } from '@/utils';
 
 import { TaskEditFormProps } from './TaskEditForm.types';
@@ -58,6 +59,26 @@ const TaskEditForm = ({ onSubmit, children }: TaskEditFormProps) => {
                     label="Description"
                     reset={() => resetField('description', { defaultValue: '' })}
                     rows={7}
+                />
+                <Controller
+                    control={control}
+                    name="color"
+                    render={({ field }) => (
+                        <div>
+                            <span className="label-text">Colors: </span>
+                            <div className='grid grid-cols-2 sm:grid-cols-4 gap-2'>
+                                {priorities.map(priority => (
+                                    <Button
+                                        className={cn('bg-transparent btn-sm sm:btn-md', { 'bg-primary': field.value === priority })} 
+                                        key={priority}
+                                        onClick={() => field.onChange(priority)}
+                                    >
+                                        {priority}
+                                    </Button>
+                                ))}
+                            </div>
+                        </div>
+                    )}
                 />
                 <Controller
                     control={control}
