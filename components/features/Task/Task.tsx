@@ -1,10 +1,11 @@
 'use client';
-import { ReactNode } from 'react';
+import { CSSProperties, ReactNode, useMemo } from 'react';
 import { FaEllipsisVertical, FaFire, FaFireFlameSimple, FaLeaf } from 'react-icons/fa6';
 
 import { Button, Menu, TaskDrag, TaskDrop } from '@/components';
 import { useDisclosure, useMember, useTaskSelector } from '@/hooks';
 import type { TaskPriorities } from '@/schemas';
+import { contrastingColor } from '@/utils';
 
 import type { TaskProps } from './Task.types';
 import TaskCompleteDate from './TaskCompleteDate';
@@ -25,8 +26,18 @@ const Task = ({ index }: TaskProps) => {
     const taskTitle = useTaskSelector(task => task.title);
     const taskDescription = useTaskSelector(task => task.description);
     const taskPriority = useTaskSelector(task => task.priority);
+    const taskColor = useTaskSelector(task => task.color);
     const { isOpen: updateModalisOpen, close: closeUpdateModal, open: openUpdateModal } = useDisclosure();
     const { isAdminOrUser: isAdminOrMember } = useMember();
+
+    const taskColorStyle: CSSProperties | undefined = useMemo(() => {
+        if (!taskColor) return undefined;
+        return {
+            backgroundColor: `#${taskColor}`,
+            color: `#${contrastingColor(taskColor)}`,
+        };
+    }, [taskColor]);
+
 
     return (
         <>
@@ -38,13 +49,25 @@ const Task = ({ index }: TaskProps) => {
                 tabIndex={0}
                 onDoubleClick={isAdminOrMember ? openUpdateModal : undefined}
             >
-                <div className="card w-full p-2 bg-primary shadow-lg">
+                <div className="card w-full p-2 bg-primary shadow-lg" style={taskColorStyle}>
                     <div className="card-title">
                         <div>{taskPriority ? priorityIcons[taskPriority] : null} </div>
                         <div>{taskTitle}</div>
                         {isAdminOrMember
                             ? (
-                                <Menu button={<Button aria-label="task menu" color="ghost" size="sm"><FaEllipsisVertical /></Button>} className='ml-auto'>
+                                <Menu
+                                    button={(
+                                        <Button
+                                            aria-label="task menu"
+                                            color="ghost"
+                                            size="sm"
+                                        >
+                                            <FaEllipsisVertical />
+                                        </Button>
+                                    )}
+                                    className='ml-auto'
+                                    listClassName='text-slate-200' 
+                                >
                                     <Button className="w-full btn-ghost" onClick={openUpdateModal}>Update</Button>
                                     <TaskDelete className="w-full btn-ghost" />
                                 </Menu>
@@ -74,5 +97,3 @@ const Task = ({ index }: TaskProps) => {
 };
 
 export default Task;
-
-
