@@ -6,7 +6,7 @@ import { FaEraser, FaEyeDropper } from 'react-icons/fa6';
 import { Button, DatePicker } from '@/components';
 import Input from '@/components/ui/Input';
 import { colors, priorities } from '@/constants';
-import { useTask } from '@/hooks';
+import { useColumnSelector, useTask } from '@/hooks';
 import { useColumnsFetch } from '@/request-hooks';
 import { TaskCreateType, taskCreateSchema } from '@/schemas';
 import { cn } from '@/utils';
@@ -17,6 +17,7 @@ import { TaskEditFormProps } from './TaskEditForm.types';
 const TaskEditForm = ({ onSubmit, children }: TaskEditFormProps) => {
     const task = useTask(false);
     const { data: columns } = useColumnsFetch();
+    const columnId = useColumnSelector(column => column.id);
 
     const {
         register,
@@ -27,7 +28,7 @@ const TaskEditForm = ({ onSubmit, children }: TaskEditFormProps) => {
         control,
     } = useForm<TaskCreateType>({
         resolver: zodResolver(taskCreateSchema),
-        defaultValues: task || undefined,
+        defaultValues: { ...task || {}, columnId },
     });
 
     const handleCreateTask = handleSubmit(async (data) => {
