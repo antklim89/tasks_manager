@@ -1,19 +1,30 @@
 'use client';
-import { FaEllipsisVertical } from 'react-icons/fa6';
+import { ReactNode } from 'react';
+import { FaEllipsisVertical, FaFire, FaFireFlameSimple, FaLeaf } from 'react-icons/fa6';
 
-import { TaskDrop, Button, Menu, TaskDrag } from '@/components';
+import { Button, Menu, TaskDrag, TaskDrop } from '@/components';
 import { useDisclosure, useMember, useTaskSelector } from '@/hooks';
+import type { TaskPriorities } from '@/schemas';
 
-import { TaskProps } from './Task.types';
+import type { TaskProps } from './Task.types';
 import TaskCompleteDate from './TaskCompleteDate';
 import TaskDelete from './TaskDelete';
 import TaskStartDate from './TaskStartDate';
 import TaskUpdate from './TaskUpdate';
 
+
+const priorityIcons: Record<TaskPriorities, ReactNode> = {
+    'low': <FaLeaf className='text-green-300' />,
+    'medium': null,
+    'high': <FaFireFlameSimple className='text-yellow-500' />,
+    'very high': <FaFire className='text-red-500' />,
+};
+
 // TODO: add who created task, add priorities, add color-coded labels and tags 
 const Task = ({ index }: TaskProps) => {
     const taskTitle = useTaskSelector(task => task.title);
     const taskDescription = useTaskSelector(task => task.description);
+    const taskPriority = useTaskSelector(task => task.priority);
     const { isOpen: updateModalisOpen, close: closeUpdateModal, open: openUpdateModal } = useDisclosure();
     const { isAdminOrUser: isAdminOrMember } = useMember();
 
@@ -28,11 +39,12 @@ const Task = ({ index }: TaskProps) => {
                 onDoubleClick={isAdminOrMember ? openUpdateModal : undefined}
             >
                 <div className="card w-full p-2 bg-primary shadow-lg">
-                    <div className="card-title flex justify-between">
-                        {taskTitle}
+                    <div className="card-title">
+                        <div>{taskPriority ? priorityIcons[taskPriority] : null} </div>
+                        <div>{taskTitle}</div>
                         {isAdminOrMember
                             ? (
-                                <Menu button={<Button aria-label="user menu" color="ghost" size="sm"><FaEllipsisVertical /></Button>}>
+                                <Menu button={<Button aria-label="task menu" color="ghost" size="sm"><FaEllipsisVertical /></Button>} className='ml-auto'>
                                     <Button className="w-full btn-ghost" onClick={openUpdateModal}>Update</Button>
                                     <TaskDelete className="w-full btn-ghost" />
                                 </Menu>
