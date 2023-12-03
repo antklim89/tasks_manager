@@ -22,6 +22,8 @@ const TaskUpdate = ({ close, isOpen }: { isOpen: boolean, close: () => void }) =
         <Modal isOpen={isOpen} size="2xl" onClose={close}>
             <Modal.Title className="text-2xl">
                 {task.title}
+                <br />
+                {task?.creator?.email ? <span>added by {task.creator.email}</span> : null}
             </Modal.Title>
             <TaskEditForm onSubmit={updateTask}>
                 <Modal.Footer>

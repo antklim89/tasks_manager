@@ -3,7 +3,7 @@ import useSWRMutation, { SWRMutationConfiguration } from 'swr/mutation';
 
 import { useColumnSelector, useProjectSelector }from '@/hooks';
 import { TaskCreateType, TaskType, taskSchema } from '@/schemas';
-import { getSupabaseClient } from '@/supabase/client';
+import { getSupabaseClient, getSupabaseUser } from '@/supabase/client';
 
 import { FetchTasksKey } from './keys';
 
@@ -22,11 +22,12 @@ export function useTaskCreate(options?: Options) {
         async (key, { arg }) => {
             toast.loading('Task is creating...', { id: TOAST_ID });
             const supabase = await getSupabaseClient();
+            const user = await getSupabaseUser();
 
             const { error, data } = await supabase
                 .from('tasks')
-                .insert({ projectId, columnId, ...arg })
-                .select('*')
+                .insert({ projectId, columnId, creator: user.id, ...arg })
+                .select('*, creator(email)')
                 .single();
 
             if (error) throw error;

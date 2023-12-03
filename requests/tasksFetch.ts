@@ -13,7 +13,7 @@ export async function tasksFetch({
 
     const supabaseQuery = supabase
         .from('tasks')
-        .select('*');
+        .select('*, creator(email)');
 
     if (projectId) supabaseQuery.eq('projectId', projectId);
     else if (columnId) supabaseQuery.eq('columnId', columnId);

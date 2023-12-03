@@ -18,7 +18,9 @@ export const taskSchema = z.object({
         .nullish(),
     columnId: z.number(),
     projectId: z.number(),
-    creator: z.string().nullish(),
+    creator: z.object({
+        email: z.string().nullish(),
+    }).nullish(),
     color: z.string().nullish(),
     priority: z.enum(priorities).nullish(),
 });
