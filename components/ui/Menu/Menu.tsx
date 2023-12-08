@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useRef, useState } from 'react';
+import { FocusEventHandler, useRef, useState } from 'react';
 
 import { cn } from '@/utils';
 
@@ -8,34 +8,23 @@ import MenuItem from './MenuItem';
 
 
 const Menu = ({ button, children, className, listClassName, ...props }: MenuProps) => {
-    const [isLeft, setIsLeft] = useState(false);
+    const [isOverRightEdge, setIsOverRightEdge] = useState(false);
     const itemRef = useRef<HTMLUListElement>(null);
-    const menuRef = useRef<HTMLDivElement>(null);
-    
-    useEffect(() => {
-        const element = document.querySelector('.overflow-x-scroll');
-        let timeoutId: NodeJS.Timeout;
-        const itemWidth = itemRef.current?.getBoundingClientRect().width;
-        
-        const listener = () => {
-            if (timeoutId) clearTimeout(timeoutId);
-            timeoutId = setTimeout(() => {
-                const menuLeft = menuRef.current?.getBoundingClientRect().left;
-                if (!menuLeft || !itemWidth) return;
-                
-                if (menuLeft - itemWidth < 0) setIsLeft(true);
-                else setIsLeft(false);
-            }, 100);
-        };
-        element?.addEventListener('scroll', listener);
-        return () => {
-            element?.removeEventListener('scroll', listener);
-        };
-    }, []);
-    
+
+    const handleFocus: FocusEventHandler<HTMLDivElement> = (e) => {
+        const { left } = e.currentTarget.getBoundingClientRect();
+        const itemWidth = itemRef.current?.offsetWidth || 0;
+        if (left + itemWidth + 10 < document.body.clientWidth) setIsOverRightEdge(true);
+        else setIsOverRightEdge(false);
+    };
 
     return (
-        <div className={cn('dropdown dropdown-bottom', { 'dropdown-end': !isLeft }, className)} ref={menuRef} {...props}>
+        <div
+            className={cn('dropdown dropdown-bottom', { 'dropdown-end': !isOverRightEdge }, className)}
+            role='button'
+            {...props}
+            onFocus={handleFocus}
+        >
             {button}
             <ul className={cn('dropdown-content menu z-[1] p-2 shadow bg-base-200 rounded-box w-52', listClassName)} ref={itemRef}>
                 {children}
