@@ -16,7 +16,7 @@ const Confirm = ({
 
     return (
         <Modal className="p-0" isOpen={isOpen} onClose={onClose}>
-            <Modal.Title className="whitespace-pre-wrap p-4">
+            <Modal.Title className="whitespace-pre-wrap mb-6">
                 {text}
             </Modal.Title>
             <Modal.Footer className="gap-0">

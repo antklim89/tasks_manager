@@ -3,7 +3,7 @@ import { ReactNode } from 'react';
 
 const ModalBody = ({ children }: { children: ReactNode }) => {
     return (
-        <div className="mb-4">
+        <div className="p-4">
             {children}
         </div>
     );
