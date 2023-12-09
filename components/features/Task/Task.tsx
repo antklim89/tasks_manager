@@ -21,7 +21,6 @@ const priorityIcons: Record<TaskPriorities, ReactNode> = {
     'very high': <FaFire className='text-red-500' />,
 };
 
-// TODO: add who created task, add priorities, add color-coded labels and tags 
 const Task = ({ index }: TaskProps) => {
     const taskTitle = useTaskSelector(task => task.title);
     const taskDescription = useTaskSelector(task => task.description);
