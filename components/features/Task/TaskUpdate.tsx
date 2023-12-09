@@ -25,13 +25,15 @@ const TaskUpdate = ({ close, isOpen }: { isOpen: boolean, close: () => void }) =
                 <br />
                 {task?.creator?.email ? <span>added by {task.creator.email}</span> : null}
             </Modal.Title>
-            <TaskEditForm onSubmit={updateTask}>
-                <Modal.Footer>
-                    <TaskDelete className="w-auto btn-error" />
-                    <Button isLoading={isMutating} type="submit">Update</Button>
-                    <Button outline isLoading={isMutating} onClick={close}>Cancel</Button>
-                </Modal.Footer>
-            </TaskEditForm>
+            <Modal.Body>
+                <TaskEditForm onSubmit={updateTask}>
+                    <Modal.Footer>
+                        <TaskDelete className="w-auto btn-error" />
+                        <Button isLoading={isMutating} type="submit">Update</Button>
+                        <Button outline isLoading={isMutating} onClick={close}>Cancel</Button>
+                    </Modal.Footer>
+                </TaskEditForm>
+            </Modal.Body>
         </Modal>
     );
 };
