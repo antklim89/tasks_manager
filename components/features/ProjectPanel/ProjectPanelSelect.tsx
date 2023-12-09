@@ -21,7 +21,7 @@ const ProjectPanelSelect = ({
             <Menu button={<Button aria-label="show projects" className="px-2" tabIndex={0}><FaChevronDown /></Button>} className="join-item">
                 {projects.map((p) => (
                     <Link
-                        className="btn btn-primary btn-outline w-full"
+                        className="btn btn-primary btn-ghost w-full"
                         href={`/dashboard/${p.id}`}
                         key={p.id}
                     >
