@@ -13,7 +13,7 @@ export function useHistoryCreate(options?: Options) {
     const projectId = useProjectSelector((project) => project.id);
 
     return useSWRMutation<HistoryType, Error, HistoryKey, { body: string }, HistoryType[]>(
-        ['HISTORY', { projectId }],
+        ['HISTORY', { projectId, search: undefined, startDate: undefined }],
 
         async (_, { arg: { body } }) => {
             const supabase = await getSupabaseClient();
@@ -31,7 +31,7 @@ export function useHistoryCreate(options?: Options) {
             ...options,
             revalidate: false,
             populateCache(newColumn, currentData = []) {
-                return [...currentData, newColumn];
+                return [newColumn, ...currentData];
             },
         },
     );
