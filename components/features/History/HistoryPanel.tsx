@@ -19,7 +19,7 @@ const HistoryPanel = () => {
     };
 
     return (
-        <div className="flex justify-start items-center gap-2">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
             <DatePicker
                 customInput={(
                     <Input reset={handleStartDateChange} />
