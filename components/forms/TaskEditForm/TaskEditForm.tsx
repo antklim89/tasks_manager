@@ -91,7 +91,7 @@ const TaskEditForm = ({ onSubmit, children }: TaskEditFormProps) => {
                     render={({ field }) => (
                         <div>
                             <span className="label-text">Priorities: </span>
-                            <div className='grid grid-cols-2 sm:grid-cols-4 gap-2'>
+                            <div className='grid grid-cols-2 sm:grid-cols-5 gap-2'>
                                 {priorities.map(priority => (
                                     <Button
                                         className={cn('bg-transparent btn-sm sm:btn-md', { 'bg-primary': field.value === priority })} 

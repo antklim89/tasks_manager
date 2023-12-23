@@ -303,7 +303,7 @@ export interface Database {
     }
     Enums: {
       operations: "INSERT" | "UPDATE" | "DELETE"
-      priorities: "very low" | "low" | "medium" | "high" | "very high"
+      priorities: "low" | "medium" | "high" | "very high" | "frozen"
       roles: "admin" | "user" | "guest" | "invited"
       tables: "tasks" | "projects" | "columns" | "members"
     }

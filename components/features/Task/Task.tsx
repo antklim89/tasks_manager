@@ -1,6 +1,9 @@
 'use client';
 import { CSSProperties, ReactNode, useMemo } from 'react';
-import { FaEllipsisVertical, FaFire, FaFireFlameSimple, FaLeaf } from 'react-icons/fa6';
+import {
+    FaEllipsisVertical, FaFire, FaFireFlameSimple,
+    FaIcicles, FaLeaf,
+} from 'react-icons/fa6';
 
 import { Button, Menu, TaskDrag, TaskDrop } from '@/components';
 import { useDisclosure, useMember, useTaskSelector } from '@/hooks';
@@ -15,6 +18,7 @@ import TaskUpdate from './TaskUpdate';
 
 
 const priorityIcons: Record<TaskPriorities, ReactNode> = {
+    'frozen': <FaIcicles className='text-cyan-500' />,
     'low': <FaLeaf className='text-green-300' />,
     'medium': null,
     'high': <FaFireFlameSimple className='text-yellow-500' />,
