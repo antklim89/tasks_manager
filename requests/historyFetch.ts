@@ -8,10 +8,12 @@ export async function historyFetch({
     projectId, 
     lastId, 
     startDate,
+    search,
 }: { 
     projectId: number; 
     lastId?: number; 
     startDate?: string;
+    search?: string;
  }) {
     const supabase = await getSupabaseClient();
 
@@ -24,6 +26,7 @@ export async function historyFetch({
 
     if (lastId) supabaseQuery.lt('id', lastId);
     if (startDate) supabaseQuery.lte('createdAt', startDate);
+    if (search) supabaseQuery.textSearch('body', `'${search}'`);
 
     const { error, data } = await supabaseQuery;
 

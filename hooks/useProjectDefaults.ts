@@ -9,6 +9,7 @@ export type ProjectDefaultsContextType = {
     defaultHistory?: HistoryType[]
     defaultMembers?: MemberType[]
     historyStartDate?: string
+    historySearch?: string
 }
 
 export const ProjectDefaultsContext = createContext<ProjectDefaultsContextType | undefined>(undefined);
