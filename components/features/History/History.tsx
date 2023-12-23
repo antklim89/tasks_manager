@@ -1,8 +1,5 @@
 'use client';
-import { z } from 'zod';
-
 import { Button } from '@/components';
-import { useSearchParamsState } from '@/hooks';
 import { useHistoryFetch } from '@/request-hooks';
 import { HISTORY_LIMIT } from '@/requests/historyFetch';
 
@@ -11,13 +8,12 @@ import HistoryPanel from './HistoryPanel';
 
 
 const History = () => {
-    const [startDate, setStartDate] = useSearchParamsState('start-at', { schema: z.string().datetime() });
     const { data: historyPages = [], setSize, size, isValidating } = useHistoryFetch();
     const hasNext = (historyPages.at(-1)?.length || 0) === HISTORY_LIMIT;
 
     return (
         <div className="p-4">
-            <HistoryPanel defaultStartDate={startDate} onStartDateChange={setStartDate} />
+            <HistoryPanel />
             <div className="flex flex-col">
                 {historyPages.map((historyPage) => historyPage.map((historyItem) => (
                     <HistoryItem historyItem={historyItem} key={historyItem.id} />

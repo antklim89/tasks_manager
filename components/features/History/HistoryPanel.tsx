@@ -1,18 +1,16 @@
-import { ChangeEventHandler, useState } from 'react';
+import { ChangeEventHandler } from 'react';
+import { z } from 'zod';
 
 import { DatePicker, Input } from '@/components';
 import { useSearchParamsState } from '@/hooks';
 
-import { HistoryPanelProps } from './History.types';
 
-
-const HistoryPanel = ({ onStartDateChange, defaultStartDate }: HistoryPanelProps) => {
-    const [startDate, setStartDate] = useState<string|undefined>(defaultStartDate);
+const HistoryPanel = () => {
+    const [startDate, setStartDate] = useSearchParamsState('start-at', { schema: z.string().datetime() });
     const [search, setSearch] = useSearchParamsState('search', { defer: 700 });
 
     const handleStartDateChange = (date?: Date | null): void => {
         setStartDate(date?.toISOString());
-        onStartDateChange(date?.toISOString());
     };
 
 
