@@ -11,7 +11,7 @@ const Project = () => {
 
     return (
         <TaskDndContext>
-            <div className="h-0 flex flex-grow items-start gap-2 overflow-x-scroll overflow-y-scroll">
+            <div className="h-full flex flex-grow items-start gap-2 overflow-x-scroll overflow-y-scroll">
                 {columns.map((column) => (
                     <ColumnContext.Provider key={column.id} value={column}>
                         <Column />
