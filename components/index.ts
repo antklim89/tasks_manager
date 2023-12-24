@@ -8,6 +8,7 @@ export { default as Column } from './features/Column';
 export { default as Confirm } from './ui/Confirm';
 export { default as DashboardHome } from './features/DashboardHome';
 export { default as DatePicker } from './ui/DatePicker';
+export { default as Features } from './features/Features';
 export { default as Footer } from './layouts/Footer';
 export { default as Header } from './layouts/Header';
 export { default as Hero } from './features/Hero';

@@ -1,10 +1,13 @@
 
-import { Hero } from '@/components';
+import { Features, Hero } from '@/components';
 
 
 const HomePage = async () => {
     return (
-        <Hero />
+        <>
+            <Hero />
+            <Features />
+        </>
     );
 };
 
