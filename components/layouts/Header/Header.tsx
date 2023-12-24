@@ -23,7 +23,6 @@ const Header = async () => {
 
             <div className="flex gap-4 items-center">
                 <Link href="/dashboard">{user ? 'Dashboard' : 'Sign In'}</Link>
-                <Link href="/about">About</Link>
                 <HeaderMenu user={user} />
             </div>
         </header>

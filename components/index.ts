@@ -1,6 +1,5 @@
 // generate export index files
 
-export { default as About } from './features/About';
 export { default as Alert } from './ui/Alert';
 export { default as Auth } from './features/Auth';
 export { default as Button } from './ui/Button';
