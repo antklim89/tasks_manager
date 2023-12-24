@@ -90,7 +90,7 @@ const TaskEditForm = ({ onSubmit, children }: TaskEditFormProps) => {
                     name="priority"
                     render={({ field }) => (
                         <div>
-                            <span className="label-text">Priorities: </span>
+                            <span className="label-text">Priority: </span>
                             <div className='grid grid-cols-2 sm:grid-cols-5 gap-2'>
                                 {priorities.map(priority => (
                                     <Button
