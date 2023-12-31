@@ -38,6 +38,55 @@ export interface Database {
           }
         ]
       }
+      comments: {
+        Row: {
+          authorId: string | null
+          createdAt: string
+          id: number
+          projectId: number
+          taskId: number
+          text: string
+        }
+        Insert: {
+          authorId?: string | null
+          createdAt?: string
+          id?: number
+          projectId: number
+          taskId: number
+          text?: string
+        }
+        Update: {
+          authorId?: string | null
+          createdAt?: string
+          id?: number
+          projectId?: number
+          taskId?: number
+          text?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "comments_authorId_fkey"
+            columns: ["authorId"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "comments_projectId_fkey"
+            columns: ["projectId"]
+            isOneToOne: false
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "comments_taskId_fkey"
+            columns: ["taskId"]
+            isOneToOne: false
+            referencedRelation: "tasks"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
       history: {
         Row: {
           body: string
