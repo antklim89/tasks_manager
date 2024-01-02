@@ -27,3 +27,4 @@ export * from './useTaskUpdate';
 export * from './useCommentCreate';
 export * from './useCommentDelete';
 export * from './useCommentsFetch';
+export * from './useCommentsCount';

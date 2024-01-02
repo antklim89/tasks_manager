@@ -3,10 +3,11 @@ import { useTask } from '@/hooks';
 import { useHistoryCreate, useTaskUpdate } from '@/request-hooks';
 import { formatHistoryData } from '@/utils';
 
+import type { TaskUpdateProps } from './Task.types';
 import TaskDelete from './TaskDelete';
 
 
-const TaskUpdate = ({ close, isOpen }: { isOpen: boolean, close: () => void }) => {
+const TaskUpdate = ({ close, isOpen }: TaskUpdateProps) => {
     const { trigger: historyCreate } = useHistoryCreate();
     const task = useTask();
     

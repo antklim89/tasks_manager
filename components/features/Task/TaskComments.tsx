@@ -3,8 +3,10 @@ import CommentForm from '@/components/forms/CommentForm';
 import { CommentContext } from '@/hooks';
 import { useCommentCreate, useCommentsFetch } from '@/request-hooks';
 
+import type { TaskCommentsProps } from './Task.types';
 
-const TaskComments = ({ close, isOpen }: { isOpen: boolean, close: () => void }) => {
+
+const TaskComments = ({ close, isOpen, commentCount }: TaskCommentsProps) => {
     const { data: comments, isLoading } = useCommentsFetch({ enable: isOpen });
     const { trigger: createComment, isMutating } = useCommentCreate();
 
@@ -30,8 +32,8 @@ const TaskComments = ({ close, isOpen }: { isOpen: boolean, close: () => void })
                         <Comment />
                     </CommentContext.Provider>
                 ))}
-                {isLoading
-                    ? Array.from({ length: 5 }, (_,i) => i).map(i => (
+                {(commentCount && isLoading)
+                    ? Array.from({ length: commentCount }, (_,i) => i).map(i => (
                         <div className='skeleton h-14 mb-2' key={i} />
                     ))
                     : null}

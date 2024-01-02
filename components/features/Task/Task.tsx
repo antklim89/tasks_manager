@@ -10,6 +10,7 @@ import {
 
 import { Button, Menu, TaskDrag, TaskDrop } from '@/components';
 import { useDisclosure, useMember, useTaskSelector } from '@/hooks';
+import { useCommentsCount } from '@/request-hooks';
 import type { TaskPriorities } from '@/schemas';
 import { contrastingColor } from '@/utils';
 
@@ -30,6 +31,8 @@ const priorityIcons: Record<TaskPriorities, ReactNode> = {
 };
 
 const Task = ({ index }: TaskProps) => {
+    const { data: commentCount } = useCommentsCount();
+
     const taskTitle = useTaskSelector(task => task.title);
     const taskDescription = useTaskSelector(task => task.description);
     const taskPriority = useTaskSelector(task => task.priority);
@@ -50,7 +53,7 @@ const Task = ({ index }: TaskProps) => {
     return (
         <>
             <TaskUpdate close={closeUpdateModal} isOpen={updateModalIsOpen} />
-            <TaskComments close={closeCommentModal} isOpen={commentModalIsOpen} />
+            <TaskComments close={closeCommentModal} commentCount={commentCount} isOpen={commentModalIsOpen} />
             <TaskDrag
                 className="w-full py-1 text-left select-none"
                 index={index}
@@ -100,13 +103,14 @@ const Task = ({ index }: TaskProps) => {
                                 </Menu>
                             )
                             : null}
+                            
                         <Button
                             aria-label='open comment modal'
                             color='ghost'
                             size='xs'
                             onClick={openCommentModal}
                         >
-                            <FaComment />
+                            <FaComment /> {commentCount === 0 ? null : commentCount} 
                         </Button>
                     </div>
                 </div>
