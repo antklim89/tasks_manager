@@ -9,3 +9,4 @@ export * from './useProjectDefaults';
 export * from './useProjectList';
 export * from './useSearchParamsState';
 export * from './useTask';
+export * from './useComment';
