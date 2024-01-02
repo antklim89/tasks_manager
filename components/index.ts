@@ -11,6 +11,7 @@ export { default as Features } from './features/Features';
 export { default as Footer } from './layouts/Footer';
 export { default as Header } from './layouts/Header';
 export { default as Hero } from './features/Hero';
+export { default as Comment } from './features/Comment';
 export { default as History } from './features/History';
 export { default as Input } from './ui/Input';
 export { default as Members } from './features/Members';
