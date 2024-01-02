@@ -8,3 +8,4 @@ export * from './profileFetch';
 export * from './projectFetch';
 export * from './projectsFetch';
 export * from './tasksFetch';
+export * from './commentsFetch';

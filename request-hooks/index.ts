@@ -24,3 +24,6 @@ export * from './useTaskCreate';
 export * from './useTaskDelete';
 export * from './useTasksFetch';
 export * from './useTaskUpdate';
+export * from './useCommentCreate';
+export * from './useCommentDelete';
+export * from './useCommentsFetch';
