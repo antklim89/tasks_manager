@@ -3,10 +3,9 @@ const nextConfig = {
     reactStrictMode: true,
     compress: true,
     images: {
-        domains: [
-            '192.168.90.19',
-            'localhost',
-        ],
+        remotePatterns: [{
+            hostname: new URL(process.env.URL || 'http://127.0.0.1').hostname,
+        }],
     },
 };
 
