@@ -6,7 +6,7 @@ export async function commentsFetch({ projectId, taskId }: { projectId: number, 
     const supabase = await getSupabaseClient();
 
     const { error, data } = await supabase.from('comments')
-        .select('*, author:authorId(firstName, lastName)')
+        .select('*, author:authorId(id, firstName, lastName)')
         .eq('projectId', projectId)
         .eq('taskId', taskId);
     
