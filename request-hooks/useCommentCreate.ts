@@ -27,7 +27,7 @@ export function useCommentCreate(options?: Options) {
             const { error, data } = await supabase
                 .from('comments')
                 .insert({ projectId, taskId, authorId, ...arg })
-                .select()
+                .select('*, author:authorId(id, firstName, lastName)')
                 .single();
 
             if (error) throw error;
