@@ -7,6 +7,7 @@ export const commentSchema = z.object({
     projectId: z.number(),
     taskId: z.number(),
     author: z.object({
+        id: z.string(),
         firstName: z.string(),
         lastName: z.string(),
     }).nullish(),
