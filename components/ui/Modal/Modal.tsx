@@ -31,7 +31,7 @@ const Modal = ({ isOpen, children, onClose, size = 'md', className }: ModalProps
     return (
         <ModalContext.Provider value={{ onClose }}>
             <Transition appear as={Fragment} show={isOpen}>
-                <Dialog as="div" className="relative z-10 w-52" onClose={onClose}>
+                <Dialog as="div" className="relative z-10" onClose={onClose}>
                     <Transition.Child
                         as={Fragment}
                         enter="ease-out duration-300"
@@ -44,7 +44,7 @@ const Modal = ({ isOpen, children, onClose, size = 'md', className }: ModalProps
                         <div className="fixed inset-0 bg-black bg-opacity-25" />
                     </Transition.Child>
 
-                    <div className="fixed inset-0 overflow-y-auto flex min-h-full items-center justify-center p-4 text-center">
+                    <div className="fixed inset-0 overflow-y-scroll flex h-full items-center justify-center md:p-4">
                         <Transition.Child
                             as={Fragment}
                             enter="ease-out duration-300"
@@ -56,7 +56,7 @@ const Modal = ({ isOpen, children, onClose, size = 'md', className }: ModalProps
                         >
                             <Dialog.Panel
                                 className={cn(
-                                    'w-full transform rounded-md bg-base-100 text-left align-middle shadow-xl transition-all',
+                                    'w-full mx-auto max-h-full overflow-scroll transform rounded-md bg-base-100 text-left align-middle shadow-xl transition-all',
                                     classes.size[size],
                                     className,
                                 )}
