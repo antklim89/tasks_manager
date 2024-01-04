@@ -2,12 +2,29 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+    --header-height: 48px;
+    --footer-hight: 48px;
+}
 
 body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
     min-height: 100dvh;
+}
+
+header {
+    height: var(--header-height);
+}
+
+main {
+    height: calc(100vh - 48px - 48px);
+    height: calc(100dvh - 48px - 48px);
+}
+
+footer {
+    height: var(--footer-hight);
 }
 
 body > footer, body > header {
