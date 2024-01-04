@@ -24,7 +24,7 @@ const DashboardPage = async ({ params }: {params: { projectId: string }}) => {
 
     return (
         <ProjectDefaultsProvider defaultColumns={columns} defaultTasks={tasksGroup}>
-            <div className="flex flex-col h-full">
+            <div className="flex flex-col h-[calc(100dvh-var(--header-height)-var(--footer-height))]">
                 <ProjectPanel />
                 <Project />
             </div>

@@ -4,7 +4,7 @@
 
 :root {
     --header-height: 48px;
-    --footer-hight: 48px;
+    --footer-height: 48px;
 }
 
 body {
@@ -18,13 +18,8 @@ header {
     height: var(--header-height);
 }
 
-main {
-    height: calc(100vh - 48px - 48px);
-    height: calc(100dvh - 48px - 48px);
-}
-
 footer {
-    height: var(--footer-hight);
+    height: var(--footer-height);
 }
 
 body > footer, body > header {
